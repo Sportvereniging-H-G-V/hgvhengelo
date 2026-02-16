@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import VacancyCard from '../../components/vacatures/VacancyCard.astro';
+import VacancyModal from '../../components/vacatures/VacancyModal.astro';
+import { Briefcase, Heart, GraduationCap, Check, Mail, Phone } from '@lucide/astro';
+import { vacatures } from '../../data/vacatures';
+---
+
+<BaseLayout
+  title="Vacatures"
+  description="Word vrijwilliger bij HGV Hengelo! We zoeken leiding, assistenten, secretaris en meer. Ontdek wat we bieden en meld je aan."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+      <div class="absolute inset-0">
+        <img
+          src="/images/vacatures-hero.jpg"
+          alt="Team HGV Hengelo"
+          class="w-full h-full object-cover opacity-20"
+        />
+      </div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Briefcase class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Vacatures bij <span class="text-accent">H.G.V.</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Sportvereniging H.G.V. is een levendige vereniging met 800 leden en een team van 100 enthousiaste vrijwilligers.
+            We zijn voortdurend op zoek naar nieuwe vrijwilligers om ons team te versterken.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="max-w-5xl mx-auto space-y-16">
+          <!-- Waarom vrijwilliger worden -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+                <Heart class="w-6 h-6 text-accent" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                Waarom vrijwilliger worden bij H.G.V.?
+              </h2>
+            </div>
+            <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+              Bij H.G.V. draait alles om samenwerking, plezier en een positieve bijdrage leveren aan onze sportieve gemeenschap.
+              Als vrijwilliger maak je deel uit van een hechte groep en draag je direct bij aan de groei en ontwikkeling van
+              onze sporters. Daarnaast bieden we een aantal voordelen om het vrijwilligerswerk nóg aantrekkelijker te maken:
+            </p>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="flex items-start gap-3">
+                <Check class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                <span class="text-dark/80">Een gezellige en hechte sfeer, waarin iedereen samenwerkt en elkaar ondersteunt.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Check class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                <span class="text-dark/80">De kans om nieuwe vaardigheden te leren en je netwerk uit te breiden.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Check class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                <span class="text-dark/80">Gratis EHBO-diploma voor alle vrijwilligers.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Check class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                <span class="text-dark/80">Gratis deelname aan je eerste twee lessen als leiding of assistent.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Check class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                <span class="text-dark/80">75% korting op de kosten van KNGU-cursussen voor leiding en assistenten.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Check class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                <span class="text-dark/80">Vrijwilligersvergoeding (afhankelijk van de functie, inzet, ervaring en diploma's).</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- H.G.V. Academie -->
+          <div class="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 lg:p-12 border border-primary/20">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                <GraduationCap class="w-6 h-6 text-primary" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                H.G.V. Academie
+              </h2>
+            </div>
+            <p class="text-dark/80 leading-relaxed text-lg">
+              Bij H.G.V. bieden we aankomende assistenten de mogelijkheid om vrijblijvend deel te nemen aan de H.G.V. Academie.
+              Deze academie is bedoeld voor kinderen vanaf 11 jaar en kost niets. Elke zondag van 10:45 tot 11:45 uur krijg je
+              les in hoe je kunt assisteren en helpen tijdens de sportlessen. Tijdens de academie ga je ook stage lopen en
+              opdrachten uitvoeren om je kennis verder te ontwikkelen. Het is een allround cursus waarin je kennismaakt met
+              alle sporten die H.G.V. aanbiedt!
+            </p>
+            <p class="text-dark/80 leading-relaxed mt-4 text-lg">
+              Of je nu leiding wilt geven, assistent wilt worden, of ons team achter de schermen wilt versterken, er is altijd
+              een plek voor jou bij H.G.V.!
+            </p>
+          </div>
+
+          <!-- Vacancy Cards -->
+          <div>
+            <h2 class="text-3xl font-display font-bold text-dark mb-8">
+              Openstaande vacatures
+            </h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {vacatures.map((vacature) => (
+                <VacancyCard vacature={vacature} />
+              ))}
+            </div>
+          </div>
+
+          <!-- Contact CTA -->
+          <div class="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-10 lg:p-12 text-white shadow-lg">
+            <h3 class="font-display font-bold text-2xl mb-4">
+              Interesse of vragen?
+            </h3>
+            <p class="text-white/80 mb-6 text-lg">
+              Neem gerust contact met ons op. We vertellen je graag meer over de mogelijkheden!
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a
+                href="mailto:secretariaat@hgvhengelo.nl"
+                class="btn bg-white text-primary hover:bg-cream inline-flex items-center gap-2"
+              >
+                <Mail class="w-5 h-5" />
+                secretariaat@hgvhengelo.nl
+              </a>
+              <a
+                href="tel:+31643118346"
+                class="btn bg-white/10 text-white hover:bg-white/20 inline-flex items-center gap-2 border border-white/20"
+              >
+                <Phone class="w-5 h-5" />
+                06 - 43 11 83 46
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Vacancy Modal -->
+  <VacancyModal />
+
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,93 @@
+---
+import { X } from '@lucide/astro';
+---
+
+<div id="inschrijf-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <!-- Backdrop -->
+  <div 
+    id="inschrijf-modal-backdrop"
+    class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+  ></div>
+
+  <!-- Modal -->
+  <div class="relative w-full max-w-7xl max-h-[95vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-scale-in">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 bg-accent/10 border-b border-accent/20">
+      <span class="text-base font-display font-semibold text-dark">
+        Inschrijven bij HGV Hengelo
+      </span>
+      <button
+        id="inschrijf-modal-close"
+        class="p-2 rounded-lg hover:bg-accent/20 transition-colors"
+        aria-label="Sluiten"
+      >
+        <X class="w-6 h-6 text-dark" />
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 overflow-hidden">
+      <iframe
+        src="https://pr01.allunited.nl/club.php?transh=bcec42309a4d2531c3d1e94e9d7208e6&statustempcode=IL"
+        class="w-full h-full min-h-[700px] border-0"
+        title="Inschrijfformulier HGV Hengelo"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('inschrijf-modal');
+  const backdrop = document.getElementById('inschrijf-modal-backdrop');
+  const closeButton = document.getElementById('inschrijf-modal-close');
+
+  function openModal() {
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal() {
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Close on backdrop click
+  backdrop?.addEventListener('click', closeModal);
+
+  // Close on close button click
+  closeButton?.addEventListener('click', closeModal);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
+
+  // Expose openModal globally so it can be called from other components
+  window.openInschrijfModal = openModal;
+</script>
+
+<style>
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.2s ease-out;
+  }
+</style>

@@ -1,0 +1,493 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { Trophy, Calendar, MapPin, Users, Info, Mail } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Clubkampioenschappen"
+  description="Aanmeldformulier voor de jaarlijkse clubkampioenschappen van HGV Hengelo."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Trophy class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Aanmeldformulier <span class="text-accent">Clubkampioenschappen</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Laat zien wat je hebt geleerd tijdens onze jaarlijkse clubkampioenschappen!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto space-y-12">
+          <!-- Intro -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <h2 class="text-2xl font-display font-bold text-dark mb-6">
+              Beste H.G.V.'ers,
+            </h2>
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed mb-4 text-lg">
+                Onze jaarlijkse clubkampioenschappen komen er weer aan. De clubkampioenschappen zijn het moment van het jaar 
+                waarop je aan iedereen kan laten zien wat je de afgelopen tijd hebt geleerd. Dit jaar doen er nóg meer 
+                verschillende disciplines mee, zo brengen we bijna de hele vereniging samen.
+              </p>
+              <p class="text-dark/80 leading-relaxed mb-4 text-lg">
+                <strong>Waarom:</strong> Afgelopen jaar heb je in je eigen les allerlei nieuwe elementen geleerd. De komende 
+                tijd oefen je in de les om deze onderdelen achter elkaar te kunnen laten zien aan het publiek.
+              </p>
+            </div>
+          </div>
+
+          <!-- Informatie -->
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                  <Calendar class="w-5 h-5 text-primary" />
+                </div>
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Wanneer
+                </h3>
+              </div>
+              <p class="text-dark/70 mb-3">
+                <strong>Zaterdag 29 maart 2025</strong>, tussen 8.30 en 17.45 uur.
+              </p>
+              <p class="text-dark/70 text-sm mb-2">
+                We werken dit jaar met vier rondes, na opgave word je ingedeeld in één van de volgende tijdsblokken:
+              </p>
+              <ul class="text-dark/70 text-sm space-y-1 list-disc list-inside ml-2">
+                <li>08.30 – 10.45 uur (freerunning, klimdoekturnen beginners en Rhönradturnen)</li>
+                <li>10.45 – 13.15 uur (gymnastiek/turnen niveau G+H, wedstrijdturnen middenbouw en acrogym duo's)</li>
+                <li>13.15 – 15.30 uur (gymnastiek/turnen niveau E+F, wedstrijdturnen bovenbouw en acrogym trio's)</li>
+                <li>15.30 – 17.45 uur (gymnastiek/turnen niveau A+B+C+D, klimdoekturnen gevorderd en trampolinespringen)</li>
+              </ul>
+              <p class="text-dark/60 text-xs mt-3 italic">
+                De verdeling van de sporten is afhankelijk van het aantal aanmeldingen en dus nadrukkelijk onder voorbehoud.
+              </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center">
+                  <MapPin class="w-5 h-5 text-accent" />
+                </div>
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Waar
+                </h3>
+              </div>
+              <p class="text-dark/70 mb-3">
+                Sporthal OSG, Sloetsweg 153 in Hengelo.
+              </p>
+              <p class="text-dark/70 text-sm">
+                Parkeren kan op de nabij gelegen parkeerplaats, navigeer naar <strong>Deurningerstraat 67</strong>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Belangrijke informatie -->
+          <div class="bg-accent/10 rounded-2xl p-6 border border-accent/30">
+            <div class="flex items-start gap-3">
+              <Info class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 class="font-display font-bold text-dark mb-3">
+                  Belangrijke informatie
+                </h3>
+                <ul class="space-y-2 text-dark/70 text-sm">
+                  <li>
+                    <strong>Opgeven:</strong> Je kunt je tot en met zondag 2 maart 2025 opgeven. Je aanmelding is definitief 
+                    zodra je van ons een bevestiging ontvangt. Dit kan enkele dagen duren. In de week van 17 maart hoor je 
+                    via de mail in welke ronde je bent ingedeeld.
+                  </li>
+                  <li>
+                    <strong>Meerdere disciplines:</strong> Wil je aan meerdere disciplines meedoen? Dan vragen we je om het 
+                    aanmeldformulier per discipline in te vullen.
+                  </li>
+                  <li>
+                    <strong>Publiek:</strong> De OSG-hal heeft een tribune, vanaf hier kunnen toeschouwers de hele zaal zien. 
+                    Onze kantine zal tijdens de clubkampioenschappen ook geopend zijn, hier kan je wat te drinken en allerlei 
+                    lekkernijen halen.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- AVG informatie -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display font-bold text-dark mb-3">
+              AVG
+            </h3>
+            <p class="text-dark/70 text-sm">
+              Tijdens dit evenement worden foto's gemaakt die bedoeld zijn voor verslaglegging of promotiedoeleinden en 
+              uitingen op (sociale) media van sportvereniging H.G.V. Mocht je vooraf of achteraf bezwaar willen maken tegen 
+              de publicatie van foto's of filmopnames, neem dan contact op via{' '}
+              <a href="mailto:avg@hgvhengelo.nl" class="text-accent hover:underline">avg@hgvhengelo.nl</a>. Dit beleid staat 
+              los van reguliere pers die verslag doet van het evenement, daarvoor is sportvereniging H.G.V. niet verantwoordelijk.
+            </p>
+          </div>
+
+          <!-- Formulier -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <h2 class="text-2xl font-display font-bold text-dark mb-6">
+              Aanmeldformulier
+            </h2>
+            <p class="text-dark/70 mb-6">
+              Vul onderstaand formulier in om je aan te melden voor de clubkampioenschappen. 
+              <span class="text-accent font-semibold">*</span> geeft vereiste velden aan.
+            </p>
+
+            <form id="ck-form" class="space-y-8">
+              <!-- Persoonsgegevens -->
+              <div>
+                <h3 class="text-xl font-display font-bold text-dark mb-6">
+                  Persoonsgegevens
+                </h3>
+                
+                <div class="space-y-6">
+                  <div class="grid sm:grid-cols-2 gap-6">
+                    <div>
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Voornaam <span class="text-accent">*</span>
+                      </label>
+                      <input 
+                        type="text" 
+                        id="voornaam" 
+                        name="voornaam"
+                        required
+                        placeholder="Voornaam"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Achternaam <span class="text-accent">*</span>
+                      </label>
+                      <input 
+                        type="text" 
+                        id="achternaam" 
+                        name="achternaam"
+                        required
+                        placeholder="Achternaam"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      E-mailadres <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      name="email"
+                      required
+                      placeholder="voorbeeld@email.nl"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Noodcontactnummer <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      id="noodcontact" 
+                      name="noodcontact"
+                      required
+                      placeholder="Naam en telefoonnummer"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Lesinformatie -->
+              <div>
+                <h3 class="text-xl font-display font-bold text-dark mb-6">
+                  Lesinformatie
+                </h3>
+                
+                <div class="space-y-6">
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-3">
+                      Discipline <span class="text-accent">*</span>
+                    </label>
+                    <div class="space-y-3">
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="discipline" 
+                          value="Gymnastiek/turnen"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Gymnastiek/turnen</span>
+                      </label>
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="discipline" 
+                          value="Wedstrijdturnen"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Wedstrijdturnen</span>
+                      </label>
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="discipline" 
+                          value="Trampolinespringen"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Trampolinespringen</span>
+                      </label>
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="discipline" 
+                          value="Acrogym"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Acrogym</span>
+                      </label>
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="discipline" 
+                          value="Freerunning"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Freerunning</span>
+                      </label>
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="discipline" 
+                          value="Klimdoekturnen"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Klimdoekturnen</span>
+                      </label>
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="discipline" 
+                          value="Rhönradturnen"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Rhönradturnen</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Lesdag <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      id="lesdag" 
+                      name="lesdag"
+                      required
+                      placeholder="Bijv. Maandag"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Lestijden <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      id="lestijden" 
+                      name="lestijden"
+                      required
+                      placeholder="Bijv. 16:00 - 17:00"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Leslocatie <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      id="leslocatie" 
+                      name="leslocatie"
+                      required
+                      placeholder="Bijv. Sporthal OSG"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Leiding van de les <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      id="leiding" 
+                      name="leiding"
+                      required
+                      placeholder="Naam van de leiding"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Eventuele opmerkingen/bijzonderheden
+                    </label>
+                    <textarea 
+                      id="opmerkingen" 
+                      name="opmerkingen"
+                      rows="4"
+                      placeholder="Eventuele opmerkingen of bijzonderheden"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Handtekening -->
+              <div>
+                <label class="block text-sm font-semibold text-dark mb-2">
+                  Handtekening <span class="text-accent">*</span>
+                </label>
+                <p class="text-sm text-dark/60 mb-3">
+                  Indien je jonger dan 16 jaar bent, zal een ouder/verzorger de handtekening moeten zetten.
+                </p>
+                <input 
+                  type="text" 
+                  id="handtekening" 
+                  name="handtekening"
+                  required
+                  placeholder="Volledige voor- en achternaam"
+                  class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                class="btn btn-accent w-full"
+              >
+                Versturen
+              </button>
+            </form>
+
+            <!-- Success message -->
+            <div id="success-message" class="hidden mt-6 p-6 bg-green-50 rounded-xl border border-green-200">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-green-800 mb-2">
+                    Aanmelding verzonden!
+                  </h3>
+                  <p class="text-green-700">
+                    Bedankt voor je aanmelding! Je ontvangt binnen enkele dagen een bevestiging per e-mail. 
+                    In de week van 17 maart hoor je via de mail in welke ronde je bent ingedeeld.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('ck-form');
+
+    // Form submission
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalButtonText = submitButton?.textContent || 'Verzenden';
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Verzenden...';
+        }
+
+        try {
+          const formDataObj = new FormData(form);
+          const formData: Record<string, any> = {};
+          formDataObj.forEach((value, key) => {
+            formData[key] = value;
+          });
+
+          // Verstuur naar Freescout API
+          const response = await fetch('/api/freescout-submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              formType: 'ck',
+              formData: formData,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+              successMessage.classList.remove('hidden');
+              form.style.display = 'none';
+              successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          } else {
+            throw new Error(result.error || 'Er is een fout opgetreden bij het verzenden van het formulier.');
+          }
+        } catch (error: any) {
+          console.error('Fout bij verzenden formulier:', error);
+          alert('Er is een fout opgetreden bij het verzenden van het formulier. Probeer het later opnieuw of neem contact met ons op via secretariaat@hgvhengelo.nl');
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+          }
+        }
+      });
+    }
+  });
+</script>

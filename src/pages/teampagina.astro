@@ -1,0 +1,517 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { Lock, FileText } from '@lucide/astro';
+
+const CORRECT_PASSWORD = 'HGVhgvHGV2023!';
+---
+
+<BaseLayout
+  title="Teampagina"
+  description="Beveiligde teampagina voor HGV Hengelo teamleden."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Lock class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Welkom op de teampagina
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Deze pagina is alleen toegankelijk voor teamleden van HGV Hengelo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <!-- Password form -->
+            <div id="password-form">
+              <form id="wachtwoord-form" class="space-y-6">
+                <div>
+                  <label class="block text-sm font-semibold text-dark mb-2">
+                    Wachtwoord:
+                  </label>
+                  <input 
+                    type="password" 
+                    id="wachtwoord" 
+                    name="wachtwoord"
+                    required
+                    placeholder="Voer wachtwoord in"
+                    class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    autocomplete="current-password"
+                  />
+                </div>
+
+                <div id="error-message" class="hidden p-4 bg-red-50 rounded-xl border border-red-200">
+                  <p class="text-red-700 text-sm">
+                    Onjuist wachtwoord. Probeer het opnieuw.
+                  </p>
+                </div>
+
+                <button 
+                  type="submit" 
+                  class="btn btn-accent w-full"
+                >
+                  Indienen
+                </button>
+              </form>
+            </div>
+
+            <!-- Protected content -->
+            <div id="protected-content" class="hidden">
+              <!-- Declaratieformulier -->
+              <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+                <div class="flex items-center gap-3 mb-6">
+                  <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <FileText class="w-5 h-5 text-primary" />
+                  </div>
+                  <h2 class="text-2xl font-display font-bold text-dark">
+                    Declaratieformulier
+                  </h2>
+                </div>
+                <p class="text-dark/70 mb-6">
+                  Overleg van tevoren met het bestuur indien u kosten moet maken voor H.G.V. 
+                  <a href="mailto:penningmeester@hgvhengelo.nl" class="text-accent hover:underline">penningmeester@hgvhengelo.nl</a>
+                </p>
+
+                <form id="declaratie-form" class="space-y-8">
+                  <!-- Persoonsgegevens -->
+                  <div>
+                    <h3 class="text-xl font-display font-bold text-dark mb-6">
+                      Persoonsgegevens
+                    </h3>
+                    
+                    <div class="space-y-6">
+                      <div class="grid sm:grid-cols-2 gap-6">
+                        <div>
+                          <label class="block text-sm font-semibold text-dark mb-2">
+                            Voornaam <span class="text-accent">*</span>
+                          </label>
+                          <input 
+                            type="text" 
+                            id="decl-voornaam" 
+                            name="decl-voornaam"
+                            required
+                            placeholder="Voornaam"
+                            class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                          />
+                        </div>
+                        <div>
+                          <label class="block text-sm font-semibold text-dark mb-2">
+                            Achternaam <span class="text-accent">*</span>
+                          </label>
+                          <input 
+                            type="text" 
+                            id="decl-achternaam" 
+                            name="decl-achternaam"
+                            required
+                            placeholder="Achternaam"
+                            class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label class="block text-sm font-semibold text-dark mb-2">
+                          (Post)banknummer <span class="text-accent">*</span>
+                        </label>
+                        <input 
+                          type="text" 
+                          id="decl-banknummer" 
+                          name="decl-banknummer"
+                          required
+                          placeholder="Bankrekeningnummer"
+                          class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                        />
+                      </div>
+
+                      <div>
+                        <label class="block text-sm font-semibold text-dark mb-2">
+                          E-mailadres
+                        </label>
+                        <p class="text-sm text-dark/60 mb-3">
+                          Voor een bevestiging of terugmail over je declaratie.
+                        </p>
+                        <input 
+                          type="email" 
+                          id="decl-email" 
+                          name="decl-email"
+                          placeholder="voorbeeld@email.nl"
+                          class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Declaratie-informatie (voor snellere verwerking) -->
+                  <div>
+                    <h3 class="text-xl font-display font-bold text-dark mb-6">
+                      Declaratie-informatie
+                    </h3>
+                    <p class="text-dark/60 text-sm mb-6">
+                      Deze gegevens helpen om je declaratie snel te verwerken en in de juiste categorie te zetten.
+                    </p>
+                    
+                    <div class="space-y-6">
+                      <div>
+                        <label class="block text-sm font-semibold text-dark mb-2">
+                          Voor welke activiteit of evenement is deze declaratie? <span class="text-accent">*</span>
+                        </label>
+                        <input 
+                          type="text" 
+                          id="decl-activiteit" 
+                          name="decl-activiteit"
+                          required
+                          placeholder="Bijv. Clubkampioenschappen 2025, Lesmaterialen turnen, Cursus hulpleiding"
+                          class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                        />
+                      </div>
+
+                      <div>
+                        <label class="block text-sm font-semibold text-dark mb-2">
+                          Korte omschrijving van de kosten
+                        </label>
+                        <textarea 
+                          id="decl-omschrijving" 
+                          name="decl-omschrijving"
+                          rows="3"
+                          placeholder="Bijv. Medailles en bekers, reiskosten vergadering KNGU, printerpapier"
+                          class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors resize-none"
+                        ></textarea>
+                      </div>
+
+                      <div>
+                        <label class="block text-sm font-semibold text-dark mb-2">
+                          Is het totaalbedrag per activiteit/evenement of per bonnetje?
+                        </label>
+                        <select 
+                          id="decl-bedrag-per" 
+                          name="decl-bedrag-per"
+                          class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                        >
+                          <option value="">— Kies —</option>
+                          <option value="per-activiteit">Per activiteit/evenement (één totaal)</option>
+                          <option value="per-bonnetje">Per bonnetje (meerdere bonnetjes opgeteld)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Totaalbedrag -->
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Totaalbedrag <span class="text-accent">*</span>
+                    </label>
+                    <p class="text-sm text-dark/60 mb-3">
+                      Tel alle bedragen bij elkaar op en vul het bedrag in.
+                    </p>
+                    <input 
+                      type="text" 
+                      id="decl-totaal" 
+                      name="decl-totaal"
+                      required
+                      placeholder="€ 0,00"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <!-- Nota's uploaden -->
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Nota's uploaden <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="file" 
+                      id="decl-notas" 
+                      name="decl-notas"
+                      required
+                      multiple
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                    <p class="text-sm text-dark/60 mt-2">
+                      Upload alle relevante nota's en bonnetjes (PDF, JPG, PNG)
+                    </p>
+                  </div>
+
+                  <!-- Datum -->
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Datum <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="date" 
+                      id="decl-datum" 
+                      name="decl-datum"
+                      required
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <!-- Handtekening (naam voor in de e-mail) -->
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Naam declarant (voor in de e-mail) <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="text" 
+                      id="decl-handtekening" 
+                      name="decl-handtekening"
+                      required
+                      placeholder="Volledige voor- en achternaam"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <!-- Getekende handtekening -->
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Getekende handtekening
+                    </label>
+                    <p class="text-sm text-dark/60 mb-3">
+                      Teken hieronder met muis of vinger. Na verzenden kun je de handtekening downloaden en als bijlage toevoegen aan je e-mail.
+                    </p>
+                    <div class="border-2 border-cream-dark rounded-xl overflow-hidden bg-white">
+                      <canvas 
+                        id="decl-signature-pad" 
+                        width="400" 
+                        height="160"
+                        class="block w-full touch-none"
+                        style="max-width: 100%; height: auto; cursor: crosshair;"
+                      ></canvas>
+                    </div>
+                    <button 
+                      type="button" 
+                      id="decl-signature-wissen"
+                      class="mt-2 text-sm text-dark/70 hover:text-accent underline transition-colors"
+                    >
+                      Wissen
+                    </button>
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    class="btn btn-accent w-full"
+                  >
+                    Versturen
+                  </button>
+                </form>
+
+                <!-- Success message -->
+                <div id="decl-success-message" class="hidden mt-6 p-6 bg-green-50 rounded-xl border border-green-200 space-y-4">
+                  <div class="flex items-start gap-3">
+                    <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-green-800 mb-2">
+                        Declaratie verzonden!
+                      </h3>
+                      <p class="text-green-700">
+                        Bedankt voor je declaratie! Deze wordt zo spoedig mogelijk verwerkt.
+                      </p>
+                    </div>
+                  </div>
+                  <div id="decl-signature-download-area" class="hidden pt-4 border-t border-green-200">
+                    <p class="text-green-800 text-sm font-medium mb-2">Getekende handtekening</p>
+                    <p class="text-green-700 text-sm mb-3">Voeg je handtekening als bijlage toe aan de e-mail. Download de afbeelding en voeg hem toe aan je verzonden mail.</p>
+                    <a id="decl-signature-download-link" href="#" download="handtekening-declaratie.png" class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-medium transition-colors">
+                      Download handtekening (PNG)
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('wachtwoord-form');
+    const passwordInput = document.getElementById('wachtwoord');
+    const errorMessage = document.getElementById('error-message');
+    const passwordForm = document.getElementById('password-form');
+    const protectedContent = document.getElementById('protected-content');
+    const CORRECT_PASSWORD = 'HGVhgvHGV2023!';
+
+    // Check if already authenticated (sessionStorage)
+    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('teampagina-authenticated') === 'true') {
+      passwordForm.style.display = 'none';
+      protectedContent.classList.remove('hidden');
+      initForms();
+    }
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const enteredPassword = passwordInput.value;
+
+        if (enteredPassword === CORRECT_PASSWORD) {
+          // Store authentication in sessionStorage
+          if (typeof sessionStorage !== 'undefined') {
+            sessionStorage.setItem('teampagina-authenticated', 'true');
+          }
+
+          // Hide password form and show content
+          passwordForm.style.display = 'none';
+          protectedContent.classList.remove('hidden');
+          errorMessage.classList.add('hidden');
+          initForms();
+        } else {
+          // Show error
+          errorMessage.classList.remove('hidden');
+          passwordInput.value = '';
+          passwordInput.focus();
+        }
+      });
+    }
+
+    function initForms() {
+      // Handtekening-pad (canvas)
+      const canvas = document.getElementById('decl-signature-pad') as HTMLCanvasElement;
+      const wipeBtn = document.getElementById('decl-signature-wissen');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.strokeStyle = '#1e293b';
+          ctx.lineWidth = 2;
+          ctx.lineCap = 'round';
+
+          let drawing = false;
+          const rect = () => canvas.getBoundingClientRect();
+          const getPos = (e: MouseEvent | TouchEvent) => {
+            const r = rect();
+            if ('touches' in e) {
+              const t = e.touches[0] || (e as TouchEvent).changedTouches[0];
+              return { x: (t.clientX - r.left) * (canvas.width / r.width), y: (t.clientY - r.top) * (canvas.height / r.height) };
+            }
+            const m = e as MouseEvent;
+            return { x: (m.clientX - r.left) * (canvas.width / r.width), y: (m.clientY - r.top) * (canvas.height / r.height) };
+          };
+
+          const start = (e: MouseEvent | TouchEvent) => { e.preventDefault(); drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); };
+          const move = (e: MouseEvent | TouchEvent) => {
+            e.preventDefault();
+            if (!drawing) return;
+            const p = getPos(e);
+            ctx.lineTo(p.x, p.y);
+            ctx.stroke();
+          };
+          const end = () => { drawing = false; };
+
+          canvas.addEventListener('mousedown', start);
+          canvas.addEventListener('mousemove', move);
+          canvas.addEventListener('mouseup', end);
+          canvas.addEventListener('mouseleave', end);
+          canvas.addEventListener('touchstart', start, { passive: false });
+          canvas.addEventListener('touchmove', move, { passive: false });
+          canvas.addEventListener('touchend', end);
+        }
+        wipeBtn?.addEventListener('click', () => {
+          const ctx = canvas.getContext('2d');
+          if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+      }
+
+      // Declaratie form submission
+      const declForm = document.getElementById('declaratie-form');
+      if (declForm) {
+        declForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+
+          const bedragPerSelect = document.getElementById('decl-bedrag-per') as HTMLSelectElement;
+          const bedragPerText = bedragPerSelect?.selectedOptions?.[0]?.textContent || bedragPerSelect?.value || '';
+
+          const formData = {
+            naam: `${document.getElementById('decl-voornaam')?.value || ''} ${document.getElementById('decl-achternaam')?.value || ''}`,
+            banknummer: document.getElementById('decl-banknummer')?.value || '',
+            email: document.getElementById('decl-email')?.value || '',
+            activiteit: document.getElementById('decl-activiteit')?.value || '',
+            omschrijving: (document.getElementById('decl-omschrijving') as HTMLTextAreaElement)?.value || '',
+            bedragPer: bedragPerText || 'Niet opgegeven',
+            totaal: document.getElementById('decl-totaal')?.value || '',
+            datum: document.getElementById('decl-datum')?.value || '',
+            handtekening: document.getElementById('decl-handtekening')?.value || '',
+          };
+
+          // Build email body (duidelijke structuur voor snelle verwerking/categorisatie)
+          let body = `Declaratieformulier\n\n`;
+          body += `PERSOONSGEGEVENS:\n`;
+          body += `Naam: ${formData.naam}\n`;
+          body += `Banknummer: ${formData.banknummer}\n`;
+          body += `E-mail: ${formData.email || 'Niet opgegeven'}\n\n`;
+          body += `DECLARATIE-INFORMATIE:\n`;
+          body += `Activiteit/evenement: ${formData.activiteit}\n`;
+          if (formData.omschrijving) body += `Omschrijving kosten: ${formData.omschrijving}\n`;
+          body += `Bedrag per: ${formData.bedragPer}\n\n`;
+          body += `TOTAALBEDRAG: ${formData.totaal}\n\n`;
+          body += `Datum: ${formData.datum}\n`;
+          body += `Handtekening: ${formData.handtekening}\n\n`;
+          body += `Let op: voeg de bonnetjes/nota's als bijlage toe aan je e-mail.`;
+
+          // Send email
+          const subject = encodeURIComponent('Declaratieformulier');
+          const bodyEncoded = encodeURIComponent(body);
+          window.location.href = `mailto:penningmeester@hgvhengelo.nl?subject=${subject}&body=${bodyEncoded}`;
+
+          // Show success message
+          const successMessage = document.getElementById('decl-success-message');
+          if (successMessage) {
+            successMessage.classList.remove('hidden');
+            declForm.style.display = 'none';
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+
+          // Handtekening download tonen als er getekend is
+          const sigCanvas = document.getElementById('decl-signature-pad') as HTMLCanvasElement;
+          const downloadArea = document.getElementById('decl-signature-download-area');
+          const downloadLink = document.getElementById('decl-signature-download-link') as HTMLAnchorElement;
+          if (sigCanvas && downloadArea && downloadLink) {
+            const ctx = sigCanvas.getContext('2d');
+            let hasDrawing = false;
+            if (ctx) {
+              const imgData = ctx.getImageData(0, 0, sigCanvas.width, sigCanvas.height).data;
+              for (let i = 0; i < imgData.length; i += 4) {
+                if (imgData[i + 3] > 0 && (imgData[i] < 255 || imgData[i + 1] < 255 || imgData[i + 2] < 255)) {
+                  hasDrawing = true;
+                  break;
+                }
+              }
+            }
+            if (hasDrawing) {
+              downloadLink.href = sigCanvas.toDataURL('image/png');
+              downloadArea.classList.remove('hidden');
+            } else {
+              downloadArea.classList.add('hidden');
+            }
+          }
+        });
+      }
+    }
+  });
+</script>

@@ -1,0 +1,328 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { Calendar, Clock, MapPin, ArrowRight, ExternalLink } from '@lucide/astro';
+import { haalLesroosterOp } from '../../lib/lesrooster';
+
+// Haal lesrooster data op
+let lesroosterData = null;
+let gesorteerdeLessen: any[] = [];
+let debugInfo = {
+  hasData: false,
+  aantalLessen: 0,
+  error: null,
+};
+
+try {
+  lesroosterData = await haalLesroosterOp();
+  if (lesroosterData) {
+    debugInfo.hasData = true;
+    debugInfo.aantalLessen = lesroosterData.lessen.length;
+    
+    // Uit te sluiten coursecodes
+    const uitgeslotenCoursecodes = ['11', '90', '97', '3', '44'];
+    
+    // Filter uitgesloten lessen
+    const gefilterdeLessen = lesroosterData.lessen.filter((les) => {
+      const coursecode = String(les.id || les.coursecode || '');
+      return !uitgeslotenCoursecodes.includes(coursecode);
+    });
+    
+    // Sorteer lessen op dag en tijd
+    const dagOrder: Record<string, number> = {
+      'Maandag': 1,
+      'Dinsdag': 2,
+      'Woensdag': 3,
+      'Donderdag': 4,
+      'Vrijdag': 5,
+      'Zaterdag': 6,
+      'Zondag': 7,
+    };
+    
+    // Splits sport in discipline en doelgroep, en extraheer wijk uit locatie
+    gesorteerdeLessen = gefilterdeLessen.map((les) => {
+      const sportParts = les.sport.split('–').map(s => s.trim());
+      const doelgroep = sportParts[1] || '';
+      // Zet eerste letter van doelgroep op hoofdletter als deze bestaat
+      const doelgroepMetHoofdletter = doelgroep 
+        ? doelgroep.charAt(0).toUpperCase() + doelgroep.slice(1)
+        : '';
+      
+      // Haal wijk uit locatie (tekst tussen haakjes)
+      const wijkMatch = les.locatie.match(/\(([^)]+)\)/);
+      const wijk = wijkMatch ? wijkMatch[1] : '';
+      
+      return {
+        ...les,
+        discipline: sportParts[0] || les.sport,
+        doelgroep: doelgroepMetHoofdletter,
+        wijk: wijk,
+      };
+    }).sort((a, b) => {
+      // Sorteer eerst op discipline
+      const disciplineCompare = a.discipline.localeCompare(b.discipline);
+      if (disciplineCompare !== 0) return disciplineCompare;
+      
+      // Dan op doelgroep
+      const doelgroepCompare = a.doelgroep.localeCompare(b.doelgroep);
+      if (doelgroepCompare !== 0) return doelgroepCompare;
+      
+      // Dan op locatie
+      const locatieCompare = a.locatie.localeCompare(b.locatie);
+      if (locatieCompare !== 0) return locatieCompare;
+      
+      // Dan op dag (volgorde van de week)
+      const dagA = dagOrder[a.dag] || 99;
+      const dagB = dagOrder[b.dag] || 99;
+      if (dagA !== dagB) return dagA - dagB;
+      
+      // Als laatste op tijd
+      const tijdA = a.tijd.split('-')[0].trim();
+      const tijdB = b.tijd.split('-')[0].trim();
+      return tijdA.localeCompare(tijdB);
+    });
+  }
+} catch (error: any) {
+  debugInfo.error = error.message;
+  console.error('Fout bij ophalen lesrooster:', error);
+}
+---
+
+<BaseLayout
+  title="Lesrooster"
+  description="Bekijk het wekelijkse lesrooster van HGV Hengelo. Alle sporten, tijden en locaties op een rij."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Calendar class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Wekelijks <span class="text-accent">Lesrooster</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Bekijk wanneer en waar jouw favoriete sport wordt gegeven. Het lesrooster is van toepassing tijdens schoolweken.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        {lesroosterData && lesroosterData.laatsteUpdate ? (
+          <!-- Info banner -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg mb-12">
+            <div class="flex flex-col md:flex-row md:items-center gap-6">
+              <div class="flex-1">
+                <h2 class="text-xl font-display font-bold text-dark mb-2">
+                  Actueel Lesrooster
+                </h2>
+                <p class="text-dark/70">
+                  Laatste update: {new Date(lesroosterData.laatsteUpdate).toLocaleDateString('nl-NL', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <!-- Info banner -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg mb-12">
+            <div class="flex flex-col md:flex-row md:items-center gap-6">
+              <div class="flex-1">
+                <h2 class="text-xl font-display font-bold text-dark mb-2">
+                  Lesrooster wordt bijgewerkt
+                </h2>
+                <p class="text-dark/70 mb-2">
+                  Het lesrooster wordt geladen vanuit ons ledenadministratie systeem. Neem voor de meest actuele informatie contact met ons op.
+                </p>
+                {debugInfo.error && (
+                  <p class="text-red-500 text-sm mt-2">
+                    Fout: {debugInfo.error}
+                  </p>
+                )}
+                <p class="text-dark/50 text-sm mt-2">
+                  Debug: <a href="/api/debug-lesrooster" class="underline text-accent">Bekijk API response</a>
+                </p>
+              </div>
+              <div class="flex gap-4">
+                <a href="/contact" class="btn btn-accent">
+                  Contact
+                  <ArrowRight class="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Filters -->
+        {lesroosterData && gesorteerdeLessen.length > 0 && (
+          <div class="bg-white rounded-2xl p-6 shadow-lg mb-6">
+            <div class="flex flex-col md:flex-row gap-4">
+              <div class="flex-1">
+                <label for="filter-dag" class="block text-sm font-medium text-dark mb-2">
+                  Filter op dag
+                </label>
+                <select 
+                  id="filter-dag"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+                >
+                  <option value="">Alle dagen</option>
+                  {['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'].map((dag) => {
+                    const heeftDag = gesorteerdeLessen.some(les => les.dag === dag);
+                    return heeftDag ? (
+                      <option value={dag}>{dag}</option>
+                    ) : null;
+                  })}
+                </select>
+              </div>
+              <div class="flex-1">
+                <label for="filter-wijk" class="block text-sm font-medium text-dark mb-2">
+                  Filter op wijk
+                </label>
+                <select 
+                  id="filter-wijk"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+                >
+                  <option value="">Alle wijken</option>
+                  {Array.from(new Set(gesorteerdeLessen.map(les => les.wijk).filter(w => w))).sort().map((wijk) => (
+                    <option value={wijk}>{wijk}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Lesrooster Tabel -->
+        <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+          {lesroosterData && gesorteerdeLessen.length > 0 ? (
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-primary/10">
+                  <tr>
+                    <th class="px-6 py-4 text-left font-display font-bold text-dark">
+                      Discipline
+                    </th>
+                    <th class="px-6 py-4 text-left font-display font-bold text-dark">
+                      Doelgroep
+                    </th>
+                    <th class="px-6 py-4 text-left font-display font-bold text-dark">
+                      Locatie
+                    </th>
+                    <th class="px-6 py-4 text-left font-display font-bold text-dark">
+                      Dag
+                    </th>
+                    <th class="px-6 py-4 text-left font-display font-bold text-dark">
+                      Tijd
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200" id="lesrooster-body">
+                  {gesorteerdeLessen.map((les) => (
+                    <tr 
+                      class="lesrooster-row hover:bg-primary/5 transition-colors"
+                      data-dag={les.dag}
+                      data-wijk={les.wijk}
+                    >
+                      <td class="px-6 py-4">
+                        <span class="font-medium text-dark">
+                          {les.discipline}
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 text-dark/80">
+                        {les.doelgroep || <span class="text-dark/40 italic">-</span>}
+                      </td>
+                      <td class="px-6 py-4 text-dark/70">
+                        <a 
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(les.locatie + ', Hengelo, Nederland')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="flex items-center gap-2 hover:text-accent transition-colors"
+                        >
+                          <MapPin class="w-4 h-4 text-accent flex-shrink-0" />
+                          <span class="underline">{les.locatie}</span>
+                        </a>
+                      </td>
+                      <td class="px-6 py-4 font-medium text-dark whitespace-nowrap">
+                        {les.dag}
+                      </td>
+                      <td class="px-6 py-4 text-dark/80 whitespace-nowrap">
+                        <div class="flex items-center gap-2">
+                          <Clock class="w-4 h-4 text-accent" />
+                          <span>{les.tijd}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div class="text-center py-16 text-dark/50">
+              <Clock class="w-12 h-12 mx-auto mb-4 opacity-50" />
+              <p class="text-lg mb-2">Geen lessen beschikbaar</p>
+              <p class="text-sm">Het lesrooster wordt geladen vanuit ons ledenadministratie systeem.</p>
+            </div>
+          )}
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-12 text-center">
+          <p class="text-dark/60 mb-4">
+            Wil je een les uitproberen? De eerste twee lessen zijn gratis!
+          </p>
+          <a href="/info/lidmaatschap" class="btn btn-energy">
+            Proefles Aanvragen
+            <ArrowRight class="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Filter functionaliteit
+  const filterDag = document.getElementById('filter-dag');
+  const filterWijk = document.getElementById('filter-wijk');
+  const lesroosterBody = document.getElementById('lesrooster-body');
+  const lesRows = document.querySelectorAll('.lesrooster-row');
+
+  function applyFilters() {
+    const selectedDag = filterDag?.value || '';
+    const selectedWijk = filterWijk?.value || '';
+
+    lesRows.forEach((row: HTMLElement) => {
+      const rowDag = row.getAttribute('data-dag') || '';
+      const rowWijk = row.getAttribute('data-wijk') || '';
+
+      const dagMatch = !selectedDag || rowDag === selectedDag;
+      const wijkMatch = !selectedWijk || rowWijk === selectedWijk;
+
+      if (dagMatch && wijkMatch) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  filterDag?.addEventListener('change', applyFilters);
+  filterWijk?.addEventListener('change', applyFilters);
+</script>

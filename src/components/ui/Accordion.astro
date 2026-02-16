@@ -1,0 +1,22 @@
+---
+import { ChevronDown } from '@lucide/astro';
+
+interface Props {
+  title: string;
+  open?: boolean;
+}
+
+const { title, open = false } = Astro.props;
+---
+
+<details class="group bg-white rounded-xl overflow-hidden shadow-sm" open={open}>
+  <summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-primary/5 transition-colors">
+    <h3 class="font-display font-semibold text-lg text-dark pr-4">
+      {title}
+    </h3>
+    <ChevronDown class="w-5 h-5 text-accent transform group-open:rotate-180 transition-transform duration-300 flex-shrink-0" />
+  </summary>
+  <div class="px-6 pb-6 text-dark/70 leading-relaxed">
+    <slot />
+  </div>
+</details>

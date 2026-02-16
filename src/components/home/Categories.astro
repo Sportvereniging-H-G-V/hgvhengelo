@@ -1,0 +1,128 @@
+---
+import { ArrowRight, Dumbbell, Music2, Target, Heart } from '@lucide/astro';
+
+const categories = [
+  {
+    icon: Dumbbell,
+    name: 'Gymnastisch',
+    count: 14,
+    color: 'blue',
+    sports: ['Turnen', 'Trampolinespringen', 'Rhönradturnen', 'Freerunning', 'Luchtacrobatiek'],
+    href: '/sporten?category=gymnastisch',
+  },
+  {
+    icon: Music2,
+    name: 'Dans',
+    count: 3,
+    color: 'sky',
+    sports: ['Streetmix', 'Aeronetics', 'Paaldansen'],
+    href: '/sporten?category=dans',
+  },
+  {
+    icon: Target,
+    name: 'Balsport',
+    count: 3,
+    color: 'indigo',
+    sports: ['Zaalvoetbal', 'Volleybal', 'Dodgeball'],
+    href: '/sporten?category=balsport',
+  },
+  {
+    icon: Heart,
+    name: 'Breed Sporten',
+    count: 3,
+    color: 'cyan',
+    sports: ['Gymnastiek senioren', 'Spelles', 'Passend Sporten'],
+    href: '/sporten?category=breed-sporten',
+  },
+];
+
+const colorClasses: Record<string, { bg: string; border: string; icon: string; badge: string }> = {
+  blue: {
+    bg: 'bg-blue-600/10',
+    border: 'border-blue-600/30 hover:border-blue-600',
+    icon: 'text-blue-600',
+    badge: 'bg-blue-600/40 text-white',
+  },
+  sky: {
+    bg: 'bg-sky-500/10',
+    border: 'border-sky-500/30 hover:border-sky-500',
+    icon: 'text-sky-500',
+    badge: 'bg-sky-500/40 text-white',
+  },
+  indigo: {
+    bg: 'bg-indigo-500/10',
+    border: 'border-indigo-500/30 hover:border-indigo-500',
+    icon: 'text-indigo-500',
+    badge: 'bg-indigo-500/40 text-white',
+  },
+  cyan: {
+    bg: 'bg-cyan-500/10',
+    border: 'border-cyan-500/30 hover:border-cyan-500',
+    icon: 'text-cyan-500',
+    badge: 'bg-cyan-500/40 text-white',
+  },
+};
+---
+
+<section class="section-padding bg-cream relative overflow-hidden diagonal-accent">
+  <div class="container-custom relative">
+    <!-- Section header -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sunshine/20 text-energy font-bold text-sm mb-4">
+        ⭐ 4 Categorieën
+      </span>
+      <h2 class="text-dark mb-4">
+        Wat past bij <span class="gradient-text">jou?</span>
+      </h2>
+      <p class="text-dark/70 text-lg">
+        Van turnen tot dans, van balsport tot fitness - er is voor iedereen iets leuks te vinden!
+      </p>
+    </div>
+
+    <!-- Categories grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {categories.map((category, index) => (
+        <a
+          href={category.href}
+          class={`group relative p-6 rounded-2xl border-2 ${colorClasses[category.color].border} ${colorClasses[category.color].bg} transition-all duration-300 card-hover animate-on-scroll`}
+          style={`animation-delay: ${index * 0.1}s;`}
+        >
+          <!-- Icon -->
+          <div class="flex items-center justify-between mb-4">
+            <div class={`w-12 h-12 rounded-xl bg-white flex items-center justify-center ${colorClasses[category.color].icon}`}>
+              <category.icon class="w-6 h-6" />
+            </div>
+            <span class={`px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm shadow-lg ${colorClasses[category.color].badge}`}>
+              {category.count} sporten
+            </span>
+          </div>
+
+          <!-- Title -->
+          <h3 class="font-display font-bold text-xl text-dark mb-3">
+            {category.name}
+          </h3>
+
+          <!-- Sports preview -->
+          <div class="space-y-1 mb-4">
+            {category.sports.slice(0, 3).map((sport) => (
+              <span class="block text-sm text-dark/60">
+                • {sport}
+              </span>
+            ))}
+            {category.sports.length > 3 && (
+              <span class="block text-sm text-dark/40">
+                + {category.sports.length - 3} meer
+              </span>
+            )}
+          </div>
+
+          <!-- Link -->
+          <div class={`flex items-center gap-2 text-sm font-semibold ${colorClasses[category.color].icon} group-hover:gap-3 transition-all`}>
+            Bekijk categorie
+            <ArrowRight class="w-4 h-4" />
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

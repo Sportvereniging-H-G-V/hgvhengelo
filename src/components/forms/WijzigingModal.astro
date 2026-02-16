@@ -1,0 +1,515 @@
+---
+import { X } from '@lucide/astro';
+---
+
+<div id="wijziging-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <!-- Backdrop -->
+  <div 
+    id="wijziging-modal-backdrop"
+    class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+  ></div>
+
+  <!-- Modal -->
+  <div class="relative w-full max-w-4xl max-h-[95vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-scale-in">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 bg-accent/10 border-b border-accent/20">
+      <span class="text-base font-display font-semibold text-dark">
+        Wijziging doorgeven
+      </span>
+      <button
+        id="wijziging-modal-close"
+        class="p-2 rounded-lg hover:bg-accent/20 transition-colors"
+        aria-label="Sluiten"
+      >
+        <X class="w-6 h-6 text-dark" />
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 overflow-y-auto p-6">
+      <form id="wijziging-form" class="space-y-6">
+        <!-- Lid-gegevens sectie -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-display font-bold text-dark border-b border-accent/20 pb-2">
+            Lid-gegevens
+          </h3>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label for="roepnaam" class="block text-sm font-medium text-dark mb-1">
+                Roepnaam <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="roepnaam"
+                name="roepnaam"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+            </div>
+
+            <div>
+              <label for="naam" class="block text-sm font-medium text-dark mb-1">
+                Naam <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="naam"
+                name="naam"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="geboortedatum" class="block text-sm font-medium text-dark mb-1">
+              Geboortedatum <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              id="geboortedatum"
+              name="geboortedatum"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <!-- Maak een keuze -->
+        <div class="space-y-4">
+          <label class="block text-sm font-medium text-dark mb-2">
+            Maak een keuze: <span class="text-red-500">*</span>
+          </label>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                name="wijziging_type"
+                value="Wijziging Deelname Lessen"
+                class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
+              />
+              <span class="text-dark">Wijziging Deelname Lessen</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                name="wijziging_type"
+                value="Adreswijziging"
+                class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
+              />
+              <span class="text-dark">Adreswijziging</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                name="wijziging_type"
+                value="Wijziging Bankrekening"
+                class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
+              />
+              <span class="text-dark">Wijziging Bankrekening</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Wijziging Deelname Lessen velden -->
+        <div id="deelname-velden" class="hidden space-y-4">
+          <div>
+            <label for="huidige_lessen" class="block text-sm font-medium text-dark mb-1">
+              Huidige les(sen): <span class="text-red-500">*</span>
+            </label>
+            <p class="text-xs text-dark/60 mb-2">
+              Vermeld de leslocatie, lesdag en lestijd van de les(sen).
+            </p>
+            <input
+              type="text"
+              id="huidige_lessen"
+              name="huidige_lessen"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-dark mb-2">
+              Blijft ook op huidige les(sen) <span class="text-red-500">*</span>
+            </label>
+            <div class="space-y-2">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="blijft_op_huidige_lessen"
+                  value="Ja"
+                  class="w-4 h-4 text-accent border-gray-300 focus:ring-accent"
+                />
+                <span class="text-dark">Ja</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="blijft_op_huidige_lessen"
+                  value="Nee"
+                  class="w-4 h-4 text-accent border-gray-300 focus:ring-accent"
+                />
+                <span class="text-dark">Nee</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label for="nieuwe_lessen" class="block text-sm font-medium text-dark mb-1">
+              Nieuwe les(sen) <span class="text-red-500">*</span>
+            </label>
+            <p class="text-xs text-dark/60 mb-2">
+              Vermeld de leslocatie, lesdag en lestijd van de les(sen).
+            </p>
+            <input
+              type="text"
+              id="nieuwe_lessen"
+              name="nieuwe_lessen"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label for="ingangsdatum" class="block text-sm font-medium text-dark mb-1">
+              Ingangsdatum <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              id="ingangsdatum"
+              name="ingangsdatum"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <!-- Adreswijziging velden -->
+        <div id="adres-velden" class="hidden space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-dark mb-2">
+              Lid of betaalrelatie? <span class="text-red-500">*</span>
+            </label>
+            <p class="text-xs text-dark/60 mb-2">
+              Wilt u het adres van het lid of het adres van de betaalrelatie wijzigen? U kunt ook beiden aanvinken, als het lid en de betaalrelatie in dezelfde woning leven.
+            </p>
+            <div class="space-y-2">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="adres_type"
+                  value="Wijzigen adres lid"
+                  class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
+                />
+                <span class="text-dark">Wijzigen adres lid</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="adres_type"
+                  value="Wijzigen adres betaalrelatie"
+                  class="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent"
+                />
+                <span class="text-dark">Wijzigen adres betaalrelatie</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label for="straat" class="block text-sm font-medium text-dark mb-1">
+              Straat + huisnummer <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="straat"
+              name="straat"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label for="postcode" class="block text-sm font-medium text-dark mb-1">
+                Postcode <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="postcode"
+                name="postcode"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+            </div>
+
+            <div>
+              <label for="plaats" class="block text-sm font-medium text-dark mb-1">
+                Plaats <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="plaats"
+                name="plaats"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="telefoon" class="block text-sm font-medium text-dark mb-1">
+              Telefoon <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="tel"
+              id="telefoon"
+              name="telefoon"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <!-- Wijziging Bankrekening velden -->
+        <div id="bankrekening-velden" class="hidden space-y-4">
+          <div>
+            <label for="naam_betaalrelatie" class="block text-sm font-medium text-dark mb-1">
+              Naam betaalrelatie <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="naam_betaalrelatie"
+              name="naam_betaalrelatie"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label for="nieuw_bankrekeningnummer" class="block text-sm font-medium text-dark mb-1">
+              Nieuw bankrekeningnummer <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="nieuw_bankrekeningnummer"
+              name="nieuw_bankrekeningnummer"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <!-- E-mailadres -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-dark mb-1">
+            E-mailadres <span class="text-red-500">*</span>
+          </label>
+          <p class="text-xs text-dark/60 mb-2">
+            Als u een bevestiging wilt van uw mutatie kunt u uw e-mailadres opgeven.
+          </p>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+          />
+        </div>
+
+        <!-- Handtekening -->
+        <div>
+          <label for="handtekening" class="block text-sm font-medium text-dark mb-1">
+            Handtekening lid/betaalrelatie <span class="text-red-500">*</span>
+          </label>
+          <p class="text-xs text-dark/60 mb-2">
+            U dient hier uw volledige voor- en achternaam in te vullen als handtekening
+          </p>
+          <input
+            type="text"
+            id="handtekening"
+            name="handtekening"
+            required
+            placeholder="Voor- en achternaam"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-dark focus:ring-2 focus:ring-accent focus:border-transparent"
+          />
+        </div>
+
+        <!-- Submit button -->
+        <div class="flex gap-4 pt-4">
+          <button
+            type="button"
+            onclick="window.closeWijzigingModal?.()"
+            class="px-6 py-2 border border-gray-300 rounded-lg text-dark hover:bg-gray-100 transition-colors"
+          >
+            Annuleren
+          </button>
+          <button
+            type="submit"
+            class="flex-1 px-6 py-2 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors font-medium"
+          >
+            Verzenden
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('wijziging-modal');
+  const backdrop = document.getElementById('wijziging-modal-backdrop');
+  const closeButton = document.getElementById('wijziging-modal-close');
+  const form = document.getElementById('wijziging-form');
+
+  function openModal() {
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal() {
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+      form?.reset();
+      // Reset conditional fields visibility
+      document.getElementById('deelname-velden')?.classList.add('hidden');
+      document.getElementById('adres-velden')?.classList.add('hidden');
+      document.getElementById('bankrekening-velden')?.classList.add('hidden');
+    }
+  }
+
+  // Close on backdrop click
+  backdrop?.addEventListener('click', closeModal);
+
+  // Close on close button click
+  closeButton?.addEventListener('click', closeModal);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
+
+  // Handle conditional field visibility
+  const wijzigingTypeCheckboxes = document.querySelectorAll('input[name="wijziging_type"]');
+  wijzigingTypeCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const deelnameVelden = document.getElementById('deelname-velden');
+      const adresVelden = document.getElementById('adres-velden');
+      const bankrekeningVelden = document.getElementById('bankrekening-velden');
+
+      const isDeelname = document.querySelector('input[name="wijziging_type"][value="Wijziging Deelname Lessen"]')?.checked;
+      const isAdres = document.querySelector('input[name="wijziging_type"][value="Adreswijziging"]')?.checked;
+      const isBankrekening = document.querySelector('input[name="wijziging_type"][value="Wijziging Bankrekening"]')?.checked;
+
+      if (deelnameVelden) {
+        deelnameVelden.classList.toggle('hidden', !isDeelname);
+        // Set required attributes
+        const deelnameInputs = deelnameVelden.querySelectorAll('input[required], input[name="huidige_lessen"], input[name="nieuwe_lessen"], input[name="ingangsdatum"], input[name="blijft_op_huidige_lessen"]');
+        deelnameInputs.forEach(input => {
+          if (isDeelname) {
+            input.setAttribute('required', 'required');
+          } else {
+            input.removeAttribute('required');
+          }
+        });
+      }
+
+      if (adresVelden) {
+        adresVelden.classList.toggle('hidden', !isAdres);
+        const adresInputs = adresVelden.querySelectorAll('input[required], input[name="straat"], input[name="postcode"], input[name="plaats"], input[name="telefoon"]');
+        adresInputs.forEach(input => {
+          if (isAdres) {
+            input.setAttribute('required', 'required');
+          } else {
+            input.removeAttribute('required');
+          }
+        });
+      }
+
+      if (bankrekeningVelden) {
+        bankrekeningVelden.classList.toggle('hidden', !isBankrekening);
+        const bankrekeningInputs = bankrekeningVelden.querySelectorAll('input[required], input[name="naam_betaalrelatie"], input[name="nieuw_bankrekeningnummer"]');
+        bankrekeningInputs.forEach(input => {
+          if (isBankrekening) {
+            input.setAttribute('required', 'required');
+          } else {
+            input.removeAttribute('required');
+          }
+        });
+      }
+    });
+  });
+
+  // Form submission
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalButtonText = submitButton?.textContent || 'Verzenden';
+    
+    // Disable button en toon loading state
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Verzenden...';
+    }
+    
+    try {
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      
+      // Collect checkbox values
+      const wijzigingTypes = Array.from(document.querySelectorAll('input[name="wijziging_type"]:checked')).map(cb => cb.value);
+      data.wijziging_type = wijzigingTypes.join(', ');
+      
+      // Verstuur naar Freescout API
+      const response = await fetch('/api/freescout-submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: 'wijziging',
+          formData: data,
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        alert('Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.');
+        closeModal();
+      } else {
+        throw new Error(result.error || 'Er is een fout opgetreden bij het verzenden van het formulier.');
+      }
+    } catch (error: any) {
+      console.error('Fout bij verzenden formulier:', error);
+      alert('Er is een fout opgetreden bij het verzenden van het formulier. Probeer het later opnieuw of neem contact met ons op via secretariaat@hgvhengelo.nl');
+    } finally {
+      // Herstel button state
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    }
+  });
+
+  // Expose openModal globally
+  window.openWijzigingModal = openModal;
+  window.closeWijzigingModal = closeModal;
+</script>
+
+<style>
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.2s ease-out;
+  }
+</style>

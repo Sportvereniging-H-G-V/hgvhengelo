@@ -1,0 +1,380 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { Users, Mail, Phone, Info, AlertCircle } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Aanmelden teamleden kinderkamp"
+  description="Aanmeldformulier voor teamleden die willen helpen bij het jeugdkamp van HGV Hengelo."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Users class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Aanmelden <span class="text-accent">teamleden kinderkamp</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Wat fijn dat je ons wil komen helpen bij het aankomende jeugdkamp!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="max-w-3xl mx-auto">
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <p class="text-dark/70 mb-6">
+              Graag ontvangen we de volgende informatie. <span class="text-accent font-semibold">*</span> geeft vereiste velden aan.
+            </p>
+
+            <form id="kamp-teamleden-form" class="space-y-8">
+              <!-- Algemene Informatie -->
+              <div>
+                <h2 class="text-xl font-display font-bold text-dark mb-6">
+                  Algemene Informatie
+                </h2>
+                
+                <div class="space-y-6">
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Naam <span class="text-accent">*</span>
+                    </label>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                      <input 
+                        type="text" 
+                        id="voornaam" 
+                        name="voornaam"
+                        required
+                        placeholder="Voornaam"
+                        class="px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      />
+                      <input 
+                        type="text" 
+                        id="achternaam" 
+                        name="achternaam"
+                        required
+                        placeholder="Achternaam"
+                        class="px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      E-mailadres <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      name="email"
+                      required
+                      placeholder="voorbeeld@email.nl"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Naam en telefoonnummer noodcontact ouder 1 <span class="text-accent">*</span>
+                    </label>
+                    <p class="text-sm text-dark/60 mb-2">
+                      Dit ben jij zelf dus niet
+                    </p>
+                    <input 
+                      type="text" 
+                      id="noodcontact1" 
+                      name="noodcontact1"
+                      required
+                      placeholder="Naam en telefoonnummer"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Naam en telefoonnummer noodcontact ouder 2
+                    </label>
+                    <p class="text-sm text-dark/60 mb-2">
+                      Dit ben jij zelf dus niet
+                    </p>
+                    <input 
+                      type="text" 
+                      id="noodcontact2" 
+                      name="noodcontact2"
+                      placeholder="Naam en telefoonnummer"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Belangrijke zaken als diëten, allergieën etc.
+                    </label>
+                    <textarea 
+                      id="allergieen" 
+                      name="allergieen"
+                      rows="3"
+                      placeholder="Vul hier eventuele diëten, allergieën of andere belangrijke zaken in"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Heb je tijdens het kamp nog lessen, zo ja: welke?
+                    </label>
+                    <p class="text-sm text-dark/60 mb-2">
+                      Mocht je hier niet uitkomen en wil je hier hulp bij, meld je dan bij Dewi de Witte. Let op, je blijft wel zelf verantwoordelijk voor het doorgaan van je les.
+                    </p>
+                    <textarea 
+                      id="lessen" 
+                      name="lessen"
+                      rows="2"
+                      placeholder="Vul hier in welke lessen je nog hebt tijdens het kamp"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vervoer -->
+              <div>
+                <h2 class="text-xl font-display font-bold text-dark mb-6">
+                  Vervoer
+                </h2>
+                
+                <div class="space-y-6">
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-3">
+                      Carpoolen <span class="text-accent">*</span>
+                    </label>
+                    <div class="space-y-3">
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="vervoer" 
+                          value="16-00-eigen-vervoer"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Ik kan rond 16.00u op de kamplocatie aanwezig zijn en heb eigen vervoer.</span>
+                      </label>
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="vervoer" 
+                          value="16-00-geen-vervoer"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Ik kan rond 16.00u op de kamplocatie aanwezig zijn, maar heb geen eigen vervoer.</span>
+                      </label>
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="vervoer" 
+                          value="18-00-eigen-vervoer"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Ik kan rond 18.00u op de kamplocatie aanwezig zijn en heb eigen vervoer.</span>
+                      </label>
+                      <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                        <input 
+                          type="radio" 
+                          name="vervoer" 
+                          value="18-00-geen-vervoer"
+                          required
+                          class="mt-1"
+                        />
+                        <span class="text-dark">Ik kan rond 18.00u op de kamplocatie aanwezig zijn, maar heb geen eigen vervoer.</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div id="carpool-plekken" style="display: none;">
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Indien je eigen vervoer hebt en mensen zou kunnen meenemen, hoeveel plekken heb je naast jezelf nog over in de auto?
+                    </label>
+                    <input 
+                      type="number" 
+                      id="carpool-plekken-nummer" 
+                      name="carpool-plekken-nummer"
+                      min="0"
+                      placeholder="Aantal plekken"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Betaling -->
+              <div class="bg-primary/5 rounded-xl p-6 border border-primary/20">
+                <h3 class="font-display font-bold text-dark mb-3">
+                  Betaling
+                </h3>
+                <p class="text-dark/70 text-sm mb-2">
+                  Verder willen we je vragen €10,00 over te maken naar rekeningnummer{' '}
+                  <strong>NL92 INGB 0000 8390 63</strong> t.n.v. Hengelosche Gymnastiek Vereeniging 
+                  met als onderwerp: <strong>Jeugdkamp 2026 + je naam</strong>.
+                </p>
+              </div>
+
+              <!-- AVG -->
+              <div class="bg-accent/10 rounded-xl p-6 border border-accent/30">
+                <h3 class="font-display font-bold text-dark mb-3">
+                  AVG
+                </h3>
+                <p class="text-dark/70 text-sm">
+                  Tijdens dit evenement worden foto's gemaakt die bedoeld zijn voor verslaglegging en uitingen op (sociale) 
+                  media van sportvereniging H.G.V. Als jij (of je kind) niet herkenbaar in beeld wil komen, kan je dit 
+                  voorafgaand melden bij de organisatie. Mocht je achteraf bezwaar willen maken tegen de publicatie van 
+                  foto's of filmopnames, neem dan contact op via{' '}
+                  <a href="mailto:avg@hgvhengelo.nl" class="text-accent hover:underline">avg@hgvhengelo.nl</a>.
+                </p>
+              </div>
+
+              <!-- Handtekening -->
+              <div>
+                <label class="block text-sm font-semibold text-dark mb-2">
+                  Handtekening <span class="text-accent">*</span>
+                </label>
+                <p class="text-sm text-dark/60 mb-3">
+                  Indien jonger dan 16 jaar de handtekening van ouder/verzorger
+                </p>
+                <input 
+                  type="text" 
+                  id="handtekening" 
+                  name="handtekening"
+                  required
+                  placeholder="Volledige voor- en achternaam"
+                  class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                class="btn btn-accent w-full"
+              >
+                Versturen
+              </button>
+            </form>
+
+            <!-- Success message -->
+            <div id="success-message" class="hidden mt-6 p-6 bg-green-50 rounded-xl border border-green-200">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-green-800 mb-2">
+                    Aanmelding verzonden!
+                  </h3>
+                  <p class="text-green-700">
+                    Bedankt voor je aanmelding! Je ontvangt binnen enkele dagen een bevestiging per e-mail.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('kamp-teamleden-form');
+    const vervoerRadios = document.querySelectorAll('input[name="vervoer"]');
+    const carpoolPlekken = document.getElementById('carpool-plekken');
+
+    // Show carpool plekken if user has own transport
+    vervoerRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value.includes('eigen-vervoer')) {
+          carpoolPlekken.style.display = 'block';
+        } else {
+          carpoolPlekken.style.display = 'none';
+          const plekkenInput = document.getElementById('carpool-plekken-nummer');
+          if (plekkenInput) plekkenInput.value = '';
+        }
+      });
+    });
+
+    // Form submission
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalButtonText = submitButton?.textContent || 'Verzenden';
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Verzenden...';
+        }
+
+        try {
+          const formDataObj = new FormData(form);
+          const formData: Record<string, any> = {};
+          formDataObj.forEach((value, key) => {
+            formData[key] = value;
+          });
+
+          // Verstuur naar Freescout API
+          const response = await fetch('/api/freescout-submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              formType: 'kamp-teamleden',
+              formData: formData,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+              successMessage.classList.remove('hidden');
+              form.style.display = 'none';
+              successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          } else {
+            throw new Error(result.error || 'Er is een fout opgetreden bij het verzenden van het formulier.');
+          }
+        } catch (error: any) {
+          console.error('Fout bij verzenden formulier:', error);
+          alert('Er is een fout opgetreden bij het verzenden van het formulier. Probeer het later opnieuw of neem contact met ons op via secretariaat@hgvhengelo.nl');
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+          }
+        }
+      });
+    }
+  });
+</script>

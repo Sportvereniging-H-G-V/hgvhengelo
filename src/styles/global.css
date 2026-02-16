@@ -1,0 +1,443 @@
+@import "tailwindcss";
+
+/* ============================================
+   HGV Hengelo - Professional Theme
+   Modern, mature, accessible - voor de hele familie!
+   ============================================ */
+
+/* Custom fonts - loaded via link in BaseLayout */
+
+@theme {
+  /* Colors - Professional & Mature palette */
+  --color-primary: #1E40AF;          /* Diep professioneel blauw */
+  --color-primary-light: #2563EB;
+  --color-primary-dark: #1E3A8A;
+
+  --color-accent: #0891B2;           /* Subtiel teal - minder fel */
+  --color-accent-light: #0E7490;
+  --color-accent-dark: #155E75;
+
+  --color-energy: #F97316;           /* Oranje - warm en uitnodigend */
+  --color-energy-light: #FB923C;
+  --color-energy-dark: #EA580C;
+
+  --color-sunshine: #D97706;         /* Warm amber - minder fel geel */
+  --color-sunshine-light: #F59E0B;
+  --color-sunshine-dark: #B45309;
+
+  --color-nature: #059669;           /* Dieper groen - professioneel */
+  --color-nature-light: #10B981;
+  --color-nature-dark: #047857;
+
+  --color-coral: #C026D3;            /* Dieper paars - minder roze */
+  --color-coral-light: #D946EF;
+  --color-coral-dark: #A21CAF;
+
+  --color-cream: #FAFAF9;            /* Neutrale crème achtergrond */
+  --color-cream-dark: #F5F5F4;
+
+  --color-dark: #0F172A;             /* Dieper donkerblauw */
+  --color-dark-light: #1E293B;
+
+  /* Sport category colors - volwassener en subtieler */
+  --color-gymnastisch: #0891B2;      /* Teal */
+  --color-dans: #C026D3;             /* Paars */
+  --color-balsport: #059669;         /* Groen */
+  --color-breed: #DC2626;            /* Rood */
+
+  /* Typography - rounded, friendly fonts */
+  --font-display: 'Nunito', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+
+  /* Spacing */
+  --spacing-section: 6rem;
+  --spacing-section-mobile: 3rem;
+
+  /* Transitions - smooth and professional */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Shadows - subtle and professional */
+  --shadow-card: 0 2px 8px -2px rgb(0 0 0 / 0.1), 0 1px 3px -1px rgb(0 0 0 / 0.06);
+  --shadow-card-hover: 0 12px 24px -4px rgb(0 0 0 / 0.15), 0 4px 8px -2px rgb(0 0 0 / 0.08);
+  --shadow-glow: 0 0 30px rgb(8 145 178 / 0.2);
+  --shadow-warm: 0 4px 16px -2px rgb(30 64 175 / 0.2);
+
+  /* Border radius - balanced and modern */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-body);
+}
+
+body {
+  @apply bg-cream text-dark antialiased;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  @apply font-bold tracking-tight;
+}
+
+h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
+h2 { @apply text-3xl md:text-4xl lg:text-5xl; }
+h3 { @apply text-2xl md:text-3xl; }
+h4 { @apply text-xl md:text-2xl; }
+
+/* Focus states */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-accent;
+}
+
+/* Selection */
+::selection {
+  @apply bg-accent text-dark;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-cream-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-accent rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent-dark;
+}
+
+/* Diagonal accent line */
+.diagonal-accent {
+  position: relative;
+  overflow: hidden;
+}
+
+.diagonal-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    -45deg,
+    transparent 40%,
+    var(--color-accent) 40%,
+    var(--color-accent) 45%,
+    transparent 45%
+  );
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* Gradient text - professional and subtle */
+.gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+}
+
+/* Professional gradient backgrounds */
+.gradient-warm {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+}
+
+.gradient-fresh {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-nature) 100%);
+}
+
+.gradient-fun {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 50%, var(--color-nature) 100%);
+}
+
+/* Card hover effect */
+.card-hover {
+  @apply transition-all duration-300;
+}
+
+.card-hover:hover {
+  @apply -translate-y-1;
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Glassmorphism */
+.glass {
+  @apply backdrop-blur-md bg-white/80;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Sport category badges */
+.badge-gymnastisch { @apply bg-accent/40 text-white; }
+.badge-dans { @apply bg-fuchsia-500/40 text-white; }
+.badge-balsport { @apply bg-emerald-500/40 text-white; }
+.badge-breed { @apply bg-amber-500/40 text-white; }
+
+/* Animations - smooth and professional */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  75% { transform: rotate(-1deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px var(--color-accent); }
+  50% { box-shadow: 0 0 25px var(--color-accent), 0 0 35px var(--color-primary); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-bounce-soft { animation: bounce-soft 2s ease-in-out infinite; }
+.animate-wiggle { animation: wiggle 1s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+.animate-slide-up { animation: slide-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-slide-in-left { animation: slide-in-left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-scale-in { animation: scale-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-pop-in { animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+/* Stagger delays for animations */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* Initially hidden for animations */
+.animate-on-scroll {
+  opacity: 0;
+}
+
+.animate-on-scroll.animated {
+  opacity: 1;
+}
+
+/* Button styles - professional and smooth */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold transition-all;
+  font-family: var(--font-display);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary {
+  @apply bg-primary text-white;
+  box-shadow: 0 4px 14px -3px rgb(37 99 235 / 0.5);
+}
+
+.btn-primary:hover {
+  @apply bg-primary-light;
+  box-shadow: 0 6px 16px -4px rgb(30 64 175 / 0.4);
+}
+
+.btn-primary:active {
+  @apply bg-primary-dark translate-y-0;
+}
+
+.btn-accent {
+  @apply bg-accent text-white;
+  box-shadow: 0 4px 14px -3px rgb(6 182 212 / 0.5);
+}
+
+.btn-accent:hover {
+  @apply bg-accent-light;
+  box-shadow: 0 6px 16px -4px rgb(8 145 178 / 0.4);
+}
+
+.btn-energy {
+  @apply bg-energy text-white;
+  box-shadow: 0 4px 12px -3px rgb(249 115 22 / 0.4);
+}
+
+.btn-energy:hover {
+  @apply bg-energy-light;
+  box-shadow: 0 6px 16px -4px rgb(249 115 22 / 0.5);
+}
+
+.btn-sunshine {
+  @apply bg-sunshine text-white font-semibold;
+  box-shadow: 0 4px 12px -3px rgb(217 119 6 / 0.4);
+}
+
+.btn-sunshine:hover {
+  @apply bg-sunshine-light;
+  box-shadow: 0 6px 16px -4px rgb(217 119 6 / 0.5);
+}
+
+.btn-nature {
+  @apply bg-nature text-white;
+  box-shadow: 0 4px 12px -3px rgb(5 150 105 / 0.4);
+}
+
+.btn-nature:hover {
+  @apply bg-nature-light;
+  box-shadow: 0 6px 16px -4px rgb(5 150 105 / 0.5);
+}
+
+.btn-outline {
+  @apply border-2 border-primary text-primary bg-transparent;
+  @apply hover:bg-primary hover:text-white;
+}
+
+.btn-ghost {
+  @apply text-primary hover:bg-primary/10;
+}
+
+/* Form inputs */
+.input {
+  @apply w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white;
+  @apply focus:border-accent focus:ring-4 focus:ring-accent/20;
+  @apply transition-all duration-200;
+  font-family: var(--font-body);
+}
+
+.input-label {
+  @apply block text-sm font-semibold mb-2 text-dark;
+  font-family: var(--font-display);
+}
+
+/* Pattern background */
+.pattern-bg {
+  background-image:
+    radial-gradient(circle at 25px 25px, var(--color-accent) 2px, transparent 0),
+    radial-gradient(circle at 75px 75px, var(--color-primary) 1px, transparent 0);
+  background-size: 100px 100px;
+  opacity: 0.05;
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Container */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Section padding */
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+/* Prose for content */
+.prose-custom {
+  @apply max-w-none text-lg;
+}
+
+.prose-custom h1,
+.prose-custom h2,
+.prose-custom h3,
+.prose-custom h4 {
+  font-family: var(--font-display);
+  @apply text-dark font-bold mb-4 mt-8;
+}
+
+.prose-custom p {
+  @apply text-dark/80 leading-relaxed mb-6;
+}
+
+.prose-custom a {
+  @apply text-accent no-underline hover:underline;
+}
+
+.prose-custom strong {
+  @apply text-dark font-semibold;
+}
+
+.prose-custom ul {
+  @apply list-disc ml-6 mb-6 space-y-2;
+}
+
+.prose-custom ol {
+  @apply list-decimal ml-6 mb-6 space-y-2;
+}
+
+.prose-custom li {
+  @apply text-dark/80;
+}
+

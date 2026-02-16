@@ -1,0 +1,189 @@
+---
+import { X, Mail, Clock, Tag, Check } from '@lucide/astro';
+import { vacatures } from '../../data/vacatures';
+---
+
+<!-- Modal overlay -->
+<div id="vacature-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <!-- Backdrop -->
+  <div
+    id="vacature-modal-backdrop"
+    class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+  ></div>
+
+  <!-- Modal -->
+  <div class="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-scale-in">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-5 bg-accent/10 border-b border-accent/20 shrink-0">
+      <span id="vacature-modal-title" class="text-lg font-display font-semibold text-dark">
+        Vacature
+      </span>
+      <button
+        id="vacature-modal-close"
+        class="p-2 rounded-lg hover:bg-accent/20 transition-colors cursor-pointer"
+        aria-label="Sluiten"
+      >
+        <X class="w-6 h-6 text-dark" />
+      </button>
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="flex-1 overflow-y-auto overscroll-contain">
+      {vacatures.map((vacature) => (
+        <div id={`vacature-content-${vacature.id}`} class="vacature-content hidden p-6 lg:p-8 space-y-6">
+          <!-- Image + meta -->
+          <div>
+            <img
+              src={vacature.image}
+              alt={vacature.title}
+              class="w-full h-56 object-cover rounded-xl mb-4"
+              loading="lazy"
+            />
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-accent/10 text-accent">
+                <Tag class="w-3 h-3" />
+                {vacature.category}
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary">
+                <Clock class="w-3 h-3" />
+                {vacature.hours}
+              </span>
+            </div>
+          </div>
+
+          <!-- Description sections -->
+          {vacature.description.map((section) => (
+            <div>
+              {section.title && (
+                <h4 class="font-semibold text-dark mb-3">{section.title}</h4>
+              )}
+              {section.content && (
+                <p class="text-dark/80 leading-relaxed">{section.content}</p>
+              )}
+              {section.items && (
+                <ul class="list-disc list-inside space-y-1 text-dark/80 ml-4">
+                  {section.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+
+          {vacature.id === 'secretaris' && (
+            <p class="text-sm text-dark/60 italic">
+              Geen zorgen: deze taken zijn in overleg af te stemmen en kunnen deels worden verdeeld of afgeschaald.
+            </p>
+          )}
+
+          <!-- Requirements -->
+          <div>
+            <h4 class="font-semibold text-dark mb-3">Wat vragen wij?</h4>
+            <ul class="space-y-2">
+              {vacature.requirements.map((req) => (
+                <li class="flex items-start gap-2 text-dark/80">
+                  <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                  <span>{req}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Benefits -->
+          <div>
+            <h4 class="font-semibold text-dark mb-3">Wat bieden wij?</h4>
+            <ul class="space-y-2">
+              {vacature.benefits.map((benefit) => (
+                <li class="flex items-start gap-2 text-dark/80">
+                  <Check class="w-5 h-5 text-nature flex-shrink-0 mt-0.5" />
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Compensation -->
+          <div class="bg-cream rounded-xl p-4">
+            <p class="text-sm text-dark/70">
+              <strong class="text-dark">Vergoeding:</strong> {vacature.compensation}
+            </p>
+          </div>
+
+          <!-- Contact button -->
+          <a
+            href={`mailto:secretariaat@hgvhengelo.nl?subject=${encodeURIComponent(vacature.emailSubject)}`}
+            class="btn btn-accent inline-flex items-center gap-2"
+          >
+            <Mail class="w-5 h-5" />
+            Neem contact op
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('vacature-modal');
+  const backdrop = document.getElementById('vacature-modal-backdrop');
+  const closeButton = document.getElementById('vacature-modal-close');
+  const modalTitle = document.getElementById('vacature-modal-title');
+  const allContents = document.querySelectorAll('.vacature-content');
+
+  function openVacatureModal(id: string) {
+    // Hide all content sections
+    allContents.forEach((el) => el.classList.add('hidden'));
+
+    // Show the selected one
+    const target = document.getElementById(`vacature-content-${id}`);
+    if (target && modal && modalTitle) {
+      target.classList.remove('hidden');
+
+      // Update modal title from the h4 or use a data attribute
+      const titleEl = target.querySelector('img');
+      const titleText = titleEl?.getAttribute('alt') || 'Vacature';
+      modalTitle.textContent = titleText;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeVacatureModal() {
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+  }
+
+  backdrop?.addEventListener('click', closeVacatureModal);
+  closeButton?.addEventListener('click', closeVacatureModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      closeVacatureModal();
+    }
+  });
+
+  // Expose globally
+  (window as any).openVacatureModal = openVacatureModal;
+</script>
+
+<style>
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.2s ease-out;
+  }
+</style>

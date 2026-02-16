@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Accordion from '../../components/ui/Accordion.astro';
+import { HelpCircle, ArrowRight, Phone, Mail } from '@lucide/astro';
+
+const faqItems = [
+  {
+    category: 'Lid worden',
+    questions: [
+      {
+        q: 'Hoe kan ik lid worden van HGV?',
+        a: 'Je kunt lid worden door het aanmeldformulier op onze website in te vullen. Na aanmelding ontvang je een bevestiging en kun je direct beginnen met twee gratis proeflessen.'
+      },
+      {
+        q: 'Kan ik eerst een proefles volgen?',
+        a: 'Ja, de eerste twee lessen zijn altijd gratis! Zo kun je kennismaken met de sport, de trainer en de groep voordat je je definitief aanmeldt.'
+      },
+      {
+        q: 'Vanaf welke leeftijd kan mijn kind lid worden?',
+        a: 'Dit verschilt per sport. De jongste leden zijn 1,5 jaar oud bij ouder-kindgym. Kijk bij de specifieke sport voor de leeftijdsgroepen.'
+      },
+    ]
+  },
+  {
+    category: 'Contributie & Betaling',
+    questions: [
+      {
+        q: 'Hoe wordt de contributie betaald?',
+        a: 'De contributie wordt maandelijks automatisch geïncasseerd. Je geeft bij aanmelding een machtiging af voor automatische incasso.'
+      },
+      {
+        q: 'Krijg ik korting als ik meerdere sporten doe?',
+        a: 'Ja! Bij de tweede en volgende sport krijg je 50% korting op de contributie.'
+      },
+      {
+        q: 'Wat als ik de contributie niet kan betalen?',
+        a: 'Er zijn mogelijkheden voor betalingsondersteuning. Neem contact op met ons secretariaat om de mogelijkheden te bespreken.'
+      },
+    ]
+  },
+  {
+    category: 'Lessen & Rooster',
+    questions: [
+      {
+        q: 'Waar kan ik het lesrooster vinden?',
+        a: 'Het volledige lesrooster vind je op onze website onder "Ons Aanbod" > "Lesrooster". Hier zie je per sport wanneer en waar de lessen zijn.'
+      },
+      {
+        q: 'Zijn er lessen tijdens de schoolvakanties?',
+        a: 'Tijdens de meeste schoolvakanties zijn er geen reguliere lessen. Bekijk het vakantierooster voor de exacte data.'
+      },
+      {
+        q: 'Wat als ik een les mis?',
+        a: 'Gemiste lessen kunnen helaas niet worden ingehaald. Bij langdurige afwezigheid (bijv. door blessure) kun je contact opnemen met het secretariaat.'
+      },
+    ]
+  },
+  {
+    category: 'Opzeggen & Wijzigen',
+    questions: [
+      {
+        q: 'Hoe kan ik mijn lidmaatschap opzeggen?',
+        a: 'Opzeggen kan via het contactformulier op onze website. Let op: dit kan alleen per kwartaal (31 maart, 30 juni, 30 september, 31 december).'
+      },
+      {
+        q: 'Kan ik overstappen naar een andere sport?',
+        a: 'Ja, je kunt overstappen naar een andere sport. Neem contact op met het secretariaat om dit te regelen.'
+      },
+      {
+        q: 'Hoe wijzig ik mijn gegevens?',
+        a: 'Wijzigingen in adres, bankrekeningnummer of andere gegevens kun je doorgeven via het wijzigingsformulier op onze website.'
+      },
+    ]
+  },
+];
+---
+
+<BaseLayout
+  title="Veelgestelde Vragen"
+  description="Antwoorden op veelgestelde vragen over HGV Hengelo. Alles over lid worden, contributie, lessen en meer."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <HelpCircle class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Veelgestelde <span class="text-accent">Vragen</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Vind snel antwoord op de meest gestelde vragen over HGV Hengelo.
+            Staat je vraag er niet bij? Neem gerust contact met ons op.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="grid lg:grid-cols-3 gap-12">
+          <!-- Main content -->
+          <div class="lg:col-span-2 space-y-12">
+            {faqItems.map((category) => (
+              <div>
+                <h2 class="text-2xl font-display font-bold text-dark mb-6">
+                  {category.category}
+                </h2>
+                <div class="space-y-4">
+                  {category.questions.map((item, index) => (
+                    <Accordion title={item.q} open={index === 0}>
+                      <p>{item.a}</p>
+                    </Accordion>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Sidebar -->
+          <div class="lg:col-span-1">
+            <div class="sticky top-28 space-y-6">
+              <!-- Contact card -->
+              <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <h3 class="font-display font-bold text-dark mb-4">
+                  Vraag niet beantwoord?
+                </h3>
+                <p class="text-dark/70 mb-6">
+                  Neem gerust contact met ons op. We helpen je graag!
+                </p>
+                <div class="space-y-3">
+                  <a href="tel:+31643118346" class="flex items-center gap-3 text-dark/70 hover:text-accent transition-colors">
+                    <Phone class="w-5 h-5 text-accent" />
+                    06 - 43 11 83 46
+                  </a>
+                  <a href="mailto:secretariaat@hgvhengelo.nl" class="flex items-center gap-3 text-dark/70 hover:text-accent transition-colors">
+                    <Mail class="w-5 h-5 text-accent" />
+                    secretariaat@hgvhengelo.nl
+                  </a>
+                </div>
+              </div>
+
+              <!-- CTA -->
+              <div class="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-6 text-white">
+                <h3 class="font-display font-bold text-xl mb-4">
+                  Klaar om te starten?
+                </h3>
+                <p class="text-white/80 mb-6">
+                  Word lid en ontdek de leukste sportvereniging van Hengelo!
+                </p>
+                <a href="/info/lidmaatschap" class="btn bg-white text-primary hover:bg-cream w-full justify-center">
+                  Word Lid
+                  <ArrowRight class="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { bestuur } from '../../data/team';
+import { Users, Phone, Mail, Shield, ArrowRight } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Organisatie"
+  description="Het bestuur en de vertrouwenscontactpersonen van HGV Hengelo. Neem contact op met de juiste persoon."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Users class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Onze <span class="text-accent">Organisatie</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed mb-4">
+            H.G.V. draait volledig op vrijwillige inzet. Het bestuur draagt de eindverantwoordelijkheid,
+            ondersteund door diverse commissies en werkgroepen.
+          </p>
+          <p class="text-white/80 text-xl leading-relaxed">
+            De vereniging functioneert als een echt teamverband, waarin bestuurders, leiding, assistenten
+            en vrijwilligers samenwerken om onze sportvereniging draaiende te houden.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <!-- Bestuur -->
+        <div class="mb-16">
+          <h2 class="text-3xl font-display font-bold text-dark mb-8">
+            Het Bestuur
+          </h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {bestuur.map((member) => (
+              <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
+                  <span class="text-white font-display font-bold text-xl">
+                    {member.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                  </span>
+                </div>
+                <h3 class="font-display font-bold text-xl text-dark mb-1">
+                  {member.name}
+                </h3>
+                <p class="text-accent font-medium mb-4">
+                  {member.role}
+                </p>
+                <div class="space-y-2">
+                  {member.email && (
+                    <a href={`mailto:${member.email}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
+                      <Mail class="w-4 h-4" />
+                      {member.email}
+                    </a>
+                  )}
+                  {member.phone && (
+                    <a href={`tel:${member.phone.replace(/-/g, '')}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
+                      <Phone class="w-4 h-4" />
+                      {member.phone}
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Commissies -->
+        <div class="mb-16">
+          <h2 class="text-3xl font-display font-bold text-dark mb-6">
+            Commissies & Werkgroepen
+          </h2>
+          <div class="bg-white rounded-2xl p-8 shadow-lg">
+            <p class="text-dark/70 mb-6">
+              Naast het bestuur zijn er diverse actieve commissies die het verenigingsleven vorm geven:
+            </p>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="p-4 rounded-xl bg-cream">
+                <h3 class="font-display font-bold text-dark mb-2">
+                  Jeugdcommissie
+                </h3>
+                <p class="text-dark/70 text-sm">
+                  Organiseert sociale activiteiten voor de jeugdleden, zoals uitjes, feesten en speciale events.
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-cream">
+                <h3 class="font-display font-bold text-dark mb-2">
+                  PR & Communicatie
+                </h3>
+                <p class="text-dark/70 text-sm">
+                  Verzorgt de communicatie naar leden en publiek, beheert social media en organiseert openbare evenementen.
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-cream">
+                <h3 class="font-display font-bold text-dark mb-2">
+                  Wedstrijdcommissie
+                </h3>
+                <p class="text-dark/70 text-sm">
+                  Coördineert de deelname aan wedstrijden en regionale competities.
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-cream">
+                <h3 class="font-display font-bold text-dark mb-2">
+                  Evenementen
+                </h3>
+                <p class="text-dark/70 text-sm">
+                  Organiseert shows en andere grote verenigingsevenementen.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Veilige Sportomgeving verwijzing -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-xl bg-energy/20 flex items-center justify-center">
+              <Shield class="w-5 h-5 text-energy" />
+            </div>
+            <h2 class="text-3xl font-display font-bold text-dark">
+              Veilige Sportomgeving
+            </h2>
+          </div>
+
+          <div class="bg-white rounded-2xl p-8 shadow-lg">
+            <p class="text-dark/70 mb-6">
+              Bij HGV vinden we een veilige sportomgeving heel belangrijk. Op onze pagina over de veilige
+              sportomgeving vind je informatie over onze vertrouwenscontactpersonen, de externe
+              vertrouwenspersoon en de gedragscode.
+            </p>
+            <a href="/info/veilige-sportomgeving" class="btn btn-primary">
+              <Shield class="w-5 h-5" />
+              Meer over veilige sportomgeving
+              <ArrowRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

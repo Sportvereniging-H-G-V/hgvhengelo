@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { MapPin, Navigation, Building2 } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Dansstudio Hengelo en de Sportkantine"
+  description="Informatie over de dansstudio en sportkantine van HGV Hengelo. Locatie en routebeschrijving."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Building2 class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Dansstudio Hengelo en de <span class="text-accent">Sportkantine</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Sinds zomer 2020 is H.G.V. exploitant van de ruimte bij de OSG sporthal waarin een dansstudio is gebouwd en tevens een sportkantine is.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto">
+          <!-- Intro -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
+            <p class="text-dark/70 text-lg leading-relaxed mb-4">
+              De ruimte kan tweeledig worden gebruikt. Doordeweeks worden er sportlessen verzorgd in de ruimte dansstudio met een prachtige spiegelwand. In het weekend wordt de bar gebruikt, waardoor de ruimte een sportkantine is.
+            </p>
+          </div>
+
+          <!-- Routebeschrijving -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center">
+                <Navigation class="w-5 h-5 text-accent" />
+              </div>
+              <h2 class="text-2xl font-display font-bold text-dark">
+                Hoe kom ik er?
+              </h2>
+            </div>
+
+            <div class="space-y-4 text-dark/70">
+              <p>
+                De ruimte is lastig te vinden. Het adres <strong class="text-dark">Sloetsweg 153</strong> is misleidend, want het leidt naar de voorzijde van het gebouw, terwijl deze ruimte aan de zijkant te betreden is.
+              </p>
+              
+              <div class="bg-primary/5 rounded-xl p-6 border-l-4 border-accent">
+                <p class="mb-3">
+                  <strong class="text-dark">Gebruik het adres <span class="text-accent">Deurningerstraat 67</span> om op het parkeerterrein van het Avila college te komen.</strong> Dat is tegenover de dierenwinkel die vlak bij de rotonde is gevestigd.
+                </p>
+                <p>
+                  De parkeerplaats loop je vervolgens in het verlengde af. Daar zie je het pad met een bocht leiden tot het OSG gebouw, waarin de sporthal en ook onze ruimte is.
+                </p>
+              </div>
+
+              <div class="flex items-start gap-4 mt-6 p-4 rounded-xl bg-cream">
+                <MapPin class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                <div>
+                  <p class="font-semibold text-dark mb-1">Adres voor navigatie:</p>
+                  <p class="text-dark/70">
+                    Deurningerstraat 67<br />
+                    Hengelo
+                  </p>
+                  <a 
+                    href="https://www.google.com/maps/search/?api=1&query=Deurningerstraat+67,+Hengelo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 text-accent hover:text-accent-dark transition-colors mt-2"
+                  >
+                    Open in Google Maps
+                    <Navigation class="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Locatie info -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg">
+            <h3 class="text-xl font-display font-bold text-dark mb-4">
+              Locatie informatie
+            </h3>
+            <div class="space-y-3 text-dark/70">
+              <p>
+                Op de gevel van het gebouw zie je de ingang. Linksboven is de dansstudio met sportkantine.
+              </p>
+              <p class="text-sm text-dark/50 italic">
+                <strong>Let op:</strong> Het adres Sloetsweg 153 leidt naar de voorzijde van het gebouw. Gebruik Deurningerstraat 67 voor de juiste ingang.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

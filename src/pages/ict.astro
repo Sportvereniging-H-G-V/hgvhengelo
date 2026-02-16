@@ -1,0 +1,477 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { Settings, Mail, Phone, Info, AlertCircle } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="ICT"
+  description="ICT ticket aanmaken voor HGV Hengelo. Accountbeheer, H.G.V. Cloud, e-mail, website en AllUnited vragen."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Settings class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            ICT Ticket <span class="text-accent">aanmaken</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Gebruik dit formulier om eenvoudig je ICT-verzoeken of -meldingen binnen H.G.V. in te dienen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto space-y-12">
+          <!-- Intro -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed mb-4 text-lg">
+                Of het nu gaat om accountbeheer, toegang tot <strong>H.G.V. Cloud</strong>, e-mailissues, 
+                website-aanpassingen of <strong>AllUnited</strong>-vragen: je kiest eerst <em>"Wat wil je aanvragen?"</em>, 
+                waarna het formulier automatisch de relevante velden toont. Zo vragen we alleen wat echt nodig is – snel én efficiënt.
+              </p>
+            </div>
+
+            <div class="mt-6">
+              <h3 class="font-display font-bold text-dark mb-4">
+                Veelvoorkomende opties zijn onder andere:
+              </h3>
+              <ul class="space-y-2 text-dark/70">
+                <li class="flex items-start gap-2">
+                  <span class="text-accent mt-0.5">•</span>
+                  <span>Account aanmaken of toewijzingen wijzigen in <strong>FreeScout</strong></span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-accent mt-0.5">•</span>
+                  <span><strong>H.G.V. Cloud</strong>: gebruikers aanmaken, rechten aanpassen of wachtwoord (inclusief authenticator) resetten</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-accent mt-0.5">•</span>
+                  <span><strong>E-mail</strong>: nieuwe mailbox aanvragen of problemen melden</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-accent mt-0.5">•</span>
+                  <span><strong>Website</strong>: aanpassingen invoeren of een nieuwe pagina plaatsen</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-accent mt-0.5">•</span>
+                  <span><strong>AllUnited</strong>: gebruiker aanmaken of rol-/rechtenwijzigingen doorvoeren</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-accent mt-0.5">•</span>
+                  <span><strong>Stoppen als vrijwilliger?</strong> Je kunt met dit formulier ook laten weten dat je (of iemand anders) gestopt is.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Hoe werkt het -->
+          <div class="bg-primary/5 rounded-2xl p-8 border border-primary/20">
+            <h3 class="font-display font-bold text-dark mb-4">
+              Zo werkt het:
+            </h3>
+            <ol class="space-y-2 text-dark/70 list-decimal list-inside">
+              <li>Kies de optie die bij jouw verzoek past.</li>
+              <li>Vul de velden in die verschijnen – elk veld is specifiek afgestemd op jouw keuze.</li>
+              <li>Controleer onder "Algemene informatie" je naam en e-mailadres zorgvuldig.</li>
+              <li>Vink de toestemmingsverklaring aan om akkoord te geven met de verwerking van je gegevens.</li>
+              <li>Klik op Verzenden; je ontvangt direct een bevestiging per e-mail.</li>
+            </ol>
+          </div>
+
+          <!-- Contact -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <div class="flex items-start gap-3">
+              <Info class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 class="font-display font-bold text-dark mb-2">
+                  Contact & privacy
+                </h3>
+                <p class="text-dark/70 text-sm mb-3">
+                  Voor directe hulp of spoedzaken kun je <strong>Ruben</strong> bereiken via{' '}
+                  <a href="tel:0621226077" class="text-accent hover:underline">06-21226077</a> (WhatsApp/telefoon) of{' '}
+                  <a href="mailto:ict@hgvhengelo.nl" class="text-accent hover:underline">ict@hgvhengelo.nl</a>. 
+                  Dit formulier blijft echter de snelste route voor een overzichtelijke afhandeling.
+                </p>
+                <p class="text-dark/60 text-xs italic">
+                  Privacy: jouw gegevens worden uitsluitend gebruikt om je verzoek te behandelen. Door te verzenden stem je in met deze verwerking.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulier -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <h2 class="text-2xl font-display font-bold text-dark mb-6">
+              ICT Ticket Formulier
+            </h2>
+            <form id="ict-form" class="space-y-8">
+              <!-- Aanvraagtype -->
+              <div>
+                <label class="block text-sm font-semibold text-dark mb-3">
+                  Selecteer een aanvraagtype: <span class="text-accent">*</span>
+                </label>
+                <select 
+                  id="aanvraagtype" 
+                  name="aanvraagtype"
+                  required
+                  class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                >
+                  <option value="">-- Selecteer een optie --</option>
+                  <option value="cloud-account-aanmaken">Account(s) aanmaken voor H.G.V. Cloud</option>
+                  <option value="cloud-toewijzingen-wijzigen">Toewijzingen wijzigen H.G.V. Cloud</option>
+                  <option value="cloud-commissie-aanvragen">Nieuwe commissie teammap/rol aanvragen</option>
+                  <option value="cloud-wachtwoord-wijzigen">Wachtwoord wijzigen H.G.V. Cloud</option>
+                  <option value="website-aanpassing">Aanpassing op een website</option>
+                  <option value="website-nieuwe-pagina">Nieuwe pagina op een website</option>
+                  <option value="freescout-account-aanmaken">Account aanmaken in FreeScout</option>
+                  <option value="freescout-toewijzingen-wijzigen">Toewijzingen wijzigen FreeScout</option>
+                  <option value="email-nieuwe-mailbox">Nieuw e-mailadres / mailbox aanvragen</option>
+                  <option value="email-problemen">Foutmeldingen in e-mail / e-mailproblemen</option>
+                  <option value="laptop-aanvraag">Aanvraag of probleem met bedrijfslaptop</option>
+                  <option value="allunited-gebruiker-aanmaken">AllUnited – gebruiker aanmaken</option>
+                  <option value="allunited-rol-wijzigen">AllUnited – rol/rechten wijzigen</option>
+                  <option value="vrijwilliger-stopt">Vrijwilliger stopt – accounts verwijderen</option>
+                  <option value="anders">Anders</option>
+                </select>
+              </div>
+
+              <!-- Conditionele velden container -->
+              <div id="conditionele-velden" class="space-y-6">
+                <!-- Velden worden hier dynamisch ingevoegd -->
+              </div>
+
+              <!-- Algemene informatie -->
+              <div class="border-t border-cream-dark pt-8">
+                <h3 class="text-xl font-display font-bold text-dark mb-6">
+                  Algemene informatie
+                </h3>
+                
+                <div class="space-y-6">
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      Naam aanvrager <span class="text-accent">*</span>
+                    </label>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                      <input 
+                        type="text" 
+                        id="naam-voornaam" 
+                        name="naam-voornaam"
+                        required
+                        placeholder="Voornaam"
+                        class="px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      />
+                      <input 
+                        type="text" 
+                        id="naam-achternaam" 
+                        name="naam-achternaam"
+                        required
+                        placeholder="Achternaam"
+                        class="px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-dark mb-2">
+                      E-mailadres aanvrager <span class="text-accent">*</span>
+                    </label>
+                    <input 
+                      type="email" 
+                      id="email-aanvrager" 
+                      name="email-aanvrager"
+                      required
+                      placeholder="voorbeeld@email.nl"
+                      class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Instemming -->
+              <div>
+                <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                  <input 
+                    type="checkbox" 
+                    id="instemming" 
+                    name="instemming"
+                    required
+                    class="mt-1"
+                  />
+                  <span class="text-dark text-sm">
+                    Ik ga akkoord met de verwerking van bovenstaande gegevens. <span class="text-accent">*</span>
+                  </span>
+                </label>
+              </div>
+
+              <button 
+                type="submit" 
+                class="btn btn-accent w-full"
+              >
+                Versturen
+              </button>
+            </form>
+
+            <!-- Success message -->
+            <div id="success-message" class="hidden mt-6 p-6 bg-green-50 rounded-xl border border-green-200">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-green-800 mb-2">
+                    Ticket verzonden!
+                  </h3>
+                  <p class="text-green-700">
+                    Bedankt voor je ICT-verzoek! Je ontvangt direct een bevestiging per e-mail.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('ict-form');
+    const aanvraagtypeSelect = document.getElementById('aanvraagtype');
+    const conditioneleVelden = document.getElementById('conditionele-velden');
+
+    // Conditionele velden op basis van aanvraagtype
+    const veldenConfig = {
+      'cloud-account-aanmaken': [
+        { type: 'text', name: 'naam-gebruiker', label: 'Naam gebruiker', required: true, placeholder: 'Voornaam Achternaam' },
+        { type: 'email', name: 'privé-email', label: 'Privé e-mailadres gebruiker', required: true, placeholder: 'voorbeeld@email.nl' },
+        { type: 'textarea', name: 'toegang-cloud', label: 'Toegang tot welke commissies/mappen binnen de H.G.V. Cloud?', required: true, placeholder: 'Bijv. specifieke groepen, mappen of commissies.' }
+      ],
+      'cloud-toewijzingen-wijzigen': [
+        { type: 'text', name: 'naam-gebruiker', label: 'Naam gebruiker', required: true, placeholder: 'Voornaam Achternaam' },
+        { type: 'text', name: 'huidige-toegang', label: 'Huidige toegang', required: true },
+        { type: 'text', name: 'gewenste-wijziging', label: 'Gewenste wijziging', required: true }
+      ],
+      'cloud-wachtwoord-wijzigen': [
+        { type: 'text', name: 'naam-gebruiker', label: 'Naam gebruiker', required: true, placeholder: 'Voornaam Achternaam' },
+        { type: 'select', name: '2fa-reset', label: 'Moet de 2FA worden gereset?', required: true, options: ['Ja', 'Nee'] }
+      ],
+      'website-aanpassing': [
+        { type: 'text', name: 'url', label: 'URL van de website', required: true, placeholder: 'https://...' },
+        { type: 'textarea', name: 'omschrijving', label: 'Duidelijke omschrijving van de gewenste wijziging', required: true }
+      ],
+      'website-nieuwe-pagina': [
+        { type: 'text', name: 'url', label: 'URL van de website of gewenste URL van de pagina', required: true },
+        { type: 'text', name: 'titel', label: 'Titel van de pagina', required: true },
+        { type: 'textarea', name: 'inhoud', label: 'Inhoud van de nieuwe pagina (inclusief formulier)', required: true },
+        { type: 'select', name: 'menu-zichtbaar', label: 'Moet deze pagina zichtbaar zijn in het menu?', required: true, options: ['Ja', 'Nee'] }
+      ],
+      'freescout-account-aanmaken': [
+        { type: 'text', name: 'naam-gebruiker', label: 'Volledige naam gebruiker', required: true, placeholder: 'Voornaam Achternaam' },
+        { type: 'email', name: 'cloud-email', label: 'H.G.V. Cloud e-mailadres van de gebruiker', required: true, placeholder: 'gebruiker@hgvhengelo.nl' },
+        { type: 'text', name: 'mailboxen', label: 'Welke mailbox(en) moet deze gebruiker kunnen zien/beantwoorden?', required: true }
+      ],
+      'freescout-toewijzingen-wijzigen': [
+        { type: 'text', name: 'naam-gebruiker', label: 'Naam bestaande gebruiker', required: true },
+        { type: 'select', name: 'wijziging-type', label: 'Wat wil je wijzigen?', required: true, options: ['Mailbox toevoegen', 'Mailbox verwijderen'] },
+        { type: 'text', name: 'mailbox-toevoegen', label: 'Tot welke mailbox(en) moet de gebruiker toegang krijgen?', required: false },
+        { type: 'text', name: 'mailbox-verwijderen', label: 'Tot welke mailbox(en) moet de gebruiker GEEN toegang meer krijgen?', required: false }
+      ],
+      'email-nieuwe-mailbox': [
+        { type: 'email', name: 'gewenst-email', label: 'Gewenst e-mailadres:', required: true, placeholder: 'naam@hgvhengelo.nl' },
+        { type: 'text', name: 'doel-mailbox', label: 'Doel van de mailbox:', required: true },
+        { type: 'select', name: 'gekoppeld-gebruikers', label: 'Moet deze mailbox direct worden gekoppeld aan specifieke gebruikers?', required: true, options: ['Ja', 'Nee'] },
+        { type: 'textarea', name: 'gebruikers-lijst', label: 'Wie moeten er worden toegevoegd? (Graag per gebruiker een aparte regel)', required: false }
+      ],
+      'email-problemen': [
+        { type: 'text', name: 'emailadressen', label: 'Betrokken e-mailadres(sen):', required: true },
+        { type: 'select', name: 'probleem-type', label: 'Wat lukt er niet?', required: true, options: ['Verzenden mislukt', 'Ontvangen lukt niet', 'Foutmelding bij openen mail', 'Anders'] },
+        { type: 'textarea', name: 'probleem-omschrijving', label: 'Omschrijving van het probleem:', required: true },
+        { type: 'date', name: 'datum', label: 'Datum', required: true },
+        { type: 'text', name: 'tijd', label: 'Tijd (schatting indien onbekend)', required: true, placeholder: 'HH:MM' },
+        { type: 'textarea', name: 'foutmelding', label: 'Eventuele foutmelding', required: false, placeholder: 'Plak hier foutmeldingen die je ziet/krijgt' }
+      ],
+      'laptop-aanvraag': [
+        { type: 'select', name: 'type', label: 'Gaat het om een nieuwe aanvraag of een probleem?', required: true, options: ['Nieuwe aanvraag', 'Bestaande laptop probleem'] },
+        { type: 'text', name: 'gebruiker', label: 'Gewenste gebruiker:', required: true },
+        { type: 'text', name: 'serienummer', label: 'Serienummer of labelnummer:', required: true },
+        { type: 'textarea', name: 'omschrijving', label: 'Omschrijving van het probleem of de gewenste software:', required: true },
+        { type: 'select', name: 'in-gebruik', label: 'Is de laptop momenteel in gebruik?', required: true, options: ['Ja', 'Nee'] },
+        { type: 'text', name: 'waarom-niet', label: 'Waarom niet?', required: false }
+      ],
+      'allunited-gebruiker-aanmaken': [
+        { type: 'text', name: 'naam-gebruiker', label: 'Volledige naam gebruiker', required: true },
+        { type: 'email', name: 'email-gebruiker', label: 'E-mailadres gebruiker', required: true },
+        { type: 'text', name: 'rechten-functie', label: 'Gewenste rechten en functie:', required: true }
+      ],
+      'allunited-rol-wijzigen': [
+        { type: 'text', name: 'naam-gebruiker', label: 'Naam bestaande gebruiker', required: true },
+        { type: 'text', name: 'huidige-rol', label: 'Huidige rol (indien bekend):', required: false },
+        { type: 'text', name: 'nieuwe-rol', label: 'Gewenste nieuwe rol of rechten:', required: true },
+        { type: 'textarea', name: 'toelichting', label: 'Toelichting wijziging:', required: true }
+      ],
+      'vrijwilliger-stopt': [
+        { type: 'text', name: 'naam-gebruiker', label: 'Naam van de gebruiker', required: true },
+        { type: 'text', name: 'emailadressen', label: 'E-mailadres(sen) gekoppeld aan deze persoon', required: true },
+        { type: 'text', name: 'waar-verwijderen', label: 'Waar moet het account worden verwijderd?', required: true, placeholder: 'Als iemand volledig stopt graag "overal" invullen' },
+        { type: 'date', name: 'stopdatum', label: 'Datum waarop de gebruiker stopt', required: true },
+        { type: 'select', name: 'bewaren', label: 'Moet er iets bewaard worden vóór verwijdering?', required: true, options: ['Ja', 'Nee'] },
+        { type: 'textarea', name: 'wat-bewaren', label: 'Wat moet er bewaard worden?', required: false }
+      ],
+      'anders': [
+        { type: 'textarea', name: 'omschrijving', label: 'Omschrijf je verzoek zo duidelijk mogelijk', required: true, placeholder: 'Voeg hier eventueel ook links aan toe. Bijlages mogen worden gestuurd in een reply op onze automatische bevestiging' }
+      ]
+    };
+
+    function toonConditioneleVelden() {
+      const geselecteerdType = aanvraagtypeSelect.value;
+      conditioneleVelden.innerHTML = '';
+
+      if (geselecteerdType && veldenConfig[geselecteerdType]) {
+        veldenConfig[geselecteerdType].forEach(veld => {
+          const veldDiv = document.createElement('div');
+          veldDiv.className = 'space-y-2';
+
+          if (veld.type === 'textarea') {
+            veldDiv.innerHTML = `
+              <label class="block text-sm font-semibold text-dark">
+                ${veld.label}${veld.required ? ' <span class="text-accent">*</span>' : ''}
+              </label>
+              <textarea 
+                name="${veld.name}" 
+                ${veld.required ? 'required' : ''}
+                rows="4"
+                placeholder="${veld.placeholder || ''}"
+                class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+              ></textarea>
+            `;
+          } else if (veld.type === 'select') {
+            const options = veld.options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+            veldDiv.innerHTML = `
+              <label class="block text-sm font-semibold text-dark">
+                ${veld.label}${veld.required ? ' <span class="text-accent">*</span>' : ''}
+              </label>
+              <select 
+                name="${veld.name}" 
+                ${veld.required ? 'required' : ''}
+                class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+              >
+                <option value="">-- Selecteer --</option>
+                ${options}
+              </select>
+            `;
+          } else if (veld.type === 'date') {
+            veldDiv.innerHTML = `
+              <label class="block text-sm font-semibold text-dark">
+                ${veld.label}${veld.required ? ' <span class="text-accent">*</span>' : ''}
+              </label>
+              <input 
+                type="date" 
+                name="${veld.name}" 
+                ${veld.required ? 'required' : ''}
+                class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+              />
+            `;
+          } else {
+            veldDiv.innerHTML = `
+              <label class="block text-sm font-semibold text-dark">
+                ${veld.label}${veld.required ? ' <span class="text-accent">*</span>' : ''}
+              </label>
+              <input 
+                type="${veld.type}" 
+                name="${veld.name}" 
+                ${veld.required ? 'required' : ''}
+                placeholder="${veld.placeholder || ''}"
+                class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+              />
+            `;
+          }
+
+          conditioneleVelden.appendChild(veldDiv);
+        });
+      }
+    }
+
+    aanvraagtypeSelect?.addEventListener('change', toonConditioneleVelden);
+
+    // Form submission
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalButtonText = submitButton?.textContent || 'Verzenden';
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Verzenden...';
+        }
+
+        try {
+          const formDataObj = new FormData(form);
+          const formData: Record<string, any> = {};
+          formDataObj.forEach((value, key) => {
+            formData[key] = value;
+          });
+
+          // Voeg aanvraagtype tekst toe
+          const aanvraagtype = aanvraagtypeSelect.options[aanvraagtypeSelect.selectedIndex].text;
+          formData.aanvraagtype = aanvraagtype;
+
+          // Verstuur naar Freescout API
+          const response = await fetch('/api/freescout-submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              formType: 'ict',
+              formData: formData,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+              successMessage.classList.remove('hidden');
+              form.style.display = 'none';
+              successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          } else {
+            throw new Error(result.error || 'Er is een fout opgetreden bij het verzenden van het formulier.');
+          }
+        } catch (error: any) {
+          console.error('Fout bij verzenden formulier:', error);
+          alert('Er is een fout opgetreden bij het verzenden van het formulier. Probeer het later opnieuw of neem contact met ons op via ict@hgvhengelo.nl');
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+          }
+        }
+      });
+    }
+  });
+</script>

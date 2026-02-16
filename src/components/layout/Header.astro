@@ -1,0 +1,187 @@
+---
+import { navigation, quickLinks } from '../../data/navigation';
+import { Menu, X, ChevronDown } from '@lucide/astro';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="header">
+  <div class="glass">
+    <div class="container-custom">
+      <nav class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-3 group">
+          <img 
+            src="/logo.png" 
+            alt="HGV Hengelo Logo" 
+            class="h-12 w-auto transform group-hover:scale-110 transition-all"
+          />
+          <div class="hidden sm:block">
+            <span class="font-display font-extrabold text-xl text-primary">HGV</span>
+            <span class="font-display text-sm text-dark/60 block -mt-1">Hengelo</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden lg:flex items-center gap-1">
+          {navigation.map((item) => (
+            <div class="relative group">
+              <a
+                href={item.href}
+                class="flex items-center gap-1 px-4 py-2 rounded-lg font-medium text-dark/80 hover:text-primary hover:bg-primary/5 transition-all"
+              >
+                {item.label}
+                {item.children && (
+                  <ChevronDown class="w-4 h-4 transform group-hover:rotate-180 transition-transform" />
+                )}
+              </a>
+
+              {item.children && (
+                <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div class="bg-white rounded-xl shadow-xl border border-cream-dark py-2 min-w-[220px]">
+                    {item.children.map((child) => (
+                      <a
+                        href={child.href}
+                        class="block px-4 py-2 text-dark/80 hover:text-primary hover:bg-primary/5 transition-all"
+                      >
+                        {child.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <!-- Right side actions -->
+        <div class="flex items-center gap-3">
+          <!-- Quick CTA -->
+          <a
+            href="/info/lidmaatschap"
+            class="hidden md:flex btn btn-sunshine text-sm"
+          >
+            Word Lid!
+          </a>
+
+          <!-- Mobile menu button -->
+          <button
+            id="mobile-menu-button"
+            class="lg:hidden p-2 rounded-lg hover:bg-primary/10 transition-colors"
+            aria-label="Open menu"
+          >
+            <Menu class="w-6 h-6 text-dark" id="menu-icon" />
+            <X class="w-6 h-6 text-dark hidden" id="close-icon" />
+          </button>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="lg:hidden fixed inset-0 top-20 bg-cream transform translate-x-full transition-transform duration-300 ease-out z-40">
+    <div class="container-custom py-6 h-full overflow-y-auto">
+      <nav class="space-y-2">
+        {navigation.map((item, index) => (
+          <div class="animate-slide-in-left" style={`animation-delay: ${index * 0.1}s; opacity: 0;`}>
+            {item.children ? (
+              <details class="group">
+                <summary class="flex items-center justify-between px-4 py-3 rounded-xl font-display font-semibold text-lg cursor-pointer hover:bg-primary/5 list-none">
+                  {item.label}
+                  <ChevronDown class="w-5 h-5 transform group-open:rotate-180 transition-transform" />
+                </summary>
+                <div class="ml-4 mt-2 space-y-1 border-l-2 border-accent/30 pl-4">
+                  {item.children.map((child) => (
+                    <a
+                      href={child.href}
+                      class="block py-2 text-dark/70 hover:text-primary transition-colors"
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              </details>
+            ) : (
+              <a
+                href={item.href}
+                class="block px-4 py-3 rounded-xl font-display font-semibold text-lg hover:bg-primary/5 transition-colors"
+              >
+                {item.label}
+              </a>
+            )}
+          </div>
+        ))}
+      </nav>
+
+      <!-- Mobile CTA -->
+      <div class="mt-8 px-4">
+        <a href="/info/lidmaatschap" class="btn btn-energy w-full justify-center text-lg">
+          Lid Worden
+        </a>
+      </div>
+
+      <!-- Quick links -->
+      <div class="mt-8 px-4 pt-8 border-t border-cream-dark">
+        <p class="text-sm font-semibold text-dark/50 mb-4">Snelle Links</p>
+        <div class="flex flex-wrap gap-2">
+          {quickLinks.map((link) => (
+            <a
+              href={link.href}
+              class="px-4 py-2 rounded-full text-sm bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Spacer for fixed header -->
+<div class="h-20"></div>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  let isMenuOpen = false;
+
+  mobileMenuButton?.addEventListener('click', () => {
+    isMenuOpen = !isMenuOpen;
+    mobileMenu?.classList.toggle('translate-x-full', !isMenuOpen);
+    mobileMenu?.classList.toggle('translate-x-0', isMenuOpen);
+    menuIcon?.classList.toggle('hidden', isMenuOpen);
+    closeIcon?.classList.toggle('hidden', !isMenuOpen);
+    document.body.classList.toggle('overflow-hidden', isMenuOpen);
+  });
+
+  // Close menu on link click
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      isMenuOpen = false;
+      mobileMenu?.classList.add('translate-x-full');
+      mobileMenu?.classList.remove('translate-x-0');
+      menuIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    });
+  });
+
+  // Header scroll effect
+  const header = document.getElementById('header');
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+
+    if (currentScroll > 100) {
+      header?.classList.add('shadow-lg');
+    } else {
+      header?.classList.remove('shadow-lg');
+    }
+
+    lastScroll = currentScroll;
+  });
+</script>

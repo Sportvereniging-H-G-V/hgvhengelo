@@ -1,0 +1,312 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { BookOpen, Calendar, Users, Trophy, Heart, ArrowRight } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Geschiedenis"
+  description="De rijke geschiedenis van HGV Hengelo sinds 1875. Ontdek hoe de oudste en meest diverse sportvereniging van Hengelo is ontstaan en gegroeid."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <BookOpen class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            De geschiedenis van <span class="text-accent">H.G.V.</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Sinds 1875 de oudste en meest diverse sportvereniging van Hengelo. 
+            Ontdek onze rijke geschiedenis en hoe we zijn uitgegroeid tot wat we vandaag zijn.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto space-y-12">
+          <!-- Een indrukwekkende start -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                <Calendar class="w-6 h-6 text-primary" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                Een indrukwekkende start
+              </h2>
+            </div>
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                In <strong>1875</strong> richtten 13 mannen de Hengelosche Gymnastiek Vereeniging op onder het motto 
+                <em>'Mens sana in corpore sano'</em>, ofwel een gezonde geest in een gezond lichaam. In die tijd waren 
+                er nog geen verenigingen, H.G.V. was de eerste vereniging van heel Twente en de eerste tien jaar de 
+                enige vereniging in Hengelo. Gymnastiek was dé sport. Toen de eerste voetbalclub kwam, vierde H.G.V. 
+                haar 25-jarige jubileum al.
+              </p>
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                In die eerste tijd was sporten alleen voor mannen. In <strong>1895</strong> werd de adspirantenafdeling 
+                opgericht, oftewel de jongens jeugd, met acht jongens. Pas tien jaar later mochten er vrouwen meedoen. 
+                De in <strong>1909</strong> opgerichte damesgymnastiekvereniging 'Thusnelda' sluit zich namelijk in 
+                <strong>1910</strong> bij H.G.V. aan met haar acht meisjes en in datzelfde jaar werd ook de damesafdeling 
+                opgericht. Bij de gymnastiek voor meisjes werd ook al heel vroeg dans gegeven, al is niet bekend wanneer. 
+                Pas in <strong>1967</strong> start de afdeling 'gymnastiek voor iedereen', bedoeld voor ouderen, de 
+                seniorenlessen dus.
+              </p>
+              <p class="text-dark/80 leading-relaxed text-lg">
+                H.G.V. sportte de eerste tijd in een klein gymnastieklokaal op de plek waar nu onze bibliotheek is. 
+                In <strong>1986</strong> nam H.G.V. de gymnastiekvereniging Olympia over en in <strong>2014</strong> wordt 
+                de Rhönradafdeling van DEV Borne overgenomen.
+              </p>
+            </div>
+          </div>
+
+          <!-- Zo ging dat toen! -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+                <BookOpen class="w-6 h-6 text-accent" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                Zo ging dat toen!
+              </h2>
+            </div>
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed text-lg">
+                Een lange tijd ging een vrijwilliger voor de penningmeester langs de deuren om geld te innen en werd 
+                alles op papier bijgehouden. Dikke boekwerken met namenlijsten van oudleden waren er. Veel later werd 
+                de administratie gedigitaliseerd. Ons erelid Otto Nieborg heeft veel betekend in dit landelijke proces. 
+                Pas in <strong>2006</strong> kreeg H.G.V. een eigen website.
+              </p>
+            </div>
+          </div>
+
+          <!-- De sporten van H.G.V. -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-energy/20 flex items-center justify-center">
+                <Trophy class="w-6 h-6 text-energy" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                De sporten van H.G.V.
+              </h2>
+            </div>
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                H.G.V. is wat wispelturig geweest met haar sporten in die 145 jaar. De dames- en jeugdafdelingen zijn 
+                meerdere malen tijdelijk gestopt. Een ander mooi voorbeeld is de 'rhymtische gymnastiek' die startte in 
+                <strong>1923</strong>, al bijna een eeuw geleden! In <strong>1950</strong> werd de ritmische gymnastiek 
+                opnieuw gestart en in <strong>2016</strong> ook weer.
+              </p>
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                H.G.V. deed veel meer dan de gymsport. In <strong>1920</strong> startten de buitensporten atletiek en 
+                korfbal. Op gebied van atletiek heeft H.G.V. heel goede resultaten behaald. De atletiek takte in 
+                <strong>1945</strong> af in de huidige vereniging (Marathon) Pim Mullier, met goede atleten. Waar de 
+                korfbalafdeling is gebleven, is onduidelijk. In <strong>1932</strong> werd ook een handbalafdeling 
+                opgericht. In <strong>1950</strong> is de handbal zelfs naar de hoofdklasse gepromoveerd, maar in 
+                <strong>1958</strong> werd de afdeling handbal afgesplitst. De handbal gaat samen verder met Tubantia 
+                als de welbekende vereniging Donar.
+              </p>
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                In <strong>1960</strong> koopt H.G.V. als eerste vereniging in de regio een trampoline. Er worden twee 
+                jaren landelijke wedstrijden meegedaan. In <strong>2012</strong> start H.G.V. de sport trampolinespringen 
+                opnieuw. Eerst op een trampoline van de gemeente, in <strong>2014</strong> koopt H.G.V. haar eerste, 
+                nou ja eigenlijk dus tweede trampoline.
+              </p>
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                Het is onduidelijk wanneer de ouder- en kindgym, de zaalvoetbal en volleybal en de aeronetics zijn 
+                gestart, maar in ieder geval voor <strong>2005</strong>. Vanaf <strong>2008</strong> starten de meeste 
+                huidige sporten, zoals het groepsspringen. In <strong>2009</strong> starten de groepen jazzdance waarmee 
+                dans voor jeugd (opnieuw) in het leven werd geblazen. In <strong>2011</strong> start de free-running en 
+                het jaar erop het trampolinespringen. In <strong>2013</strong> werden de breakdance, de moderne dans en 
+                de skatehockey geïntroduceerd. In <strong>2014</strong> start de gym+, voor het eerst een aangepaste 
+                sport, en wordt gestart met het Nijntje Beweegdiploma programma van de KNGU. Ook de overname van het 
+                Rhönradturnen vond toen plaats.
+              </p>
+              <p class="text-dark/80 leading-relaxed text-lg">
+                In <strong>2015</strong> worden de sporten aerial silk (klimdoekturnen) en acrobatiek in een combinatie 
+                opgestart. Voor het Sportspektakel, de jubileumshow, wordt het demoteam gestart, een les waarin sporters 
+                van verschillende disciplines samen optredens voorbereiden. In <strong>2016</strong> wordt de Airtrack 
+                aangeschaft en als sport geïntroduceerd. Ook start dan de ritmische gymnastiek (opnieuw) en daarmee heeft 
+                H.G.V. als enige vereniging van Nederland alle gymnastische sporten in huis. <strong>2017</strong> start 
+                de spelles, later apenkooiles genoemd. In <strong>2018</strong> wordt een speelse gymnastiekles gestart 
+                voor volwassenen.
+              </p>
+            </div>
+          </div>
+
+          <!-- Vrijwilligers -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-sunshine/20 flex items-center justify-center">
+                <Users class="w-6 h-6 text-sunshine" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                Vrijwilligers: de fundering van de vereniging
+              </h2>
+            </div>
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                Behalve bestuursleden had H.G.V. vroeger ook nog een directeur. Tot <strong>1932</strong> waren de 
+                directeur en technische commissies geen onderdeel van het bestuur. Toen H.G.V. 47 jaar oud was, werd 
+                oudtrainer en -voorzitter Visser het eerste erelid. Pas 46 jaar later kwam een tweede erelid. In totaal 
+                zijn er dertien, waarvan er nog zes in leven. Zo ook Manny Nieborg en Gerrit van Veelen, onze vorige 
+                secretaris en penningmeester. Er zijn ook een tijd leden van verdienste benoemd, acht in totaal.
+              </p>
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                In <strong>1958</strong> is een jeugdraad geïnstalleerd. Die moet ook ergens weer zijn gestopt, want in 
+                <strong>2007</strong> is de huidige jeugdcommissie pas opgestart. In <strong>2004</strong> overleed de 
+                penningmeester Arjan Munneke op veel te jonge leeftijd van 27 jaar aan kanker. Hij was zeer betrokken bij 
+                H.G.V., het raakte de vereniging dan ook diep. Arjan liet geld na voor H.G.V., waarvan een jeugdfeest is 
+                georganiseerd.
+              </p>
+              <p class="text-dark/80 leading-relaxed text-lg">
+                In <strong>2011</strong> wordt er een bijna volledig nieuw bestuur aangesteld. Dat bestuur heeft in een 
+                korte tijd veel vernieuwd. In <strong>2012</strong> start onze PR-commissie en er ontstaan steeds meer 
+                commissies en werkgroepen, voor bijvoorbeeld de sportshow, de kampen en de teamscholingen die we 
+                inspiratiedagen noemen.
+              </p>
+            </div>
+          </div>
+
+          <!-- De oorlog -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center">
+                <Heart class="w-6 h-6 text-red-500" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                De oorlog
+              </h2>
+            </div>
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                De tweede wereldoorlog heeft veel schade toegebracht aan H.G.V. Negen leden moesten in militaire dienst, 
+                de voorzitter stopte, de dans- en jeugdlessen werden verboden, het 65-jarig jubileum is niet gevierd en 
+                toen ook nog de directeur, na 18 jaar dienst, overleed bij een bombardement. Tegen het einde van de oorlog 
+                werd een avondklok van 20.00 uur ingesteld en werd turnen daarmee onmogelijk gemaakt. Er vielen ook onder 
+                de leden doden bij bomaanvallen.
+              </p>
+              <p class="text-dark/80 leading-relaxed text-lg">
+                Net na de bevrijding overleed Wim Meijer, voorzitter van H.G.V. en voorzitter van de Twentse Turn Kring. 
+                Wim Meijer was de vader van ons erelid en nog elk jaar jurylid Wim Meijer.
+              </p>
+            </div>
+          </div>
+
+          <!-- Show -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+                <Trophy class="w-6 h-6 text-accent" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                Show
+              </h2>
+            </div>
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed text-lg">
+                H.G.V. organiseert al sinds <strong>1880</strong> elk jaar een uitvoering, met een gat van 1968 tot 2015. 
+                Jubilea werden groot gevierd. Vrijwel altijd met shows, maar er werden ook nachtwandelingen, 
+                fakkeloptochten en feesten georganiseerd. De shows waren vroeger alleen voor de volwassenen. In 
+                <strong>2015</strong> werd voor het eerst een Sportspektakel georganiseerd: een jubileumuitvoering in 
+                het theater. In <strong>2013</strong> en <strong>2014</strong> werden jaarlijkse dansuitvoeringen 
+                georganiseerd en sinds <strong>2016</strong> is er een jaarlijkse sportshow voor alle sporten.
+              </p>
+            </div>
+          </div>
+
+          <!-- Speciale gelegenheden -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                <Calendar class="w-6 h-6 text-primary" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                Speciale gelegenheden
+              </h2>
+            </div>
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                Er is in <strong>1935</strong> een clublied geschreven. In <strong>2020</strong> weer een. De onderlinge 
+                wedstrijden, de clubkampioenschappen dus, worden al sinds <strong>1926</strong> georganiseerd. In 
+                <strong>1932</strong> mochten turners luchtschip 'Graf Zeppelin' assistentie verlenen bij de landing. In 
+                <strong>1948</strong>, vlak na de oorlog, won H.G.V. de tweede prijs met… een praalwagen! Ze liep namelijk 
+                mee in de optocht voor het 50-jarige jubileum van koningin Wilhelmina. Het jaar erop opende H.G.V. de 
+                stoet ter opening van het Stadion Veldwijk, wat nu het FBK stadion heet. En in <strong>1963</strong> 
+                bouwden zij opnieuw een praalwagen, voor de opening van het stadhuis. Op die praalwagen stond overigens 
+                een brug met ongelijke liggers en de grote trampoline waar gedurende de optocht aan werd geturnd.
+              </p>
+              <p class="text-dark/80 leading-relaxed text-lg">
+                Vanaf <strong>2012</strong> verandert er veel: er worden veel activiteiten georganiseerd: de 
+                kleuterclubkampioenschappen, sportinstuiven, open trainingen in de IISPA turnhal, de free-running jam en 
+                de sponsorloop. H.G.V. schuift aan bij evenementen als Koningsdag, de buitenspeeldag, het open podium 
+                van de Schouwburg en de Wereldgymnaestrada. Ook geeft H.G.V. clinics op basisscholen. In <strong>2017</strong> 
+                wordt een aanhanger aangeschaft waarin toestellen naar evenementen worden gereden.
+              </p>
+            </div>
+          </div>
+
+          <!-- Samenwerkingen -->
+          <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-lg">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-energy/20 flex items-center justify-center">
+                <Users class="w-6 h-6 text-energy" />
+              </div>
+              <h2 class="text-3xl font-display font-bold text-dark">
+                Samenwerkingen
+              </h2>
+            </div>
+            <div class="prose prose-lg max-w-none">
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                H.G.V. werkte al in <strong>1881</strong> samen in het Nederlandse Gymnastiek Verbond, nu de KNGU. Met 
+                veel andere verenigingen organiseerde H.G.V. wedstrijden en later activiteiten, veelal met verenigingen 
+                van de Twentse Turn Kring, die tegenwoordig ook onderdeel is van de KNGU. In <strong>2016</strong> werd 
+                H.G.V. de vaste gastheer van het Gym- en Dansgala District Oost-Nederland, dat nu Your Stage Oost heet.
+              </p>
+              <p class="text-dark/80 leading-relaxed mb-6 text-lg">
+                Vanaf <strong>2014</strong> maakt H.G.V. sponsordeals op de Slingerbeurs. Mede daardoor komen er steeds 
+                meer samenwerkingen met andere instellingen in Hengelo. In <strong>2016</strong> organiseert H.G.V. voor 
+                het eerst het ouder- en kindgymfeest voor andere verenigingen die ouder- en kindgym aanbieden en organiseert 
+                H.G.V. het Sportfestival voor alle sportverenigingen van Hengelo. H.G.V. geeft sindsdien ook structureel 
+                les voor een andere instantie: een gymles met het Beweegdiploma programma voor kinderopvang Smallsteps.
+              </p>
+              <p class="text-dark/80 leading-relaxed text-lg">
+                In <strong>2018</strong> introduceert H.G.V. het schoolsporttoernooi Apenkooi toernooi voor jeugd en tevens 
+                een landelijk Apenkooi toernooi voor volwassenen.
+              </p>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-10 lg:p-12 text-white shadow-lg">
+            <h3 class="font-display font-bold text-2xl mb-4">
+              Word onderdeel van onze geschiedenis
+            </h3>
+            <p class="text-white/80 mb-6 text-lg">
+              Al sinds 1875 maken we geschiedenis. Word lid en maak deel uit van deze bijzondere vereniging!
+            </p>
+            <a href="/info/lidmaatschap" class="btn bg-white text-primary hover:bg-cream inline-flex items-center gap-2">
+              Word Lid
+              <ArrowRight class="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,286 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { Mail, Phone, Send, Facebook, Instagram } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Neem contact op met HGV Hengelo. Vind onze contactgegevens, adres en openingstijden."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Mail class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Neem <span class="text-accent">Contact</span> Op
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Heb je een vraag, wil je meer informatie of wil je een proefles aanvragen? We horen graag van je!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="grid lg:grid-cols-2 gap-12">
+          <!-- Contact form -->
+          <div>
+            <h2 class="text-2xl font-display font-bold text-dark mb-6">
+              Stuur ons een bericht
+            </h2>
+
+            <form class="space-y-6" id="contact-form">
+              <div class="grid sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="input-label">Naam *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="input"
+                    placeholder="Je naam"
+                  />
+                </div>
+                <div>
+                  <label for="email" class="input-label">E-mail *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="input"
+                    placeholder="je@email.nl"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="phone" class="input-label">Telefoonnummer</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="input"
+                  placeholder="06 - 12345678"
+                />
+              </div>
+
+              <div>
+                <label for="subject" class="input-label">Onderwerp *</label>
+                <select id="subject" name="subject" required class="input">
+                  <option value="">Selecteer een onderwerp</option>
+                  <option value="proefles">Proefles aanvragen</option>
+                  <option value="lidmaatschap">Vraag over lidmaatschap</option>
+                  <option value="contributie">Vraag over contributie</option>
+                  <option value="lesrooster">Vraag over lesrooster</option>
+                  <option value="anders">Anders</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="input-label">Bericht *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows="5"
+                  class="input resize-none"
+                  placeholder="Typ hier je bericht..."
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-energy w-full justify-center text-lg">
+                <Send class="w-5 h-5" />
+                Verstuur Bericht
+              </button>
+
+              <p class="text-sm text-dark/50 text-center">
+                * Verplichte velden. We reageren meestal binnen 2 werkdagen.
+              </p>
+            </form>
+          </div>
+
+          <!-- Contact info -->
+          <div class="space-y-8">
+            <div>
+              <h2 class="text-2xl font-display font-bold text-dark mb-6">
+                Contactgegevens
+              </h2>
+
+              <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
+                    <Phone class="w-6 h-6 text-accent" />
+                  </div>
+                  <div>
+                    <h3 class="!text-lg font-display font-bold text-dark mb-1">Telefoon</h3>
+                    <a href="tel:+31643118346" class="text-dark/70 hover:text-accent transition-colors">
+                      06 - 43 11 83 46
+                    </a>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
+                    <Mail class="w-6 h-6 text-accent" />
+                  </div>
+                  <div>
+                    <h3 class="!text-lg font-display font-bold text-dark mb-1">E-mail</h3>
+                    <a href="mailto:secretariaat@hgvhengelo.nl" class="text-sm text-dark/70 hover:text-accent transition-colors">
+                      secretariaat@hgvhengelo.nl
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Social links -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+              <h3 class="font-display font-bold text-dark mb-4">
+                Volg ons
+              </h3>
+              <div class="flex gap-4">
+                <a
+                  href="https://www.facebook.com/hgvhengelo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-12 h-12 rounded-xl bg-primary/10 hover:bg-primary hover:text-white flex items-center justify-center transition-all"
+                  aria-label="Facebook"
+                >
+                  <Facebook class="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.instagram.com/hgvhengelo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-12 h-12 rounded-xl bg-primary/10 hover:bg-primary hover:text-white flex items-center justify-center transition-all"
+                  aria-label="Instagram"
+                >
+                  <Instagram class="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.tiktok.com/@sportvereniginghgv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-12 h-12 rounded-xl bg-primary/10 hover:bg-primary hover:text-white flex items-center justify-center transition-all"
+                  aria-label="TikTok"
+                >
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.3 0 .59.05.86.12V9.01a6.32 6.32 0 0 0-.86-.06 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.55a8.19 8.19 0 0 0 4.77 1.52V6.69h-1.01z"/></svg>
+                </a>
+                <a
+                  href="https://wa.me/31643118346"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-12 h-12 rounded-xl bg-primary/10 hover:bg-primary hover:text-white flex items-center justify-center transition-all"
+                  aria-label="WhatsApp"
+                >
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- KVK info -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+              <h3 class="font-display font-bold text-dark mb-4">
+                Zakelijke gegevens
+              </h3>
+              <div class="space-y-2 text-dark/70">
+                <p><span class="font-semibold">KVK:</span> 40074041</p>
+                <p><span class="font-semibold">Facturatie:</span> penningmeester@hgvhengelo.nl</p>
+                <div class="pt-2">
+                  <p class="font-semibold mb-1">Facturatieadres:</p>
+                  <p>
+                    Adamsweg 25<br />
+                    7553 KL Hengelo
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const button = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!button) return;
+
+    const originalButtonHTML = button.innerHTML;
+    const originalButtonClasses = button.className;
+
+    // Disable button en toon loading state
+    button.disabled = true;
+    button.innerHTML = '<svg class="w-5 h-5 animate-spin"><use href="#send-icon"></use></svg> Verzenden...';
+
+    try {
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Verstuur naar Freescout API
+      const response = await fetch('/api/freescout-submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: 'contact',
+          formData: data,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Show success message
+        button.textContent = 'Verstuurd!';
+        button.classList.remove('btn-energy');
+        button.classList.add('bg-green-500', 'text-white');
+
+        // Reset form
+        form.reset();
+
+        // Reset button after 3 seconds
+        setTimeout(() => {
+          button.innerHTML = originalButtonHTML;
+          button.className = originalButtonClasses;
+          button.disabled = false;
+        }, 3000);
+      } else {
+        throw new Error(result.error || 'Er is een fout opgetreden bij het verzenden van het formulier.');
+      }
+    } catch (error: any) {
+      console.error('Fout bij verzenden formulier:', error);
+      alert('Er is een fout opgetreden bij het verzenden van het formulier. Probeer het later opnieuw of neem contact met ons op via secretariaat@hgvhengelo.nl');
+      
+      // Herstel button state
+      button.innerHTML = originalButtonHTML;
+      button.className = originalButtonClasses;
+      button.disabled = false;
+    }
+  });
+</script>

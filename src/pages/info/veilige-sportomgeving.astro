@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { vertrouwenscontactpersonen, externeVertrouwenspersoon } from '../../data/team';
+import { Phone, Mail, Shield, FileText, ExternalLink } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Veilige Sportomgeving"
+  description="Vertrouwenscontactpersonen en gedragscode bij HGV Hengelo. Bij ons staat een veilige sportomgeving voorop."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-energy/20 flex items-center justify-center">
+              <Shield class="w-6 h-6 text-energy" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Veilige <span class="text-accent">Sportomgeving</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Bij HGV vinden we een veilige sportomgeving heel belangrijk. Onze vertrouwenscontactpersonen
+            zijn er voor je als je ergens mee zit. Op deze pagina vind je ook onze gedragscode.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <!-- Vertrouwenscontactpersonen -->
+        <div class="mb-16">
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-xl bg-energy/20 flex items-center justify-center">
+              <Shield class="w-5 h-5 text-energy" />
+            </div>
+            <h2 class="text-3xl font-display font-bold text-dark">
+              Vertrouwenscontactpersonen
+            </h2>
+          </div>
+
+          <div class="bg-white rounded-2xl p-8 shadow-lg mb-8">
+            <p class="text-dark/70 mb-6">
+              Je kunt bij onze vertrouwenscontactpersonen (VCPs) terecht met vragen of zorgen over
+              grensoverschrijdend gedrag, pesten, discriminatie, intimidatie of andere ongewenste situaties.
+            </p>
+
+            <h3 class="font-display font-bold text-dark mb-4">
+              HGV Vertrouwenscontactpersonen
+            </h3>
+
+            <div class="grid sm:grid-cols-2 gap-6 mb-8">
+              {vertrouwenscontactpersonen.map((person) => (
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-cream">
+                  <div class="w-12 h-12 rounded-full bg-gradient-to-br from-energy to-energy-light flex items-center justify-center flex-shrink-0">
+                    <span class="text-white font-display font-bold">
+                      {person.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 class="font-display font-bold text-dark">
+                      {person.name}
+                    </h3>
+                    <div class="mt-2 space-y-1">
+                      {person.email && (
+                        <a href={`mailto:${person.email}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
+                          <Mail class="w-4 h-4" />
+                          {person.email}
+                        </a>
+                      )}
+                      {person.phone && (
+                        <a href={`tel:${person.phone.replace(/-/g, '')}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
+                          <Phone class="w-4 h-4" />
+                          {person.phone}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <!-- Externe vertrouwenspersoon -->
+            <h3 class="font-display font-bold text-dark mb-4">
+              Externe Vertrouwenspersoon
+            </h3>
+
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-cream mb-8">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                <span class="text-white font-display font-bold">
+                  {externeVertrouwenspersoon.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                </span>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-dark">
+                  {externeVertrouwenspersoon.name}
+                </h3>
+                <p class="text-accent font-medium text-sm mb-2">
+                  {externeVertrouwenspersoon.role}
+                </p>
+                <div class="space-y-1">
+                  <a href={`mailto:${externeVertrouwenspersoon.email}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
+                    <Mail class="w-4 h-4" />
+                    {externeVertrouwenspersoon.email}
+                  </a>
+                  <a href={`tel:${externeVertrouwenspersoon.phone!.replace(/-/g, '')}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
+                    <Phone class="w-4 h-4" />
+                    {externeVertrouwenspersoon.phone}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 bg-energy/5 rounded-xl mb-6">
+              <h4 class="font-display font-bold text-dark mb-3">
+                KNGU Vertrouwenscontactpersoon
+              </h4>
+              <p class="text-dark/70 text-sm mb-2">
+                Daarnaast kun je ook terecht bij de landelijke vertrouwenscontactpersoon van de KNGU:
+              </p>
+              <a href="mailto:vcp@kngu.nl" class="flex items-center gap-2 text-accent hover:text-energy transition-colors font-medium">
+                <Mail class="w-4 h-4" />
+                vcp@kngu.nl
+              </a>
+            </div>
+
+            <div class="space-y-3 text-sm text-dark/60">
+              <p class="flex items-start gap-2">
+                <Shield class="w-4 h-4 mt-0.5 flex-shrink-0 text-energy" />
+                <span>
+                  <strong class="text-dark">Vertrouwelijkheid:</strong> Alle gesprekken zijn strikt vertrouwelijk.
+                  Je kunt ook anoniem contact opnemen.
+                </span>
+              </p>
+              <p class="flex items-start gap-2">
+                <Shield class="w-4 h-4 mt-0.5 flex-shrink-0 text-energy" />
+                <span>
+                  <strong class="text-dark">Uitzondering:</strong> VCPs handhaven vertrouwelijkheid, behalve in ernstige
+                  veiligheidssituaties of wettelijke verplichtingen. In dat geval wordt dit altijd eerst met jou besproken.
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gedragscode -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center">
+              <FileText class="w-5 h-5 text-accent" />
+            </div>
+            <h2 class="text-3xl font-display font-bold text-dark">
+              Gedragscode
+            </h2>
+          </div>
+
+          <div class="bg-white rounded-2xl p-8 shadow-lg">
+            <p class="text-dark/70 mb-6">
+              Binnen HGV hanteren wij de gedragscode van NOC*NSF. Deze gedragscode beschrijft de normen
+              en waarden die gelden voor iedereen die betrokken is bij de sport: bestuurders, trainers,
+              begeleiders, vrijwilligers en sporters.
+            </p>
+            <a
+              href="https://nocnsf.nl/media/j2tdseel/2025_gedragscode-voor-functionarissen-bestuurders-en-vrijwilligers.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+            >
+              <FileText class="w-5 h-5" />
+              Gedragscode NOC*NSF bekijken
+              <ExternalLink class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

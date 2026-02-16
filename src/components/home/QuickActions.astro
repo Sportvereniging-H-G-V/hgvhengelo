@@ -1,0 +1,192 @@
+---
+import { UserPlus, Calendar, CreditCard, HelpCircle, ArrowRight, MapPin, Clock } from '@lucide/astro';
+import { haalAankomendeEvents, formateerTijd } from '../../lib/calendar-api';
+
+const events = await haalAankomendeEvents(3);
+
+const actions = [
+  {
+    icon: UserPlus,
+    title: 'Lid Worden',
+    description: 'Word lid van HGV en start direct met sporten.',
+    href: '/info/lidmaatschap',
+    color: 'primary',
+    highlight: true,
+  },
+  {
+    icon: Calendar,
+    title: 'Lesrooster',
+    description: 'Bekijk wanneer en waar je sport gegeven wordt.',
+    href: '/ons-aanbod/lesrooster',
+    color: 'accent',
+  },
+  {
+    icon: CreditCard,
+    title: 'Contributie',
+    description: 'Informatie over tarieven en betalingswijzen.',
+    href: '/info/contributie',
+    color: 'nature',
+  },
+  {
+    icon: HelpCircle,
+    title: 'Veelgestelde Vragen',
+    description: 'Antwoorden op veelgestelde vragen over HGV.',
+    href: '/info/faq',
+    color: 'energy',
+  },
+];
+
+const colorClasses: Record<string, { bg: string; text: string; iconBg: string; hoverText: string }> = {
+  primary: {
+    bg: 'bg-primary/10 hover:bg-primary hover:',
+    text: 'text-primary',
+    iconBg: 'bg-primary/20 group-hover:bg-white/20',
+    hoverText: 'group-hover:text-white',
+  },
+  accent: {
+    bg: 'bg-accent/10 hover:bg-accent hover:',
+    text: 'text-accent-dark',
+    iconBg: 'bg-accent/20 group-hover:bg-white/20',
+    hoverText: 'group-hover:text-white',
+  },
+  nature: {
+    bg: 'bg-nature/10 hover:bg-nature hover:',
+    text: 'text-nature',
+    iconBg: 'bg-nature/20 group-hover:bg-white/20',
+    hoverText: 'group-hover:text-white',
+  },
+  energy: {
+    bg: 'bg-energy/10 hover:bg-energy hover:',
+    text: 'text-energy',
+    iconBg: 'bg-energy/20 group-hover:bg-white/20',
+    hoverText: 'group-hover:text-white',
+  },
+};
+---
+
+<section class="section-padding bg-white relative">
+  <!-- Decorative diagonal line -->
+  <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent"></div>
+
+  <div class="container-custom">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+      <!-- Left: Quick Actions (2 columns) -->
+      <div class="lg:col-span-2">
+        <!-- Section header -->
+        <div class="mb-8">
+          <span class="text-accent font-semibold text-sm uppercase tracking-wider mb-2 block">
+            Snel naar
+          </span>
+          <h2 class="text-dark mb-2">
+            Hoe kunnen we je helpen?
+          </h2>
+          <p class="text-dark/70">
+            Vind snel de informatie die je nodig hebt.
+          </p>
+        </div>
+
+        <!-- Actions grid (2x2) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {actions.map((action, index) => (
+            <a
+              href={action.href}
+              class={`group relative p-5 rounded-2xl transition-all duration-300 card-hover animate-on-scroll ${colorClasses[action.color].bg} ${action.highlight ? 'ring-2 ring-energy/50' : ''}`}
+              style={`animation-delay: ${index * 0.1}s;`}
+            >
+              {action.highlight && (
+                <div class="absolute -top-3 left-5">
+                  <span class="px-3 py-1 rounded-full bg-energy text-white text-xs font-semibold shadow-sm">
+                    Populair
+                  </span>
+                </div>
+              )}
+
+              <div class="flex items-start gap-4">
+                <div class={`w-12 h-12 rounded-xl ${colorClasses[action.color].iconBg} flex items-center justify-center shrink-0 transition-all duration-300`}>
+                  <action.icon class={`w-6 h-6 ${colorClasses[action.color].text} ${colorClasses[action.color].hoverText} transition-colors`} />
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <h3 class={`font-display font-bold text-lg text-dark mb-1 ${colorClasses[action.color].hoverText} transition-colors`}>
+                    {action.title}
+                  </h3>
+                  <p class={`text-dark/70 text-sm leading-relaxed ${colorClasses[action.color].hoverText} group-hover:text-white/80`}>
+                    {action.description}
+                  </p>
+                </div>
+
+                <ArrowRight class={`w-5 h-5 ${colorClasses[action.color].text} ${colorClasses[action.color].hoverText} shrink-0 transition-colors`} />
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: Agenda -->
+      <div class="lg:col-span-1">
+        <!-- Section header -->
+        <div class="mb-8">
+          <span class="text-primary font-semibold text-sm uppercase tracking-wider mb-2 block">
+            Agenda
+          </span>
+          <h2 class="text-dark mb-2">
+            Binnenkort
+          </h2>
+          <p class="text-dark/70">
+            Aankomende activiteiten.
+          </p>
+        </div>
+
+        <!-- Events list -->
+        {events.length > 0 ? (
+          <div class="space-y-3">
+            {events.map((event, index) => (
+              <div
+                class="flex items-start gap-4 p-4 rounded-xl bg-cream/50 hover:bg-cream transition-colors animate-on-scroll"
+                style={`animation-delay: ${index * 0.1}s;`}
+              >
+                <!-- Date badge -->
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex flex-col items-center justify-center shrink-0">
+                  <span class="text-white font-bold text-lg leading-none">
+                    {event.startDate.getDate()}
+                  </span>
+                  <span class="text-white/80 text-xs uppercase">
+                    {event.startDate.toLocaleDateString('nl-NL', { month: 'short' })}
+                  </span>
+                </div>
+
+                <!-- Event info -->
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-semibold text-dark text-sm line-clamp-2 mb-1">
+                    {event.title}
+                  </h4>
+                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-dark/60">
+                    {!event.isAllDay && (
+                      <span class="flex items-center gap-1">
+                        <Clock class="w-3 h-3" />
+                        {formateerTijd(event.startDate)}
+                      </span>
+                    )}
+                    {event.location && (
+                      <span class="flex items-center gap-1">
+                        <MapPin class="w-3 h-3" />
+                        <span class="truncate max-w-[100px]">{event.location}</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-8 bg-cream/50 rounded-xl">
+            <Calendar class="w-10 h-10 mx-auto text-dark/20 mb-2" />
+            <p class="text-dark/60 text-sm">
+              Geen activiteiten gepland.
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

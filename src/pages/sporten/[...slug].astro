@@ -1,0 +1,209 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { ArrowLeft, ArrowRight, Calendar, Users, Clock } from '@lucide/astro';
+
+export async function getStaticPaths() {
+  const sporten = await getCollection('sporten');
+  return sporten.map((sport) => ({
+    params: { slug: sport.slug },
+    props: { sport },
+  }));
+}
+
+type Props = {
+  sport: CollectionEntry<'sporten'>;
+};
+
+const { sport } = Astro.props;
+const { Content } = await sport.render();
+
+const allSporten = await getCollection('sporten');
+const sortedSporten = allSporten.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+const currentIndex = sortedSporten.findIndex((s) => s.slug === sport.slug);
+const prevSport = currentIndex > 0 ? sortedSporten[currentIndex - 1] : null;
+const nextSport = currentIndex < sortedSporten.length - 1 ? sortedSporten[currentIndex + 1] : null;
+
+const categoryLabels: Record<string, string> = {
+  'gymnastisch': 'Gymnastisch',
+  'dans': 'Dans',
+  'balsport': 'Balsport',
+  'breed-sporten': 'Breed Sporten',
+};
+
+const categoryClasses: Record<string, string> = {
+  'gymnastisch': 'badge-gymnastisch',
+  'dans': 'badge-dans',
+  'balsport': 'badge-balsport',
+  'breed-sporten': 'badge-breed',
+};
+---
+
+<BaseLayout
+  title={sport.data.title}
+  description={sport.data.description}
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+      <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent/10 to-transparent"></div>
+      
+      <!-- Hero background image -->
+      {sport.data.image && (
+        <div class="absolute inset-0 opacity-20">
+          <img
+            src={sport.data.image}
+            alt={sport.data.title}
+            class="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+      )}
+
+      <div class="container-custom relative z-10">
+        <!-- Breadcrumb -->
+        <a href="/sporten" class="inline-flex items-center gap-2 text-white/70 hover:text-accent transition-colors mb-6">
+          <ArrowLeft class="w-4 h-4" />
+          Terug naar alle sporten
+        </a>
+
+        <div class="max-w-3xl">
+          <span class={`inline-flex px-4 py-1.5 rounded-full text-sm font-semibold mb-6 ${categoryClasses[sport.data.category]}`}>
+            {categoryLabels[sport.data.category]}
+          </span>
+
+          <h1 class="text-white mb-6">
+            {sport.data.title}
+          </h1>
+
+          <p class="text-white/80 text-xl leading-relaxed mb-8">
+            {sport.data.description}
+          </p>
+
+          {sport.data.ageGroups && (
+            <div class="flex flex-wrap gap-3">
+              {sport.data.ageGroups.map((age: string) => (
+                <span class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 backdrop-blur-sm text-white text-sm">
+                  <Users class="w-4 h-4 text-accent" />
+                  {age}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="grid lg:grid-cols-3 gap-12">
+          <!-- Main content -->
+          <div class="lg:col-span-2">
+            <div class="prose-custom">
+              <Content />
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="lg:col-span-1">
+            <div class="sticky top-28 space-y-6">
+              <!-- Sport image -->
+              {sport.data.image && (
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+                  <img
+                    src={sport.data.image}
+                    alt={sport.data.title}
+                    class="w-full h-64 object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+
+              <!-- CTA Card -->
+              <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <h3 class="text-xl font-display font-bold text-dark mb-4">
+                  Interesse in {sport.data.title}?
+                </h3>
+                <p class="text-dark/70 mb-6">
+                  Vraag twee gratis proeflessen aan en ontdek of deze sport bij je past!
+                </p>
+                <a href="/info/lidmaatschap" class="btn btn-energy w-full justify-center">
+                  Gratis Proefles
+                  <ArrowRight class="w-5 h-5" />
+                </a>
+              </div>
+
+              <!-- Info card -->
+              <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <h4 class="font-display font-bold text-dark mb-4">
+                  Meer informatie
+                </h4>
+                <ul class="space-y-3">
+                  <li>
+                    <a href="/ons-aanbod/lesrooster" class="flex items-center gap-3 text-dark/70 hover:text-accent transition-colors">
+                      <Calendar class="w-5 h-5 text-accent" />
+                      Bekijk lesrooster
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/info/contributie" class="flex items-center gap-3 text-dark/70 hover:text-accent transition-colors">
+                      <Clock class="w-5 h-5 text-accent" />
+                      Contributie tarieven
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/contact" class="flex items-center gap-3 text-dark/70 hover:text-accent transition-colors">
+                      <Users class="w-5 h-5 text-accent" />
+                      Neem contact op
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="mt-16 pt-8 border-t border-cream-dark">
+          <div class="grid grid-cols-2 gap-6">
+            {prevSport ? (
+              <a href={`/sporten/${prevSport.slug}`} class="group flex items-center gap-4 p-4 rounded-xl bg-white hover:bg-primary/5 transition-colors">
+                <ArrowLeft class="w-5 h-5 text-primary" />
+                <div>
+                  <span class="text-sm text-dark/50">Vorige</span>
+                  <span class="block font-display font-bold text-dark group-hover:text-primary transition-colors">
+                    {prevSport.data.title}
+                  </span>
+                </div>
+              </a>
+            ) : (
+              <div></div>
+            )}
+
+            {nextSport ? (
+              <a href={`/sporten/${nextSport.slug}`} class="group flex items-center justify-end gap-4 p-4 rounded-xl bg-white hover:bg-primary/5 transition-colors text-right">
+                <div>
+                  <span class="text-sm text-dark/50">Volgende</span>
+                  <span class="block font-display font-bold text-dark group-hover:text-primary transition-colors">
+                    {nextSport.data.title}
+                  </span>
+                </div>
+                <ArrowRight class="w-5 h-5 text-primary" />
+              </a>
+            ) : (
+              <div></div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

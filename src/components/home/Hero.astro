@@ -1,0 +1,118 @@
+---
+import { ArrowRight, Users, Calendar, Trophy, Sparkles, Heart } from '@lucide/astro';
+
+interface Props {
+  sportCount?: number;
+  leslocatieCount?: number;
+}
+const { sportCount = 21, leslocatieCount = 16 } = Astro.props;
+---
+
+<section class="relative min-h-[70vh] flex flex-col overflow-hidden">
+  <!-- Professional background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-accent">
+    <!-- Subtle animated shapes -->
+    <div class="absolute inset-0 overflow-hidden">
+      <!-- Large subtle blobs -->
+      <div class="absolute -top-1/3 -right-1/4 w-[900px] h-[900px] rounded-full bg-accent/10 blur-3xl animate-float"></div>
+      <div class="absolute -bottom-1/3 -left-1/4 w-[700px] h-[700px] rounded-full bg-primary/10 blur-3xl animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute top-1/3 left-1/2 w-[500px] h-[500px] rounded-full bg-nature/8 blur-3xl animate-float" style="animation-delay: 1s;"></div>
+    </div>
+  </div>
+
+  <!-- Content wrapper -->
+  <div class="flex-1 flex items-center relative z-10">
+    <div class="container-custom w-full py-12 pb-16 md:pb-12">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Content -->
+      <div class="text-white">
+        <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-semibold mb-8">
+          Sinds 1875 in Hengelo
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight mb-4 animate-slide-up stagger-1" style="opacity: 0;">
+          Welkom bij
+          <span class="relative inline-block">
+            <span class="relative z-10 text-accent">Sportvereniging H.G.V.</span>
+            <span class="absolute -bottom-1 left-0 w-full h-2 bg-accent/30 rounded-full"></span>
+          </span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-white/90 leading-relaxed mb-6 max-w-xl animate-slide-up stagger-2" style="opacity: 0;">
+          De oudste en meest diverse sportvereniging van Hengelo. Van peuter tot senior, van beginner tot professional. Ontdek <strong class="text-accent font-semibold">{sportCount}+ sporten</strong> en vind jouw passie.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-8 animate-slide-up stagger-3" style="opacity: 0;">
+          <a href="/info/lidmaatschap" class="btn bg-accent text-white hover:bg-accent-light text-base px-6 py-3 font-semibold shadow-lg">
+            Word Lid
+            <ArrowRight class="w-5 h-5" />
+          </a>
+          <a href="/sporten" class="btn bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 border-2 border-white/30 text-base px-6 py-3 font-semibold">
+            Bekijk Sporten
+          </a>
+        </div>
+
+        <!-- Professional stats with icons -->
+        <div class="grid grid-cols-3 gap-6 animate-slide-up stagger-4" style="opacity: 0;">
+          <div class="text-center p-4 rounded-xl bg-white/10 backdrop-blur-sm">
+            <div class="flex justify-center mb-2">
+              <div class="w-12 h-12 rounded-full bg-accent/30 flex items-center justify-center">
+                <Users class="w-6 h-6 text-accent" />
+              </div>
+            </div>
+            <div class="text-3xl font-display font-bold text-white">{leslocatieCount}</div>
+            <div class="text-white/80 text-sm font-medium">Leslocaties</div>
+          </div>
+          <div class="text-center p-4 rounded-xl bg-white/10 backdrop-blur-sm">
+            <div class="flex justify-center mb-2">
+              <div class="w-12 h-12 rounded-full bg-primary/30 flex items-center justify-center">
+                <Calendar class="w-6 h-6 text-primary-light" />
+              </div>
+            </div>
+            <div class="text-3xl font-display font-bold text-white">{sportCount}+</div>
+            <div class="text-white/80 text-sm font-medium">Sporten</div>
+          </div>
+          <div class="text-center p-4 rounded-xl bg-white/10 backdrop-blur-sm">
+            <div class="flex justify-center mb-2">
+              <div class="w-12 h-12 rounded-full bg-nature/30 flex items-center justify-center">
+                <Trophy class="w-6 h-6 text-nature" />
+              </div>
+            </div>
+            <div class="text-3xl font-display font-bold text-white">150</div>
+            <div class="text-white/80 text-sm font-medium">Jaar geschiedenis</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professional visual with image -->
+      <div class="relative hidden lg:block animate-scale-in stagger-3" style="opacity: 0;">
+        <div class="relative">
+          <!-- Clean background shape -->
+          <div class="relative w-full aspect-square">
+            <!-- Subtle background shape -->
+            <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 to-accent/10 backdrop-blur-sm"></div>
+
+            <!-- Inner content with image -->
+            <div class="absolute inset-4 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden">
+              <div class="relative w-full h-full">
+                <img
+                  src="/images/home-hero.jpg"
+                  alt="HGV Hengelo"
+                  class="w-full h-full object-cover rounded-2xl"
+                  loading="eager"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/50 to-transparent rounded-2xl"></div>
+                <div class="absolute bottom-8 left-0 right-0 text-center px-4">
+                  <p class="text-white font-semibold text-lg drop-shadow-lg">Voor iedereen</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</section>

@@ -1,0 +1,63 @@
+---
+import { ArrowRight, Clock, Tag } from '@lucide/astro';
+import type { Vacature } from '../../data/vacatures';
+
+interface Props {
+  vacature: Vacature;
+}
+
+const { vacature } = Astro.props;
+---
+
+<button
+  type="button"
+  class="group relative rounded-2xl overflow-hidden bg-white shadow-lg hover:shadow-xl transition-all duration-300 text-left w-full cursor-pointer hover:-translate-y-1"
+  data-vacancy-id={vacature.id}
+  onclick={`window.openVacatureModal('${vacature.id}')`}
+>
+  <!-- Image -->
+  <div class="relative h-48 overflow-hidden">
+    <img
+      src={vacature.image}
+      alt={vacature.title}
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent"></div>
+
+    <!-- Category badge -->
+    <div class="absolute top-4 left-4">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-accent/90 text-white backdrop-blur-sm shadow-lg">
+        <Tag class="w-3 h-3" />
+        {vacature.category}
+      </span>
+    </div>
+
+    <!-- Hours badge -->
+    <div class="absolute top-4 right-4">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/90 text-dark backdrop-blur-sm shadow-lg">
+        <Clock class="w-3 h-3" />
+        {vacature.hours}
+      </span>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-6">
+    <h3 class="text-xl font-display font-bold text-dark mb-2 group-hover:text-accent transition-colors">
+      {vacature.title}
+    </h3>
+    <p class="text-dark/70 text-sm leading-relaxed line-clamp-2 mb-4">
+      {vacature.shortDescription}
+    </p>
+
+    <!-- CTA -->
+    <div class="flex items-center gap-2 text-sm font-semibold text-accent group-hover:gap-3 transition-all">
+      Meer informatie
+      <ArrowRight class="w-4 h-4" />
+    </div>
+  </div>
+
+  <!-- Hover border -->
+  <div class="absolute inset-0 border-2 border-transparent group-hover:border-accent/40 rounded-2xl transition-colors pointer-events-none"></div>
+</button>

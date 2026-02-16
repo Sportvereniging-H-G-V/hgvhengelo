@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import SportCard from '../../components/sports/SportCard.astro';
+import { getCollection } from 'astro:content';
+import { Dumbbell, Music2, Target, Heart, Filter } from '@lucide/astro';
+
+const allSporten = await getCollection('sporten');
+const sortedSporten = allSporten.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+
+const categories = [
+  { id: 'all', label: 'Alle Sporten', icon: Filter, count: allSporten.length },
+  { id: 'gymnastisch', label: 'Gymnastisch', icon: Dumbbell, count: allSporten.filter(s => s.data.category === 'gymnastisch').length },
+  { id: 'dans', label: 'Dans', icon: Music2, count: allSporten.filter(s => s.data.category === 'dans').length },
+  { id: 'balsport', label: 'Balsport', icon: Target, count: allSporten.filter(s => s.data.category === 'balsport').length },
+  { id: 'breed-sporten', label: 'Breed Sporten', icon: Heart, count: allSporten.filter(s => s.data.category === 'breed-sporten').length },
+];
+---
+
+<BaseLayout
+  title="Onze Sporten"
+  description="Ontdek alle sporten bij HGV Hengelo. Van turnen tot paaldansen, van dodgeball tot freerunning. Vind de sport die bij jou past."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+      <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent/10 to-transparent"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-accent text-sm font-medium mb-6">
+            <span class="w-2 h-2 rounded-full bg-energy animate-pulse"></span>
+            {allSporten.length}+ sporten
+          </span>
+          <h1 class="text-white mb-6">
+            Onze <span class="text-accent">Sporten</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Bij HGV Hengelo vind je een enorme diversiteit aan sporten. Van klassiek turnen tot moderne paaldans, van teamsport tot individuele uitdaging. Er is altijd iets dat bij jou past.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter and grid -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <!-- Category filter -->
+        <div class="mb-12">
+          <div class="flex flex-wrap gap-3" id="category-filter">
+            {categories.map((cat, index) => (
+              <button
+                data-category={cat.id}
+                class={`filter-btn flex items-center gap-2 px-5 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                  index === 0
+                    ? 'bg-primary text-white'
+                    : 'bg-white text-dark/70 hover:bg-primary/10'
+                }`}
+              >
+                <cat.icon class="w-5 h-5" />
+                {cat.label}
+                <span class="text-xs px-2 py-0.5 rounded-full bg-white/20">
+                  {cat.count}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Sports grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="sports-grid">
+          {sortedSporten.map((sport) => (
+            <div class="sport-item" data-category={sport.data.category}>
+              <SportCard
+                title={sport.data.title}
+                description={sport.data.description}
+                category={sport.data.category}
+                image={sport.data.image}
+                href={`/sporten/${sport.slug}`}
+              />
+            </div>
+          ))}
+        </div>
+
+        <!-- No results message -->
+        <div id="no-results" class="hidden text-center py-12">
+          <p class="text-dark/60 text-lg">
+            Geen sporten gevonden in deze categorie.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const sportItems = document.querySelectorAll('.sport-item');
+  const noResults = document.getElementById('no-results');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.getAttribute('data-category');
+
+      // Update active state
+      filterButtons.forEach(b => {
+        b.classList.remove('bg-primary', 'text-white', '', '');
+        b.classList.add('bg-white', '', 'text-dark/70', '');
+      });
+      btn.classList.remove('bg-white', '', 'text-dark/70', '');
+      btn.classList.add('bg-primary', 'text-white', '', '');
+
+      // Filter items
+      let visibleCount = 0;
+      sportItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        if (category === 'all' || itemCategory === category) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      // Show/hide no results message
+      if (visibleCount === 0) {
+        noResults?.classList.remove('hidden');
+      } else {
+        noResults?.classList.add('hidden');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { Calendar, AlertCircle } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Vakantierooster"
+  description="Bekijk het vakantierooster van HGV Hengelo. Wij geven geen lessen tijdens schoolvakanties en op feestdagen."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <Calendar class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Vakantierooster
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Wij geven geen lessen tijdens schoolvakanties en op feestdagen. Wij volgen daarbij het vakantierooster van de gemeente Hengelo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <!-- Intro card -->
+        <div class="max-w-4xl mx-auto mb-12">
+          <div class="bg-white rounded-2xl p-8 shadow-lg">
+            <p class="text-dark/70 text-lg leading-relaxed">
+              Wij geven geen lessen tijdens schoolvakanties en op feestdagen. Wij volgen daarbij het vakantierooster van de gemeente Hengelo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Vakanties grid -->
+        <div class="max-w-6xl mx-auto">
+          <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <!-- Herfstvakantie -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-energy">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Herfstvakantie
+                </h3>
+                <span class="text-2xl">🍂</span>
+              </div>
+              <p class="text-dark/70">
+                maandag 20 t/m zondag 26 oktober 2025
+              </p>
+            </div>
+
+            <!-- Sinterklaas -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-accent">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Sinterklaas
+                </h3>
+                <span class="text-2xl">🎅</span>
+              </div>
+              <p class="text-dark/70">
+                vrijdag 5 december 2025
+              </p>
+            </div>
+
+            <!-- Kerstvakantie -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-primary">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Kerstvakantie
+                </h3>
+                <span class="text-2xl">🎄</span>
+              </div>
+              <p class="text-dark/70">
+                zaterdag 20 december 2025 t/m zondag 4 januari 2026
+              </p>
+            </div>
+
+            <!-- Voorjaarsvakantie -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-nature">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Voorjaarsvakantie
+                </h3>
+                <span class="text-2xl">🌸</span>
+              </div>
+              <p class="text-dark/70">
+                maandag 23 februari t/m zondag 1 maart 2026
+              </p>
+            </div>
+
+            <!-- Goede Vrijdag -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-dark">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Goede Vrijdag
+                </h3>
+                <span class="text-2xl">✝️</span>
+              </div>
+              <p class="text-dark/70">
+                vrijdag 3 april 2026
+              </p>
+            </div>
+
+            <!-- Pasen -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-sunshine">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Pasen
+                </h3>
+                <span class="text-2xl">🐰</span>
+              </div>
+              <p class="text-dark/70">
+                zondag 5 en maandag 6 april 2026
+              </p>
+            </div>
+
+            <!-- Meivakantie -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-energy">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Meivakantie
+                </h3>
+                <span class="text-2xl">👑</span>
+              </div>
+              <p class="text-dark/70">
+                maandag 27 april t/m zondag 10 mei 2026<br />
+                <span class="text-sm text-dark/50">(inclusief Koningsdag)</span>
+              </p>
+            </div>
+
+            <!-- Hemelvaart -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-accent">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Hemelvaart
+                </h3>
+                <span class="text-2xl">☁️</span>
+              </div>
+              <p class="text-dark/70">
+                donderdag 14 mei 2026
+              </p>
+            </div>
+
+            <!-- Pinksteren -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-coral">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Pinksteren
+                </h3>
+                <span class="text-2xl">🕊️</span>
+              </div>
+              <p class="text-dark/70">
+                zondag 24 mei en maandag 25 mei 2026
+              </p>
+            </div>
+
+            <!-- Zomervakantie -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-sunshine md:col-span-2">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-xl font-display font-bold text-dark">
+                  Zomervakantie
+                </h3>
+                <span class="text-2xl">☀️</span>
+              </div>
+              <p class="text-dark/70 text-lg">
+                vrijdag 3 juli t/m zondag 16 augustus 2026
+              </p>
+            </div>
+          </div>
+
+          <!-- Disclaimer -->
+          <div class="bg-energy/10 border border-energy/30 rounded-2xl p-6">
+            <div class="flex items-start gap-4">
+              <AlertCircle class="w-6 h-6 text-energy flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 class="font-display font-bold text-dark mb-2">
+                  Belangrijk
+                </h3>
+                <p class="text-dark/70">
+                  Bovenstaand rooster is nadrukkelijk onder voorbehoud. Het is mogelijk dat door een wetswijziging of gemeentelijke aanpassing andere data gelden dan hierboven zijn weergegeven. Zodra H.G.V. van de gemeente andere informatie ontvangt, zal deze pagina worden bijgewerkt.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

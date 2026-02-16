@@ -1,0 +1,878 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { ShoppingBag, Info, AlertCircle } from '@lucide/astro';
+
+const pakPrijzen = [
+  { maat: '122', mouwloos: '€ 20,00', metMouw: '€ 25,00' },
+  { maat: '128', mouwloos: '€ 20,00', metMouw: '€ 25,00' },
+  { maat: '134', mouwloos: '€ 20,00', metMouw: '€ 25,00' },
+  { maat: '140', mouwloos: '€ 22,50', metMouw: '€ 27,50' },
+  { maat: '140+2', mouwloos: '€ 22,50', metMouw: '€ 27,50' },
+  { maat: '152', mouwloos: '€ 22,50', metMouw: '€ 27,50' },
+  { maat: '152+2', mouwloos: '€ 22,50', metMouw: '€ 27,50' },
+  { maat: '164', mouwloos: '€ 25,00', metMouw: '€ 30,00' },
+  { maat: '164+2', mouwloos: '€ 25,00', metMouw: '€ 30,00' },
+  { maat: '176', mouwloos: '€ 25,00', metMouw: '€ 32,50' },
+  { maat: '176+2', mouwloos: '€ 27,50', metMouw: '€ 35,00' },
+  { maat: '38', mouwloos: '€ 27,50', metMouw: '€ 35,00' },
+  { maat: '40+5', mouwloos: '€ 27,50', metMouw: '€ 35,00' },
+];
+
+const hotpantsPrijzen = [
+  { maat: '128/140', prijs: '€ 15,00' },
+  { maat: '152', prijs: '€ 15,00' },
+  { maat: '164', prijs: '€ 15,00' },
+  { maat: '38', prijs: '€ 17,50' },
+  { maat: 'M', prijs: '€ 17,50' },
+  { maat: 'M/L', prijs: '€ 17,50' },
+];
+---
+
+<BaseLayout
+  title="Kleding"
+  description="Bestel verenigingskleding van HGV Hengelo. Turnpakjes, hotpants en accessoires in verschillende maten."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <ShoppingBag class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Verenigings<span class="text-accent">kleding</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Bestel je turnpakje, hotpants en andere verenigingskleding direct via het bestelformulier.
+            Er kan het hele jaar door besteld worden, echter wordt er niet altijd direct geleverd.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="grid lg:grid-cols-3 gap-12">
+          <!-- Main content -->
+          <div class="lg:col-span-2 space-y-12">
+            <!-- Intro -->
+            <div>
+              <h2 class="text-2xl font-display font-bold text-dark mb-4">
+                Turnpakje(s)
+              </h2>
+              <p class="text-dark/70 mb-6">
+                Bij een aantal van onze sporten dragen de sporters graag een turnpakje. 
+                Anders dan de naam doet vermoeden is een turnpakje niet alleen voor turn(st)ers, 
+                maar voor iedereen die dat wil. Het is niet verplicht om een turnpakje aan te schaffen 
+                of te dragen in de lessen. Bij de sporten die een regionale wedstrijd doen wordt wel 
+                verzocht op die wedstrijd een turnpakje te dragen.
+              </p>
+              <p class="text-dark/70 mb-6">
+                Bij shows en andere activiteiten dragen we het broekje zónder naam. Als je ook nog een 
+                broekje met naam wilt bestellen voor in de lessen, kan dat. Er kan het hele jaar door 
+                een bestelling geplaatst worden (door invullen onderstaand formulier), echter wordt er 
+                niet altijd direct geleverd.
+              </p>
+            </div>
+
+            <!-- Prijstabel -->
+            <div>
+              <h3 class="text-xl font-display font-bold text-dark mb-4">
+                Prijstabel Turnpakjes
+              </h3>
+              <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+                <div class="overflow-x-auto">
+                  <table class="w-full">
+                    <thead>
+                      <tr class="bg-primary/5">
+                        <th class="px-6 py-4 text-left font-display font-bold text-dark">Maat</th>
+                        <th class="px-6 py-4 text-center font-display font-bold text-dark">Mouwloos</th>
+                        <th class="px-6 py-4 text-center font-display font-bold text-dark">Met mouw</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pakPrijzen.map((pak, index) => (
+                        <tr class={index % 2 === 1 ? 'bg-cream/50' : ''}>
+                          <td class="px-6 py-4 text-dark/80">{pak.maat}</td>
+                          <td class="px-6 py-4 text-center font-semibold text-dark">{pak.mouwloos}</td>
+                          <td class="px-6 py-4 text-center font-semibold text-dark">{pak.metMouw}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="mt-4 p-4 bg-primary/5 rounded-xl">
+                <p class="text-sm text-dark/70">
+                  <strong class="text-dark">Speciale maten:</strong> maat+2cm, +4cm, -2cm, -4cm
+                </p>
+                <p class="text-sm text-dark/70 mt-2">
+                  <strong class="text-dark">Uitleg:</strong> 140+2 betekent een maat 140 wijdte, maar 2cm langer (dus een smalle 146). 
+                  Een 164-4 betekent dan een wijdte van 164, maar de lengte van een 152.
+                </p>
+                <p class="text-sm text-dark/70 mt-2">
+                  Indien je een maat wil bestellen die niet in de lijst staat kun je bij 'Eventuele aanpassing aan het pakje' je maat doorgeven.
+                </p>
+              </div>
+            </div>
+
+            <!-- Hotpants -->
+            <div>
+              <h3 class="text-xl font-display font-bold text-dark mb-4">
+                Hotpants (kleur: marine)
+              </h3>
+              <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+                <div class="overflow-x-auto">
+                  <table class="w-full">
+                    <thead>
+                      <tr class="bg-primary/5">
+                        <th class="px-6 py-4 text-left font-display font-bold text-dark">Maat</th>
+                        <th class="px-6 py-4 text-center font-display font-bold text-dark">Prijs</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {hotpantsPrijzen.map((hotpants, index) => (
+                        <tr class={index % 2 === 1 ? 'bg-cream/50' : ''}>
+                          <td class="px-6 py-4 text-dark/80">{hotpants.maat}</td>
+                          <td class="px-6 py-4 text-center font-semibold text-dark">{hotpants.prijs}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Overige producten -->
+            <div>
+              <h3 class="text-xl font-display font-bold text-dark mb-4">
+                Overige producten
+              </h3>
+              <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <ul class="space-y-3">
+                  <li class="flex justify-between items-center">
+                    <span class="text-dark/80">Naam op de broek</span>
+                    <span class="font-semibold text-dark">€ 5,00</span>
+                  </li>
+                  <li class="flex justify-between items-center">
+                    <span class="text-dark/80">Schrunchie (1 kleur, zelfde kleur als pakje)</span>
+                    <span class="font-semibold text-dark">€ 2,50</span>
+                  </li>
+                </ul>
+                <div class="mt-4 p-4 bg-primary/5 rounded-xl">
+                  <p class="text-sm text-dark/70">
+                    <strong class="text-dark">Let op:</strong> Naam in lettertype als voorbeeld. 
+                    Check spelling bij invullen - er kan niet geruild worden.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Belangrijke informatie -->
+            <div class="bg-accent/10 rounded-2xl p-6 border border-accent/30">
+              <div class="flex items-start gap-3">
+                <AlertCircle class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
+                <div>
+                  <h3 class="font-display font-bold text-dark mb-2">
+                    Belangrijke informatie
+                  </h3>
+                  <p class="text-dark/70">
+                    Omdat de pakken op bestelling gemaakt worden kan er helaas niet geruild worden. 
+                    Zie maattabel voor richtlijn. Houd er rekening mee dat de prijs kan verschillen 
+                    bij eventuele aanpassingen aan het pakje.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bestelformulier -->
+            <div id="kleding-formulier">
+              <h2 class="text-2xl font-display font-bold text-dark mb-6">
+                Bestelformulier
+              </h2>
+              <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <form id="kleding-form" class="space-y-8">
+                  <!-- Step 1: Producten -->
+                  <div id="step-1" class="form-step">
+                    <div class="mb-6">
+                      <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-display font-bold text-dark">
+                          Stap 1 van 3
+                        </h3>
+                        <span class="text-sm text-dark/60">33%</span>
+                      </div>
+                      <div class="w-full bg-cream rounded-full h-2">
+                        <div class="bg-accent h-2 rounded-full transition-all duration-300" style="width: 33%"></div>
+                      </div>
+                    </div>
+
+                    <!-- Pak -->
+                    <div class="mb-6">
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Pak
+                      </label>
+                      <select 
+                        id="pak-select" 
+                        name="pak"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      >
+                        <option value="" data-price="0">Geen pakje</option>
+                        <option value="122-mouwloos" data-price="20.00">Pak maat 122 mouwloos - € 20,00</option>
+                        <option value="128-mouwloos" data-price="20.00">Pak maat 128 mouwloos - € 20,00</option>
+                        <option value="134-mouwloos" data-price="20.00">Pak maat 134 mouwloos - € 20,00</option>
+                        <option value="140-mouwloos" data-price="22.50">Pak maat 140 mouwloos - € 22,50</option>
+                        <option value="140+2-mouwloos" data-price="22.50">Pak maat 140+2 mouwloos - € 22,50</option>
+                        <option value="152-mouwloos" data-price="22.50">Pak maat 152 mouwloos - € 22,50</option>
+                        <option value="152+2-mouwloos" data-price="22.50">Pak maat 152+2 mouwloos - € 22,50</option>
+                        <option value="164-mouwloos" data-price="25.00">Pak maat 164 mouwloos - € 25,00</option>
+                        <option value="164+2-mouwloos" data-price="25.00">Pak maat 164+2 mouwloos - € 25,00</option>
+                        <option value="176-mouwloos" data-price="25.00">Pak maat 176 mouwloos - € 25,00</option>
+                        <option value="176+2-mouwloos" data-price="27.50">Pak maat 176+2 mouwloos - € 27,50</option>
+                        <option value="38-mouwloos" data-price="27.50">Pak maat 38 mouwloos - € 27,50</option>
+                        <option value="40+5-mouwloos" data-price="27.50">Pak maat 40+5 mouwloos - € 27,50</option>
+                        <option value="122-met-mouw" data-price="25.00">Pak maat 122 met mouw - € 25,00</option>
+                        <option value="128-met-mouw" data-price="25.00">Pak maat 128 met mouw - € 25,00</option>
+                        <option value="134-met-mouw" data-price="25.00">Pak maat 134 met mouw - € 25,00</option>
+                        <option value="140-met-mouw" data-price="27.50">Pak maat 140 met mouw - € 27,50</option>
+                        <option value="140+2-met-mouw" data-price="27.50">Pak maat 140+2 met mouw - € 27,50</option>
+                        <option value="152-met-mouw" data-price="27.50">Pak maat 152 met mouw - € 27,50</option>
+                        <option value="152+2-met-mouw" data-price="27.50">Pak maat 152+2 met mouw - € 27,50</option>
+                        <option value="164-met-mouw" data-price="30.00">Pak maat 164 met mouw - € 30,00</option>
+                        <option value="164+2-met-mouw" data-price="30.00">Pak maat 164+2 met mouw - € 30,00</option>
+                        <option value="176-met-mouw" data-price="32.50">Pak maat 176 met mouw - € 32,50</option>
+                        <option value="176+2-met-mouw" data-price="35.00">Pak maat 176+2 met mouw - € 35,00</option>
+                        <option value="38-met-mouw" data-price="35.00">Pak maat 38 met mouw - € 35,00</option>
+                        <option value="40+5-met-mouw" data-price="35.00">Pak maat 40+5 met mouw - € 35,00</option>
+                      </select>
+                    </div>
+
+                    <!-- Hotpants -->
+                    <div class="mb-6">
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Hotpants <span class="text-sm font-normal text-dark/60">(kleur: marine)</span>
+                      </label>
+                      <select 
+                        id="hotpants-select" 
+                        name="hotpants"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      >
+                        <option value="" data-price="0">Geen hotpants</option>
+                        <option value="128/140" data-price="15.00">Hotpants maat 128/140 - € 15,00</option>
+                        <option value="152" data-price="15.00">Hotpants maat 152 - € 15,00</option>
+                        <option value="164" data-price="15.00">Hotpants maat 164 - € 15,00</option>
+                        <option value="38" data-price="17.50">Hotpants maat 38 - € 17,50</option>
+                        <option value="M" data-price="17.50">Hotpants maat M - € 17,50</option>
+                        <option value="M/L" data-price="17.50">Hotpants maat M/L - € 17,50</option>
+                      </select>
+                    </div>
+
+                    <!-- Naam op broek -->
+                    <div class="mb-6" id="naam-broek-container" style="display: none;">
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Naam op de broek
+                      </label>
+                      <select 
+                        id="naam-broek-select" 
+                        name="naam-broek"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      >
+                        <option value="" data-price="0">Geen naam op het broekje</option>
+                        <option value="ja" data-price="5.00">Wel naam op het broekje - € 5,00</option>
+                      </select>
+                    </div>
+
+                    <!-- Schrunchie -->
+                    <div class="mb-6">
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Schrunchie <span class="text-sm font-normal text-dark/60">(zelfde kleur als pakje)</span>
+                      </label>
+                      <select 
+                        id="schrunchie-select" 
+                        name="schrunchie"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      >
+                        <option value="" data-price="0">Geen Schrunchie</option>
+                        <option value="ja" data-price="2.50">Wel Schrunchie - € 2,50</option>
+                      </select>
+                    </div>
+
+                    <!-- Subtotaal -->
+                    <div class="bg-primary/5 rounded-xl p-4 mb-6">
+                      <div class="flex justify-between items-center">
+                        <span class="font-semibold text-dark">Subtotaal:</span>
+                        <span id="subtotaal" class="text-xl font-bold text-accent">€ 0,00</span>
+                      </div>
+                    </div>
+
+                    <button 
+                      type="button" 
+                      id="next-step-1"
+                      class="btn btn-accent w-full"
+                    >
+                      Volgende
+                    </button>
+                  </div>
+
+                  <!-- Step 2: Persoonlijke gegevens -->
+                  <div id="step-2" class="form-step hidden">
+                    <div class="mb-6">
+                      <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-display font-bold text-dark">
+                          Stap 2 van 3
+                        </h3>
+                        <span class="text-sm text-dark/60">66%</span>
+                      </div>
+                      <div class="w-full bg-cream rounded-full h-2">
+                        <div class="bg-accent h-2 rounded-full transition-all duration-300" style="width: 66%"></div>
+                      </div>
+                    </div>
+
+                    <div class="mb-6">
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Naam turnster <span class="text-accent">*</span>
+                      </label>
+                      <div class="grid sm:grid-cols-2 gap-4">
+                        <input 
+                          type="text" 
+                          id="voornaam" 
+                          name="voornaam"
+                          required
+                          placeholder="Voornaam"
+                          class="px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                        />
+                        <input 
+                          type="text" 
+                          id="achternaam" 
+                          name="achternaam"
+                          required
+                          placeholder="Achternaam"
+                          class="px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="mb-6">
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        E-mailadres <span class="text-accent">*</span>
+                      </label>
+                      <input 
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        required
+                        placeholder="voorbeeld@email.nl"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      />
+                    </div>
+
+                    <div class="mb-6">
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Eventuele aanpassing aan het pakje
+                      </label>
+                      <textarea 
+                        id="aanpassing" 
+                        name="aanpassing"
+                        rows="3"
+                        placeholder="Houd er rekening mee dat de prijs hierdoor kan verschillen met wat je hier ziet staan"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                      ></textarea>
+                    </div>
+
+                    <div class="flex gap-4">
+                      <button 
+                        type="button" 
+                        id="prev-step-2"
+                        class="btn btn-outline flex-1"
+                      >
+                        Vorige
+                      </button>
+                      <button 
+                        type="button" 
+                        id="next-step-2"
+                        class="btn btn-accent flex-1"
+                      >
+                        Volgende
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Step 3: Afleveradres en verzending -->
+                  <div id="step-3" class="form-step hidden">
+                    <div class="mb-6">
+                      <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-display font-bold text-dark">
+                          Stap 3 van 3
+                        </h3>
+                        <span class="text-sm text-dark/60">100%</span>
+                      </div>
+                      <div class="w-full bg-cream rounded-full h-2">
+                        <div class="bg-accent h-2 rounded-full transition-all duration-300" style="width: 100%"></div>
+                      </div>
+                    </div>
+
+                    <div class="mb-6">
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Afleveradres <span class="text-accent">*</span>
+                      </label>
+                      <input 
+                        type="text" 
+                        id="straat" 
+                        name="straat"
+                        required
+                        placeholder="Straat + huisnummer"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors mb-4"
+                      />
+                      <div class="grid sm:grid-cols-2 gap-4">
+                        <input 
+                          type="text" 
+                          id="plaats" 
+                          name="plaats"
+                          required
+                          placeholder="Plaats"
+                          class="px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                        />
+                        <input 
+                          type="text" 
+                          id="postcode" 
+                          name="postcode"
+                          required
+                          placeholder="Postcode"
+                          pattern="[0-9]{4}[A-Z]{2}"
+                          class="px-4 py-3 rounded-xl border-2 border-cream-dark bg-white text-dark focus:border-accent focus:outline-none transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="mb-6">
+                      <label class="block text-sm font-semibold text-dark mb-2">
+                        Verzending <span class="text-accent">*</span>
+                      </label>
+                      <div class="space-y-3">
+                        <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                          <input 
+                            type="radio" 
+                            name="verzending" 
+                            value="onverzekerd"
+                            data-price="4.00"
+                            required
+                            class="mt-1"
+                          />
+                          <div class="flex-1">
+                            <div class="font-semibold text-dark mb-1">
+                              Onverzekerd verzenden - € 4,00
+                            </div>
+                            <div class="text-sm text-dark/60">
+                              Raakt het pakketje kwijt dan voor eigen risico.
+                            </div>
+                          </div>
+                        </label>
+                        <label class="flex items-start gap-3 p-4 rounded-xl border-2 border-cream-dark bg-white cursor-pointer hover:border-accent transition-colors">
+                          <input 
+                            type="radio" 
+                            name="verzending" 
+                            value="verzekerd"
+                            data-price="8.00"
+                            required
+                            class="mt-1"
+                          />
+                          <div class="flex-1">
+                            <div class="font-semibold text-dark mb-1">
+                              Verzekerd verzenden naar een DHL Punt - € 8,00
+                            </div>
+                            <div class="text-sm text-dark/60">
+                              Het pakket wordt naar het dichtstbijzijnde punt gestuurd.
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+
+                    <!-- Totaal -->
+                    <div class="bg-accent/10 rounded-xl p-6 mb-6 border border-accent/30">
+                      <div class="flex justify-between items-center">
+                        <span class="text-lg font-semibold text-dark">Totaal:</span>
+                        <span id="totaal" class="text-3xl font-bold text-accent">€ 0,00</span>
+                      </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                      <button 
+                        type="button" 
+                        id="prev-step-3"
+                        class="btn btn-outline flex-1"
+                      >
+                        Vorige
+                      </button>
+                      <button 
+                        type="submit" 
+                        id="submit-form"
+                        class="btn btn-accent flex-1"
+                      >
+                        Versturen
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+                <!-- Success message -->
+                <div id="success-message" class="hidden mt-6 p-6 bg-green-50 rounded-xl border border-green-200">
+                  <div class="flex items-start gap-3">
+                    <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-green-800 mb-2">
+                        Bestelling verzonden!
+                      </h3>
+                      <p class="text-green-700">
+                        Bedankt voor je bestelling! Je ontvangt per mail een bevestiging van je bestelling. 
+                        Zodra je bestelling is verzonden, krijg je een aparte mail met een betaalverzoek. 
+                        Deze mail wordt verzonden door Esther van de Vooren, de maker van de pakjes. 
+                        Let op: het kan zijn dat deze mail in je spamfolder terechtkomt!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="lg:col-span-1">
+            <div class="sticky top-28 space-y-6">
+              <!-- Info card -->
+              <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center">
+                    <Info class="w-5 h-5 text-accent" />
+                  </div>
+                  <h3 class="font-display font-bold text-dark">
+                    Belangrijk om te weten
+                  </h3>
+                </div>
+                <ul class="space-y-3 text-sm text-dark/70">
+                  <li class="flex items-start gap-2">
+                    <span class="text-accent mt-0.5">•</span>
+                    <span>Er kan het hele jaar door besteld worden</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-accent mt-0.5">•</span>
+                    <span>Er wordt niet altijd direct geleverd</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-accent mt-0.5">•</span>
+                    <span>Pakken worden op bestelling gemaakt</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-accent mt-0.5">•</span>
+                    <span>Ruil mogelijkheid is niet mogelijk</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-accent mt-0.5">•</span>
+                    <span>Check spelling bij naam - kan niet gewijzigd worden</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Form state
+  let currentStep = 1;
+  let formData = {
+    pak: '',
+    hotpants: '',
+    naamBroek: '',
+    schrunchie: '',
+    voornaam: '',
+    achternaam: '',
+    email: '',
+    aanpassing: '',
+    straat: '',
+    plaats: '',
+    postcode: '',
+    verzending: ''
+  };
+
+  // Price calculation
+  function calculatePrice() {
+    let subtotaal = 0;
+    
+    const pakSelect = document.getElementById('pak-select');
+    if (pakSelect && pakSelect.value) {
+      const selectedOption = pakSelect.options[pakSelect.selectedIndex];
+      subtotaal += parseFloat(selectedOption.dataset.price || 0);
+    }
+
+    const hotpantsSelect = document.getElementById('hotpants-select');
+    if (hotpantsSelect && hotpantsSelect.value) {
+      const selectedOption = hotpantsSelect.options[hotpantsSelect.selectedIndex];
+      subtotaal += parseFloat(selectedOption.dataset.price || 0);
+    }
+
+    const naamBroekSelect = document.getElementById('naam-broek-select');
+    if (naamBroekSelect && naamBroekSelect.value) {
+      const selectedOption = naamBroekSelect.options[naamBroekSelect.selectedIndex];
+      subtotaal += parseFloat(selectedOption.dataset.price || 0);
+    }
+
+    const schrunchieSelect = document.getElementById('schrunchie-select');
+    if (schrunchieSelect && schrunchieSelect.value) {
+      const selectedOption = schrunchieSelect.options[schrunchieSelect.selectedIndex];
+      subtotaal += parseFloat(selectedOption.dataset.price || 0);
+    }
+
+    // Update subtotaal
+    const subtotaalEl = document.getElementById('subtotaal');
+    if (subtotaalEl) {
+      subtotaalEl.textContent = `€ ${subtotaal.toFixed(2).replace('.', ',')}`;
+    }
+
+    // Calculate total (subtotaal + verzending)
+    let totaal = subtotaal;
+    const verzendingRadio = document.querySelector('input[name="verzending"]:checked');
+    if (verzendingRadio) {
+      totaal += parseFloat(verzendingRadio.dataset.price || 0);
+    }
+
+    // Update totaal
+    const totaalEl = document.getElementById('totaal');
+    if (totaalEl) {
+      totaalEl.textContent = `€ ${totaal.toFixed(2).replace('.', ',')}`;
+    }
+
+    return { subtotaal, totaal };
+  }
+
+  // Show/hide naam op broek based on hotpants selection
+  function toggleNaamBroek() {
+    const hotpantsSelect = document.getElementById('hotpants-select');
+    const naamBroekContainer = document.getElementById('naam-broek-container');
+    
+    if (hotpantsSelect && naamBroekContainer) {
+      if (hotpantsSelect.value && hotpantsSelect.value !== '') {
+        naamBroekContainer.style.display = 'block';
+      } else {
+        naamBroekContainer.style.display = 'none';
+        const naamBroekSelect = document.getElementById('naam-broek-select');
+        if (naamBroekSelect) {
+          naamBroekSelect.value = '';
+        }
+      }
+    }
+  }
+
+  // Step navigation
+  function showStep(step) {
+    // Hide all steps
+    document.querySelectorAll('.form-step').forEach(el => {
+      el.classList.add('hidden');
+    });
+
+    // Show current step
+    const currentStepEl = document.getElementById(`step-${step}`);
+    if (currentStepEl) {
+      currentStepEl.classList.remove('hidden');
+    }
+
+    currentStep = step;
+  }
+
+  function nextStep() {
+    if (currentStep === 1) {
+      showStep(2);
+    } else if (currentStep === 2) {
+      // Validate step 2
+      const voornaam = document.getElementById('voornaam')?.value.trim();
+      const achternaam = document.getElementById('achternaam')?.value.trim();
+      const email = document.getElementById('email')?.value.trim();
+
+      if (!voornaam || !achternaam || !email) {
+        alert('Vul alle verplichte velden in.');
+        return;
+      }
+
+      if (!email.includes('@')) {
+        alert('Vul een geldig e-mailadres in.');
+        return;
+      }
+
+      showStep(3);
+      calculatePrice(); // Recalculate with verzending
+    }
+  }
+
+  function prevStep() {
+    if (currentStep === 2) {
+      showStep(1);
+    } else if (currentStep === 3) {
+      showStep(2);
+    }
+  }
+
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    // Product selection changes
+    const pakSelect = document.getElementById('pak-select');
+    const hotpantsSelect = document.getElementById('hotpants-select');
+    const naamBroekSelect = document.getElementById('naam-broek-select');
+    const schrunchieSelect = document.getElementById('schrunchie-select');
+
+    if (pakSelect) {
+      pakSelect.addEventListener('change', () => {
+        calculatePrice();
+      });
+    }
+
+    if (hotpantsSelect) {
+      hotpantsSelect.addEventListener('change', () => {
+        toggleNaamBroek();
+        calculatePrice();
+      });
+    }
+
+    if (naamBroekSelect) {
+      naamBroekSelect.addEventListener('change', () => {
+        calculatePrice();
+      });
+    }
+
+    if (schrunchieSelect) {
+      schrunchieSelect.addEventListener('change', () => {
+        calculatePrice();
+      });
+    }
+
+    // Verzending changes
+    document.querySelectorAll('input[name="verzending"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        calculatePrice();
+      });
+    });
+
+    // Step navigation buttons
+    const nextStep1 = document.getElementById('next-step-1');
+    const nextStep2 = document.getElementById('next-step-2');
+    const prevStep2 = document.getElementById('prev-step-2');
+    const prevStep3 = document.getElementById('prev-step-3');
+
+    if (nextStep1) {
+      nextStep1.addEventListener('click', nextStep);
+    }
+
+    if (nextStep2) {
+      nextStep2.addEventListener('click', nextStep);
+    }
+
+    if (prevStep2) {
+      prevStep2.addEventListener('click', prevStep);
+    }
+
+    if (prevStep3) {
+      prevStep3.addEventListener('click', prevStep);
+    }
+
+    // Form submission
+    const form = document.getElementById('kleding-form');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Validate step 3
+        const straat = document.getElementById('straat')?.value.trim();
+        const plaats = document.getElementById('plaats')?.value.trim();
+        const postcode = document.getElementById('postcode')?.value.trim();
+        const verzending = document.querySelector('input[name="verzending"]:checked')?.value;
+
+        if (!straat || !plaats || !postcode || !verzending) {
+          alert('Vul alle verplichte velden in.');
+          return;
+        }
+
+        const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const originalButtonText = submitButton?.textContent || 'Verzenden';
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Verzenden...';
+        }
+
+        try {
+          // Collect form data
+          const formData: Record<string, any> = {
+            pak: pakSelect?.options[pakSelect.selectedIndex]?.text || '',
+            hotpants: hotpantsSelect?.options[hotpantsSelect.selectedIndex]?.text || '',
+            naamBroek: naamBroekSelect?.options[naamBroekSelect.selectedIndex]?.text || '',
+            schrunchie: schrunchieSelect?.options[schrunchieSelect.selectedIndex]?.text || '',
+            voornaam: document.getElementById('voornaam')?.value || '',
+            achternaam: document.getElementById('achternaam')?.value || '',
+            email: document.getElementById('email')?.value || '',
+            aanpassing: document.getElementById('aanpassing')?.value || '',
+            straat: straat,
+            plaats: plaats,
+            postcode: postcode,
+            verzending: document.querySelector('input[name="verzending"]:checked')?.parentElement?.querySelector('.font-semibold')?.textContent || '',
+            subtotaal: document.getElementById('subtotaal')?.textContent || '',
+            totaal: document.getElementById('totaal')?.textContent || ''
+          };
+
+          // Verstuur naar Freescout API
+          const response = await fetch('/api/freescout-submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              formType: 'kleding',
+              formData: formData,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+              successMessage.classList.remove('hidden');
+              form.style.display = 'none';
+              successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          } else {
+            throw new Error(result.error || 'Er is een fout opgetreden bij het verzenden van het formulier.');
+          }
+        } catch (error: any) {
+          console.error('Fout bij verzenden formulier:', error);
+          alert('Er is een fout opgetreden bij het verzenden van het formulier. Probeer het later opnieuw of neem contact met ons op.');
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+          }
+        }
+      });
+    }
+
+    // Initial calculation
+    calculatePrice();
+    toggleNaamBroek();
+  });
+</script>

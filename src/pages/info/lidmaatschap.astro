@@ -1,0 +1,342 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { UserPlus, Check, Gift, CreditCard, Clock, ArrowRight, Info, CalendarDays, FileEdit, Phone, Mail } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Lidmaatschap & Proeflessen"
+  description="Word lid van HGV Hengelo of vraag twee gratis proeflessen aan. Ontdek hoe je kunt starten met sporten bij de leukste vereniging van Hengelo."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+      <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent/10 to-transparent"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+              <UserPlus class="w-6 h-6 text-accent" />
+            </div>
+          </div>
+          <h1 class="text-white mb-6">
+            Lid worden & <span class="text-accent">Proeflessen</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            Welkom bij HGV Hengelo! Ontdek hoe je lid kunt worden of vraag twee gratis proeflessen aan om kennis te maken met jouw favoriete sport.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="grid lg:grid-cols-3 gap-12">
+          <!-- Main content -->
+          <div class="lg:col-span-2 space-y-12">
+
+            <!-- Gratis Proeflessen -->
+            <div>
+              <h2 class="text-2xl font-display font-bold text-dark mb-6">
+                Gratis Proeflessen
+              </h2>
+              <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+                <div class="p-8">
+                  <p class="text-dark/80 leading-relaxed text-lg mb-6">
+                    Wil je eerst ontdekken of H.G.V. iets voor jou is? Dat kan! Je krijgt bij ons de mogelijkheid om geheel vrijblijvend en kosteloos <strong class="text-dark">twee proeflessen</strong> te volgen, bij de sport(en) naar keuze.
+                  </p>
+                  <p class="text-dark/80 leading-relaxed text-lg mb-8">
+                    Bekijk ons aanbod aan sporten, kies de les(sen) die je het meest aanspreken en controleer waar en wanneer ze plaatsvinden in het lesrooster. Vervolgens ga je gewoon langs — je hoeft geen afspraak te maken en mag meteen meedoen. De trainer weet je alles te vertellen over de les en beantwoordt graag je vragen.
+                  </p>
+
+                  <!-- Stappen -->
+                  <h3 class="font-display font-bold text-lg text-dark mb-4">Hoe werkt het?</h3>
+                  <div class="space-y-4 mb-8">
+                    <div class="flex gap-4">
+                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-energy/15 flex items-center justify-center">
+                        <span class="text-sm font-bold text-energy">1</span>
+                      </div>
+                      <div>
+                        <p class="font-semibold text-dark">Kies een sport</p>
+                        <p class="text-dark/70">Bekijk <a href="/ons-aanbod" class="text-accent hover:text-energy underline">ons sportaanbod</a> en kies een of meerdere sporten die je aanspreken.</p>
+                      </div>
+                    </div>
+                    <div class="flex gap-4">
+                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-energy/15 flex items-center justify-center">
+                        <span class="text-sm font-bold text-energy">2</span>
+                      </div>
+                      <div>
+                        <p class="font-semibold text-dark">Check het lesrooster</p>
+                        <p class="text-dark/70">Bekijk in <a href="/ons-aanbod/lesrooster" class="text-accent hover:text-energy underline">het lesrooster</a> wanneer en waar de lessen plaatsvinden.</p>
+                      </div>
+                    </div>
+                    <div class="flex gap-4">
+                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-energy/15 flex items-center justify-center">
+                        <span class="text-sm font-bold text-energy">3</span>
+                      </div>
+                      <div>
+                        <p class="font-semibold text-dark">Kom langs!</p>
+                        <p class="text-dark/70">Ga naar de les en doe meteen mee. Geen aanmelding nodig — de trainer verwelkomt je.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="/ons-aanbod/lesrooster" class="btn btn-energy">
+                    Bekijk Lesrooster
+                    <ArrowRight class="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lid Worden -->
+            <div>
+              <h2 class="text-2xl font-display font-bold text-dark mb-6">
+                Lid Worden
+              </h2>
+              <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+                <div class="p-8">
+                  <p class="text-dark/80 leading-relaxed text-lg mb-6">
+                    Na je proeflessen kun je je aanmelden als lid via het inschrijfformulier. Na aanmelding kun je direct beginnen met de lessen. Het lidmaatschap loopt per kwartaal en wordt automatisch verlengd.
+                  </p>
+
+                  <h3 class="font-display font-bold text-lg text-dark mb-4">Voordelen van het lidmaatschap</h3>
+                  <ul class="space-y-3 mb-8">
+                    <li class="flex items-start gap-3 text-dark/80">
+                      <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span>Toegang tot alle lessen van je gekozen sport</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-dark/80">
+                      <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span>KNGU-lidmaatschap is inbegrepen in de contributie</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-dark/80">
+                      <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span><strong class="text-dark">50% korting</strong> op een tweede (en volgende) sport</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-dark/80">
+                      <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span>Deelname aan wedstrijden, shows en verenigingsactiviteiten</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-dark/80">
+                      <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <span>Deel uitmaken van de leukste sportvereniging van Hengelo</span>
+                    </li>
+                  </ul>
+
+                  <button
+                    onclick="window.openInschrijfModal?.()"
+                    class="btn btn-accent"
+                  >
+                    Inschrijven
+                    <ArrowRight class="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contributie & Betaling -->
+            <div>
+              <h2 class="text-2xl font-display font-bold text-dark mb-6">
+                Contributie & Betaling
+              </h2>
+              <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+                <div class="p-8">
+                  <p class="text-dark/80 leading-relaxed text-lg mb-6">
+                    De contributie verschilt per sport, lesduur en leeftijd. Bij HGV houden we de kosten laag dankzij onze vrijwilligers, subsidies en samenwerkingen. Het KNGU-lidmaatschap is altijd inbegrepen.
+                  </p>
+                  <p class="text-dark/80 leading-relaxed text-lg mb-6">
+                    De contributie wordt maandelijks automatisch geïncasseerd via een SEPA-machtiging die je bij inschrijving afgeeft. Je betaalt alleen voor de maanden dat er daadwerkelijk les is — tijdens schoolvakanties wordt er niet geïncasseerd.
+                  </p>
+
+                  <div class="flex items-start gap-3 p-4 bg-primary/5 rounded-xl mb-6">
+                    <Info class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <p class="text-dark/70">
+                      Bekijk de volledige tarieven op de <a href="/info/contributie" class="text-accent hover:text-energy font-semibold underline">contributiepagina</a>.
+                    </p>
+                  </div>
+
+                  <a href="/info/contributie" class="btn btn-outline">
+                    Bekijk Tarieven
+                    <ArrowRight class="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Wijzigingen & Opzeggen -->
+            <div>
+              <h2 class="text-2xl font-display font-bold text-dark mb-6">
+                Wijzigingen & Opzeggen
+              </h2>
+              <div class="space-y-4">
+                <!-- Wijzigingen -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center">
+                      <FileEdit class="w-5 h-5 text-accent" />
+                    </div>
+                    <h3 class="font-display font-bold text-dark">
+                      Wijziging doorgeven
+                    </h3>
+                  </div>
+                  <p class="text-dark/70 mb-4">
+                    Zijn je gegevens gewijzigd, of wil je een les toevoegen of laten vervallen? Wijzigingen in je adres, bankrekening of deelname aan lessen kun je eenvoudig doorgeven via het mutatieformulier.
+                  </p>
+                  <button
+                    onclick="window.openWijzigingModal?.()"
+                    class="inline-flex items-center gap-2 text-accent hover:text-energy transition-colors font-semibold"
+                  >
+                    Wijzigingsformulier openen
+                    <ArrowRight class="w-5 h-5" />
+                  </button>
+                </div>
+
+                <!-- Opzeggen -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center">
+                      <Clock class="w-5 h-5 text-accent" />
+                    </div>
+                    <h3 class="font-display font-bold text-dark">
+                      Opzeggen
+                    </h3>
+                  </div>
+                  <p class="text-dark/70 mb-4">
+                    Je kunt je lidmaatschap per kwartaal opzeggen. De opzegging dient voor het einde van het lopende kwartaal te worden doorgegeven en gaat dan in per het volgende kwartaal.
+                  </p>
+                  <div class="flex items-start gap-3 p-4 bg-cream rounded-xl mb-4">
+                    <CalendarDays class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p class="font-semibold text-dark text-sm mb-1">Opzegdata</p>
+                      <p class="text-dark/70 text-sm">Opzeggen kan per 31 maart, 30 juni, 30 september of 31 december.</p>
+                    </div>
+                  </div>
+                  <button
+                    onclick="window.openOpzeggingModal?.()"
+                    class="inline-flex items-center gap-2 text-accent hover:text-energy transition-colors font-semibold"
+                  >
+                    Opzegging doorgeven
+                    <ArrowRight class="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Financiële ondersteuning -->
+            <div class="bg-gradient-to-br from-energy/10 to-accent/10 rounded-2xl p-8 border border-energy/20">
+              <h2 class="text-2xl font-display font-bold text-dark mb-4">
+                Hulp bij kosten?
+              </h2>
+              <p class="text-dark/70 text-lg leading-relaxed mb-4">
+                Financiële drempels mogen geen belemmering zijn om te sporten. Het Jeugdsport & Cultuurfonds Hengelo-Borne kan helpen met de contributiekosten, zodat ieder kind kan sporten. Neem gerust <a href="/contact" class="text-accent hover:text-energy underline">contact</a> met ons op — we zoeken graag samen naar een oplossing.
+              </p>
+              <a
+                href="https://jeugdsportencultuurfondstwente.nl/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-accent hover:text-energy transition-colors font-semibold"
+              >
+                Jeugdsport & Cultuurfonds Twente
+                <ArrowRight class="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="lg:col-span-1">
+            <div class="sticky top-28 space-y-6">
+              <!-- Lesrooster -->
+              <div class="bg-gradient-to-br from-primary to-accent rounded-2xl p-6 text-white shadow-lg">
+                <h3 class="font-display font-bold text-xl mb-3">
+                  Lesrooster
+                </h3>
+                <p class="text-white/90 mb-4">
+                  Bekijk wanneer en waar alle lessen plaatsvinden, zodat je weet waar je terecht kunt.
+                </p>
+                <a href="/ons-aanbod/lesrooster" class="btn bg-white text-primary hover:bg-cream w-full justify-center">
+                  Bekijk Lesrooster
+                  <ArrowRight class="w-5 h-5" />
+                </a>
+              </div>
+
+              <!-- Wat is inbegrepen -->
+              <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <h3 class="font-display font-bold text-dark mb-4">
+                  Wat is inbegrepen
+                </h3>
+                <ul class="space-y-3">
+                  <li class="flex items-start gap-3 text-dark/70">
+                    <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span>KNGU-lidmaatschap</span>
+                  </li>
+                  <li class="flex items-start gap-3 text-dark/70">
+                    <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span>Gebruik van alle faciliteiten</span>
+                  </li>
+                  <li class="flex items-start gap-3 text-dark/70">
+                    <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span>50% korting op extra sporten</span>
+                  </li>
+                  <li class="flex items-start gap-3 text-dark/70">
+                    <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span>Nieuwsbrief en uitnodigingen</span>
+                  </li>
+                  <li class="flex items-start gap-3 text-dark/70">
+                    <Check class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span>Betaling via automatische incasso</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Contact -->
+              <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <h3 class="font-display font-bold text-dark mb-4">
+                  Vragen?
+                </h3>
+                <p class="text-dark/70 mb-4">
+                  Neem gerust contact met ons op. We helpen je graag!
+                </p>
+                <div class="space-y-3">
+                  <a href="tel:+31643118346" class="flex items-center gap-3 text-dark/70 hover:text-accent transition-colors">
+                    <Phone class="w-5 h-5 text-accent" />
+                    06 - 43 11 83 46
+                  </a>
+                  <a href="mailto:secretariaat@hgvhengelo.nl" class="flex items-center gap-3 text-dark/70 hover:text-accent transition-colors">
+                    <Mail class="w-5 h-5 text-accent" />
+                    secretariaat@hgvhengelo.nl
+                  </a>
+                </div>
+              </div>
+
+              <!-- CTA -->
+              <div class="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-6 text-white">
+                <h3 class="font-display font-bold text-xl mb-4">
+                  Klaar om te starten?
+                </h3>
+                <p class="text-white/80 mb-6">
+                  Meld je aan en ontvang direct twee gratis proeflessen!
+                </p>
+                <button
+                  onclick="window.openInschrijfModal?.()"
+                  class="btn bg-white text-primary hover:bg-cream w-full justify-center"
+                >
+                  Word Lid
+                  <ArrowRight class="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

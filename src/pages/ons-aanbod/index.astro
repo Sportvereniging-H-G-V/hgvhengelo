@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { Calendar, Users, Clock, MapPin, ArrowRight, Star } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Ons Aanbod"
+  description="Ontdek het uitgebreide sportaanbod van HGV Hengelo. Wekelijkse lessen, open trainingen en meer."
+>
+  <Header />
+
+  <main>
+    <!-- Hero section -->
+    <section class="relative py-20 bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+      <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent/10 to-transparent"></div>
+
+      <div class="container-custom relative">
+        <div class="max-w-3xl">
+          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-accent text-sm font-medium mb-6">
+            <Star class="w-4 h-4" />
+            Onze sporten
+          </span>
+          <h1 class="text-white mb-6">
+            Ons <span class="text-accent">Aanbod</span>
+          </h1>
+          <p class="text-white/80 text-xl leading-relaxed">
+            HGV Hengelo biedt een zeer rijk aanbod aan wekelijkse lessen die tijdens schoolweken worden aangeboden. Daarnaast organiseren we regelmatig open trainingen en evenementen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content section -->
+    <section class="section-padding bg-cream">
+      <div class="container-custom">
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Lesrooster -->
+          <a href="/ons-aanbod/lesrooster" class="group bg-white rounded-2xl p-8 shadow-lg card-hover border-2 border-transparent hover:border-accent/30">
+            <div class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-dark transition-all">
+              <Calendar class="w-7 h-7 text-accent group-hover:text-dark transition-colors" />
+            </div>
+            <h2 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-accent transition-colors">
+              Wekelijks Lesrooster
+            </h2>
+            <p class="text-dark/70 mb-6">
+              Bekijk het volledige lesrooster met alle sporten, tijden en locaties. Vind de les die bij jou past.
+            </p>
+            <div class="flex items-center gap-2 text-accent font-semibold group-hover:gap-3 transition-all">
+              Bekijk lesrooster
+              <ArrowRight class="w-5 h-5" />
+            </div>
+          </a>
+
+          <!-- Open trainingen -->
+          <a href="/ons-aanbod/open-trainingen" class="group bg-white rounded-2xl p-8 shadow-lg card-hover border-2 border-transparent hover:border-energy/30">
+            <div class="w-14 h-14 rounded-xl bg-energy/20 flex items-center justify-center mb-6 group-hover:bg-energy group-hover:text-white transition-all">
+              <Users class="w-7 h-7 text-energy group-hover:text-white transition-colors" />
+            </div>
+            <h2 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-energy transition-colors">
+              Open Trainingen
+            </h2>
+            <p class="text-dark/70 mb-6">
+              Regelmatig organiseren we open trainingen in onze turnhal. Ook voor niet-leden toegankelijk!
+            </p>
+            <div class="flex items-center gap-2 text-energy font-semibold group-hover:gap-3 transition-all">
+              Meer informatie
+              <ArrowRight class="w-5 h-5" />
+            </div>
+          </a>
+        </div>
+
+        <!-- Extra info -->
+        <div class="mt-16 grid md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <Clock class="w-8 h-8 text-accent mb-4" />
+            <h3 class="font-display font-bold text-lg text-dark mb-2">
+              Lestijden
+            </h3>
+            <p class="text-dark/70">
+              Onze lessen vinden plaats op doordeweekse dagen en zaterdagen, verspreid over de hele dag.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <MapPin class="w-8 h-8 text-accent mb-4" />
+            <h3 class="font-display font-bold text-lg text-dark mb-2">
+              Locaties
+            </h3>
+            <p class="text-dark/70">
+              Lessen worden gegeven op verschillende locaties in Hengelo, afhankelijk van de sport.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <Star class="w-8 h-8 text-accent mb-4" />
+            <h3 class="font-display font-bold text-lg text-dark mb-2">
+              Evenementen
+            </h3>
+            <p class="text-dark/70">
+              Jaarlijks organiseren we diverse evenementen zoals het sportkamp, shows en clubkampioenschappen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
