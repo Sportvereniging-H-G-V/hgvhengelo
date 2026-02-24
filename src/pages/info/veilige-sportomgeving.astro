@@ -67,20 +67,20 @@ import { Phone, Mail, Shield, FileText, ExternalLink } from '@lucide/astro';
                       {person.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                     </span>
                   </div>
-                  <div>
+                  <div class="min-w-0">
                     <h3 class="font-display font-bold text-dark">
                       {person.name}
                     </h3>
                     <div class="mt-2 space-y-1">
                       {person.email && (
                         <a href={`mailto:${person.email}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
-                          <Mail class="w-4 h-4" />
-                          {person.email}
+                          <Mail class="w-4 h-4 flex-shrink-0" />
+                          <span class="break-all">{person.email}</span>
                         </a>
                       )}
                       {person.phone && (
                         <a href={`tel:${person.phone.replace(/-/g, '')}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
-                          <Phone class="w-4 h-4" />
+                          <Phone class="w-4 h-4 flex-shrink-0" />
                           {person.phone}
                         </a>
                       )}
@@ -101,7 +101,7 @@ import { Phone, Mail, Shield, FileText, ExternalLink } from '@lucide/astro';
                   {externeVertrouwenspersoon.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                 </span>
               </div>
-              <div>
+              <div class="min-w-0">
                 <h3 class="font-display font-bold text-dark">
                   {externeVertrouwenspersoon.name}
                 </h3>
@@ -110,11 +110,11 @@ import { Phone, Mail, Shield, FileText, ExternalLink } from '@lucide/astro';
                 </p>
                 <div class="space-y-1">
                   <a href={`mailto:${externeVertrouwenspersoon.email}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
-                    <Mail class="w-4 h-4" />
-                    {externeVertrouwenspersoon.email}
+                    <Mail class="w-4 h-4 flex-shrink-0" />
+                    <span class="break-all">{externeVertrouwenspersoon.email}</span>
                   </a>
                   <a href={`tel:${externeVertrouwenspersoon.phone!.replace(/-/g, '')}`} class="flex items-center gap-2 text-sm text-dark/70 hover:text-accent transition-colors">
-                    <Phone class="w-4 h-4" />
+                    <Phone class="w-4 h-4 flex-shrink-0" />
                     {externeVertrouwenspersoon.phone}
                   </a>
                 </div>
