@@ -14,14 +14,7 @@ on:
 #   CLOUDFLARE_API_TOKEN     — API-token met "Cloudflare Pages:Edit" rechten
 #   CLOUDFLARE_ACCOUNT_ID    — Te vinden op cloudflare.com → rechter zijbalk
 #
-# AllUnited (nodig tijdens build voor pre-rendered lesrooster):
-#   ALLUNITED_API_URL
-#   ALLUNITED_CLIENT_ID
-#   ALLUNITED_API_KEY
-#   ALLUNITED_SECTION
-#   ALLUNITED_QUERY_ID
-#
-# Freescout (nodig tijdens build én runtime voor formulierverwerking):
+# Freescout (nodig tijdens build voor compilatie van de API-route):
 #   FREESCOUT_API_URL
 #   FREESCOUT_API_KEY
 #   FREESCOUT_MAILBOX_WIJZIGING
@@ -34,31 +27,29 @@ on:
 #   FREESCOUT_MAILBOX_KLEDING
 #
 # ─────────────────────────────────────────────────────────────────────────────
-# VEREISTE CODEWIJZIGING VOOR RUNTIME API-ROUTES
+# VEREISTE RUNTIME-VARIABELEN IN CLOUDFLARE PAGES
 # ─────────────────────────────────────────────────────────────────────────────
-# De huidige adapter (@astrojs/node) draait als Node.js-server en is
-# NIET compatibel met Cloudflare Pages. Vervang dit voor volledige SSR-
-# ondersteuning (inclusief /api/freescout-submit):
+# Stel onderstaande variabelen in via:
+#   Cloudflare Pages → Settings → Environment variables
 #
-#   1. Installeer de Cloudflare adapter:
-#      npm install @astrojs/cloudflare
-#      npm uninstall @astrojs/node
+# AllUnited (lesrooster is SSR — opgehaald bij elk bezoek, gecached 2 uur):
+#   ALLUNITED_API_URL
+#   ALLUNITED_CLIENT_ID
+#   ALLUNITED_API_KEY
+#   ALLUNITED_SECTION
+#   ALLUNITED_QUERY_ID
 #
-#   2. Pas astro.config.mjs aan:
-#      import cloudflare from '@astrojs/cloudflare';
-#      export default defineConfig({
-#        output: 'static',
-#        adapter: cloudflare(),
-#        ...
-#      });
-#
-#   3. Zet in Cloudflare Pages → Settings → Functions:
-#      Compatibility flags: nodejs_compat
-#      Compatibility date: 2024-09-23 (of nieuwer)
-#
-#   4. Stel de Freescout runtime-variabelen in via:
-#      Cloudflare Pages → Settings → Environment variables
-#      (zelfde lijst als de FREESCOUT_* secrets hierboven)
+# Freescout (contactformulieren):
+#   FREESCOUT_API_URL
+#   FREESCOUT_API_KEY
+#   FREESCOUT_MAILBOX_WIJZIGING
+#   FREESCOUT_MAILBOX_OPZEGGING
+#   FREESCOUT_MAILBOX_CONTACT
+#   FREESCOUT_MAILBOX_KAMP
+#   FREESCOUT_MAILBOX_KAMP_TEAMLIDEN
+#   FREESCOUT_MAILBOX_ICT
+#   FREESCOUT_MAILBOX_CK
+#   FREESCOUT_MAILBOX_KLEDING
 # ─────────────────────────────────────────────────────────────────────────────
 
 env:
@@ -91,13 +82,8 @@ jobs:
       - name: Site bouwen
         run: npm run build
         env:
-          # AllUnited — wordt gebruikt tijdens de build voor het lesrooster
-          ALLUNITED_API_URL: ${{ secrets.ALLUNITED_API_URL }}
-          ALLUNITED_CLIENT_ID: ${{ secrets.ALLUNITED_CLIENT_ID }}
-          ALLUNITED_API_KEY: ${{ secrets.ALLUNITED_API_KEY }}
-          ALLUNITED_SECTION: ${{ secrets.ALLUNITED_SECTION }}
-          ALLUNITED_QUERY_ID: ${{ secrets.ALLUNITED_QUERY_ID }}
           # Freescout — nodig tijdens build voor compilatie van de API-route
+          # AllUnited is NIET meer nodig tijdens de build: lesrooster is SSR
           FREESCOUT_API_URL: ${{ secrets.FREESCOUT_API_URL }}
           FREESCOUT_API_KEY: ${{ secrets.FREESCOUT_API_KEY }}
           FREESCOUT_MAILBOX_WIJZIGING: ${{ secrets.FREESCOUT_MAILBOX_WIJZIGING }}
@@ -149,4 +135,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist/ --project-name=${{ env.CF_PROJECT_NAME }} --branch=main
+          command: pages deploy dist/ --project-name=${{ env.CF_PROJECT_NAME }} --branch=main --compatibility-date=2024-09-23 --compatibility-flags=nodejs_compat
