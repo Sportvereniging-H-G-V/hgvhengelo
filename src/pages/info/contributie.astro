@@ -45,21 +45,21 @@ import { Check, Info, Calendar, CreditCard, Percent, ArrowRight } from '@lucide/
               <h2 class="text-2xl font-display font-bold text-dark mb-6">
                 Reguliere Lessen
               </h2>
-              <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
-                <table class="w-full">
+              <div class="bg-white rounded-2xl overflow-hidden shadow-lg overflow-x-auto">
+                <table class="w-full min-w-[320px]">
                   <thead>
                     <tr class="bg-primary/5">
-                      <th class="px-6 py-4 text-left font-display font-bold text-dark">Lesduur</th>
-                      <th class="px-6 py-4 text-center font-display font-bold text-dark">Junior (t/m 15)</th>
-                      <th class="px-6 py-4 text-center font-display font-bold text-dark">Senior (16+)</th>
+                      <th class="px-3 py-3 sm:px-6 sm:py-4 text-left font-display font-bold text-dark">Lesduur</th>
+                      <th class="px-3 py-3 sm:px-6 sm:py-4 text-center font-display font-bold text-dark">Junior (t/m 15)</th>
+                      <th class="px-3 py-3 sm:px-6 sm:py-4 text-center font-display font-bold text-dark">Senior (16+)</th>
                     </tr>
                   </thead>
                   <tbody>
                     {regularRates.map((rate, index) => (
                       <tr class={index % 2 === 1 ? 'bg-cream/50' : ''}>
-                        <td class="px-6 py-4 text-dark/80">{rate.duration}</td>
-                        <td class="px-6 py-4 text-center font-semibold text-dark">{rate.junior}</td>
-                        <td class="px-6 py-4 text-center font-semibold text-dark">{rate.senior}</td>
+                        <td class="px-3 py-3 sm:px-6 sm:py-4 text-dark/80">{rate.duration}</td>
+                        <td class="px-3 py-3 sm:px-6 sm:py-4 text-center font-semibold text-dark">{rate.junior}</td>
+                        <td class="px-3 py-3 sm:px-6 sm:py-4 text-center font-semibold text-dark">{rate.senior}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -76,25 +76,25 @@ import { Check, Info, Calendar, CreditCard, Percent, ArrowRight } from '@lucide/
               <h2 class="text-2xl font-display font-bold text-dark mb-6">
                 Speciale Sporten
               </h2>
-              <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
-                <table class="w-full">
+              <div class="bg-white rounded-2xl overflow-hidden shadow-lg overflow-x-auto">
+                <table class="w-full min-w-[400px]">
                   <thead>
                     <tr class="bg-primary/5">
-                      <th class="px-6 py-4 text-left font-display font-bold text-dark">Sport</th>
-                      <th class="px-6 py-4 text-center font-display font-bold text-dark">Lesduur</th>
-                      <th class="px-6 py-4 text-center font-display font-bold text-dark">Junior</th>
-                      <th class="px-6 py-4 text-center font-display font-bold text-dark">Senior</th>
+                      <th class="px-3 py-3 sm:px-6 sm:py-4 text-left font-display font-bold text-dark">Sport</th>
+                      <th class="px-3 py-3 sm:px-6 sm:py-4 text-center font-display font-bold text-dark">Lesduur</th>
+                      <th class="px-3 py-3 sm:px-6 sm:py-4 text-center font-display font-bold text-dark">Junior</th>
+                      <th class="px-3 py-3 sm:px-6 sm:py-4 text-center font-display font-bold text-dark">Senior</th>
                     </tr>
                   </thead>
                   <tbody>
                     {specialRates.map((rate, index) => (
                       <tr class={index % 2 === 1 ? 'bg-cream/50' : ''}>
-                        <td class="px-6 py-4 text-dark/80">{rate.sport}</td>
-                        <td class="px-6 py-4 text-center text-dark/70">{rate.duration}</td>
-                        <td class="px-6 py-4 text-center font-semibold text-dark">
+                        <td class="px-3 py-3 sm:px-6 sm:py-4 text-dark/80">{rate.sport}</td>
+                        <td class="px-3 py-3 sm:px-6 sm:py-4 text-center text-dark/70">{rate.duration}</td>
+                        <td class="px-3 py-3 sm:px-6 sm:py-4 text-center font-semibold text-dark">
                           {rate.junior || '—'}
                         </td>
-                        <td class="px-6 py-4 text-center font-semibold text-dark">
+                        <td class="px-3 py-3 sm:px-6 sm:py-4 text-center font-semibold text-dark">
                           {rate.senior || '—'}
                         </td>
                       </tr>
