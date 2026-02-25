@@ -1,0 +1,110 @@
+name: Preview deployment bij Pull Request
+
+# Draait bij elke PR naar main (aanmaken, updaten, heropenen)
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+env:
+  CF_PROJECT_NAME: hgv-hengelo   # Cloudflare Pages projectnaam (lowercase, koppelteken)
+
+jobs:
+  preview:
+    name: Bouwen en preview deployen
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write   # Nodig voor het plaatsen van een PR-comment
+
+    steps:
+      # ── 1. Code ophalen ────────────────────────────────────────────────────
+      - name: Code ophalen
+        uses: actions/checkout@v4
+
+      # ── 2. Node.js instellen ───────────────────────────────────────────────
+      - name: Node.js instellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # ── 3. Afhankelijkheden installeren ────────────────────────────────────
+      - name: Afhankelijkheden installeren
+        run: npm ci
+
+      # ── 4. Site bouwen ─────────────────────────────────────────────────────
+      - name: Site bouwen
+        run: npm run build
+        env:
+          FREESCOUT_API_URL: ${{ secrets.FREESCOUT_API_URL }}
+          FREESCOUT_API_KEY: ${{ secrets.FREESCOUT_API_KEY }}
+          FREESCOUT_MAILBOX_WIJZIGING: ${{ secrets.FREESCOUT_MAILBOX_WIJZIGING }}
+          FREESCOUT_MAILBOX_OPZEGGING: ${{ secrets.FREESCOUT_MAILBOX_OPZEGGING }}
+          FREESCOUT_MAILBOX_CONTACT: ${{ secrets.FREESCOUT_MAILBOX_CONTACT }}
+          FREESCOUT_MAILBOX_KAMP: ${{ secrets.FREESCOUT_MAILBOX_KAMP }}
+          FREESCOUT_MAILBOX_KAMP_TEAMLIDEN: ${{ secrets.FREESCOUT_MAILBOX_KAMP_TEAMLIDEN }}
+          FREESCOUT_MAILBOX_ICT: ${{ secrets.FREESCOUT_MAILBOX_ICT }}
+          FREESCOUT_MAILBOX_CK: ${{ secrets.FREESCOUT_MAILBOX_CK }}
+          FREESCOUT_MAILBOX_KLEDING: ${{ secrets.FREESCOUT_MAILBOX_KLEDING }}
+
+      # ── 5. Branch naam veilig instellen als omgevingsvariabele ─────────────
+      - name: Branch naam instellen
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: echo "PREVIEW_BRANCH=${HEAD_REF}" >> "$GITHUB_ENV"
+
+      # ── 6. Preview deployen naar Cloudflare Pages ───────────────────────────
+      - name: Preview deployen naar Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist/ --project-name=${{ env.CF_PROJECT_NAME }} --branch=${{ env.PREVIEW_BRANCH }} --compatibility-date=2024-09-23 --compatibility-flags=nodejs_compat
+
+      # ── 7. Preview URL als comment op de PR plaatsen ───────────────────────
+      - name: Preview URL plaatsen op PR
+        uses: actions/github-script@v7
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        with:
+          script: |
+            const deploymentUrl = process.env.DEPLOYMENT_URL;
+            const sha = context.payload.pull_request.head.sha.slice(0, 7);
+            const body = [
+              '## Preview deployment',
+              '',
+              `**URL:** ${deploymentUrl}`,
+              `**Commit:** \`${sha}\``,
+              '',
+              '_Automatisch bijgewerkt bij elke push naar deze PR._',
+            ].join('\n');
+
+            // Bestaand preview-comment bijwerken, anders nieuw aanmaken
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('## Preview deployment')
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
