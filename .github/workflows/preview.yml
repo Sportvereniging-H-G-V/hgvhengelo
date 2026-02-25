@@ -8,7 +8,8 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  CF_PROJECT_NAME: hgv-hengelo   # Cloudflare Pages projectnaam (lowercase, koppelteken)
+  CF_PROJECT_NAME: hgv-hengelo        # Cloudflare Pages projectnaam (lowercase, koppelteken)
+  PREVIEW_BRANCH: ${{ github.head_ref }}  # Branch naam voor de preview deployment
 
 jobs:
   preview:
@@ -49,20 +50,14 @@ jobs:
           FREESCOUT_MAILBOX_CK: ${{ secrets.FREESCOUT_MAILBOX_CK }}
           FREESCOUT_MAILBOX_KLEDING: ${{ secrets.FREESCOUT_MAILBOX_KLEDING }}
 
-      # ── 5. Branch naam veilig instellen als omgevingsvariabele ─────────────
-      - name: Branch naam instellen
-        env:
-          HEAD_REF: ${{ github.head_ref }}
-        run: echo "PREVIEW_BRANCH=${HEAD_REF}" >> "$GITHUB_ENV"
-
-      # ── 6. Preview deployen naar Cloudflare Pages ───────────────────────────
+      # ── 5. Preview deployen naar Cloudflare Pages ───────────────────────────
       - name: Preview deployen naar Cloudflare Pages
         id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist/ --project-name=${{ env.CF_PROJECT_NAME }} --branch=${{ env.PREVIEW_BRANCH }} --compatibility-date=2024-09-23 --compatibility-flags=nodejs_compat
+          command: pages deploy dist/ --project-name=${{ env.CF_PROJECT_NAME }} --branch=${{ env.PREVIEW_BRANCH }}
 
       # ── 7. Preview URL als comment op de PR plaatsen ───────────────────────
       - name: Preview URL plaatsen op PR
