@@ -26,6 +26,12 @@ jobs:
           curl https://cursor.com/install -fsS | bash
           echo "$HOME/.cursor/bin" >> $GITHUB_PATH
 
+      - name: Debug cursor install location
+        run: |
+          which cursor || echo "cursor not in PATH"
+          find $HOME -name "cursor" -type f 2>/dev/null || echo "cursor binary not found"
+          ls $HOME/.cursor/bin/ 2>/dev/null || echo "~/.cursor/bin does not exist"
+
       - name: Run Cursor code review
         env:
           CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
