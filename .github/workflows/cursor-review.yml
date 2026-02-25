@@ -28,16 +28,15 @@ jobs:
 
       - name: Debug cursor install location
         run: |
-          which cursor || echo "cursor not in PATH"
-          find $HOME -name "cursor" -type f 2>/dev/null || echo "cursor binary not found"
-          ls $HOME/.cursor/bin/ 2>/dev/null || echo "~/.cursor/bin does not exist"
+          which agent || echo "agent not in PATH"
+          find / -name "agent" -type f 2>/dev/null | grep -v proc | head -20
 
       - name: Run Cursor code review
         env:
           CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cursor agent --prompt "
+          agent --prompt "
           Review this pull request thoroughly. Focus on:
           - Bugs, null dereferences, and logic errors
           - Security vulnerabilities (XSS, injection, etc.)
