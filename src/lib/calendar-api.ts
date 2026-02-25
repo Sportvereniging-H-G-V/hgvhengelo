@@ -5,17 +5,8 @@
 
 import ICAL from 'ical.js';
 
-/**
- * Cache voor kalender events
- * Bewaart data voor 24 uur (86400000 milliseconden)
- */
-interface CalendarCache {
-  events: CalendarEvent[];
-  timestamp: number;
-}
-
-let kalenderCache: CalendarCache | null = null;
-const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 uur in milliseconden
+const CACHE_KEY = 'https://hgvhengelo.nl/__cache/kalender';
+const CACHE_DURATION_SECONDS = 24 * 60 * 60; // 24 uur
 
 export interface CalendarEvent {
   uid: string;
@@ -107,7 +98,8 @@ function filterUpcomingEvents(events: CalendarEvent[], limit: number = 5): Calen
 
 /**
  * Haalt aankomende kalender events op
- * Gebruikt caching om de kalender niet bij elk bezoek op te halen (24 uur cache)
+ * Gebruikt de Cloudflare Cache API (gedeeld over alle Worker-isolates),
+ * slaat de ruwe ICS-tekst op om Date-serialisatie te vermijden.
  */
 export async function haalAankomendeEvents(limit: number = 5): Promise<CalendarEvent[]> {
   const calendarUrl = import.meta.env.CALENDAR_ICS_URL;
@@ -117,28 +109,36 @@ export async function haalAankomendeEvents(limit: number = 5): Promise<CalendarE
     return [];
   }
 
-  // Controleer of we geldige gecachte data hebben
-  if (kalenderCache && Date.now() - kalenderCache.timestamp < CACHE_DURATION) {
-    console.log('Kalender events opgehaald uit cache');
-    return filterUpcomingEvents(kalenderCache.events, limit);
+  // Cloudflare Cache API (alleen beschikbaar in Workers runtime)
+  if (typeof caches !== 'undefined') {
+    const cached = await caches.default.match(CACHE_KEY);
+    if (cached) {
+      console.log('Kalender ICS opgehaald uit Cloudflare cache');
+      const icsData = await cached.text();
+      return filterUpcomingEvents(parseIcsData(icsData), limit);
+    }
   }
 
   const icsData = await fetchIcsData(calendarUrl);
   if (!icsData) {
-    // Gebruik oude cache als fallback
-    if (kalenderCache) {
-      console.log('Gebruik oude kalender cache als fallback');
-      return filterUpcomingEvents(kalenderCache.events, limit);
-    }
     return [];
   }
 
-  const allEvents = parseIcsData(icsData);
+  // Sla de ruwe ICS-tekst op in Cloudflare Cache API
+  if (typeof caches !== 'undefined') {
+    await caches.default.put(
+      CACHE_KEY,
+      new Response(icsData, {
+        headers: {
+          'Content-Type': 'text/calendar',
+          'Cache-Control': `max-age=${CACHE_DURATION_SECONDS}`,
+        },
+      })
+    );
+    console.log('Kalender ICS opgeslagen in Cloudflare cache (geldig voor 24 uur)');
+  }
 
-  kalenderCache = { events: allEvents, timestamp: Date.now() };
-  console.log('Kalender events opgeslagen in cache (geldig voor 24 uur)');
-
-  return filterUpcomingEvents(allEvents, limit);
+  return filterUpcomingEvents(parseIcsData(icsData), limit);
 }
 
 /**
