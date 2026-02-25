@@ -1,0 +1,52 @@
+name: Cursor AI Code Review
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  review:
+    name: AI Code Review
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Cursor CLI
+        run: curl https://cursor.com/install -fsS | bash
+
+      - name: Run Cursor code review
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cursor agent --prompt "
+          Review this pull request thoroughly. Focus on:
+          - Bugs, null dereferences, and logic errors
+          - Security vulnerabilities (XSS, injection, etc.)
+          - Broken or missing functionality
+          - Code quality issues
+
+          Post inline comments on specific lines where you find issues.
+          Be concise and actionable. Maximum 10 comments.
+          If the code looks good overall, say so briefly.
+          "
+
+      - name: Auto-approve PR
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          gh pr review "$PR_NUMBER" \
+            --approve \
+            --body "Cursor AI review voltooid. Bekijk de inline commentaren hierboven indien aanwezig."
