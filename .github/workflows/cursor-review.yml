@@ -74,19 +74,28 @@ jobs:
           - Gebruik emoji: 🚨 Kritiek 🔒 Beveiliging ⚡ Performance ⚠️ Logica ✅ Opgelost
 
           Indienen:
-          - Als er GEEN problemen zijn: plaats een kort samenvattend commentaar dat er geen problemen zijn.
+          - Als er GEEN problemen zijn: plaats een kort samenvattend commentaar dat er geen problemen zijn, en voer uit: echo 'CRITICAL_ISSUES_FOUND=false' >> \$GITHUB_ENV
           - Als er WEL problemen zijn: dien ONE review in met ALLEEN inline comments plus een optionele samenvatting.
           - Gebruik de GitHub Reviews API voor inline comments:
             - gh api repos/\$REPO/pulls/\$PR_NUMBER/reviews -f event=COMMENT -f body=\"\$SUMMARY\" -f comments='\$COMMENTS_JSON'
           - Gebruik NIET: gh pr review --approve of --request-changes
+          - Stel aan het einde ALTIJD de variabele in:
+            - Als er 🚨 of 🔒 problemen zijn gevonden: echo 'CRITICAL_ISSUES_FOUND=true' >> \$GITHUB_ENV
+            - Anders: echo 'CRITICAL_ISSUES_FOUND=false' >> \$GITHUB_ENV
           "
 
-      - name: Auto-approve PR
-        if: success()
+      - name: Approve or request changes
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          gh pr review "$PR_NUMBER" \
-            --approve \
-            --body "Cursor AI review voltooid. Bekijk eventuele inline commentaren hierboven."
+          if [ "${CRITICAL_ISSUES_FOUND:-false}" = "true" ]; then
+            gh pr review "$PR_NUMBER" \
+              --request-changes \
+              --body "🚨 Cursor AI heeft kritieke problemen gevonden. Los de inline commentaren op voordat deze PR gemerged kan worden."
+          else
+            gh pr review "$PR_NUMBER" \
+              --approve \
+              --body "✅ Cursor AI heeft geen kritieke problemen gevonden. De PR is goedgekeurd."
+          fi
