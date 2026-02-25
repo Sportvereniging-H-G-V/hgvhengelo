@@ -3,9 +3,12 @@ import { haalQueryResult } from '../../lib/allunited-api';
 
 export const prerender = false;
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request, locals }) => {
+  // Runtime env van Cloudflare Pages (beschikbaar via de Cloudflare adapter)
+  const runtimeEnv = (locals as any).runtime?.env ?? {};
+
   // Beveilig met een token — stel DEBUG_TOKEN in als Cloudflare Pages env var
-  const debugToken = import.meta.env.DEBUG_TOKEN;
+  const debugToken = runtimeEnv['DEBUG_TOKEN'] || import.meta.env.DEBUG_TOKEN;
   if (!debugToken) {
     return new Response('Debug endpoint is uitgeschakeld (DEBUG_TOKEN niet ingesteld).', { status: 403 });
   }
@@ -16,22 +19,22 @@ export const GET: APIRoute = async ({ request }) => {
 
   const result: Record<string, any> = {
     env: {
-      ALLUNITED_API_URL: !!import.meta.env.ALLUNITED_API_URL,
-      ALLUNITED_CLIENT_ID: !!import.meta.env.ALLUNITED_CLIENT_ID,
-      ALLUNITED_API_KEY: !!import.meta.env.ALLUNITED_API_KEY,
-      ALLUNITED_SECTION: !!import.meta.env.ALLUNITED_SECTION,
-      ALLUNITED_QUERY_ID: !!import.meta.env.ALLUNITED_QUERY_ID,
-      CALENDAR_ICS_URL: !!import.meta.env.CALENDAR_ICS_URL,
+      ALLUNITED_API_URL: !!(runtimeEnv['ALLUNITED_API_URL'] || import.meta.env.ALLUNITED_API_URL),
+      ALLUNITED_CLIENT_ID: !!(runtimeEnv['ALLUNITED_CLIENT_ID'] || import.meta.env.ALLUNITED_CLIENT_ID),
+      ALLUNITED_API_KEY: !!(runtimeEnv['ALLUNITED_API_KEY'] || import.meta.env.ALLUNITED_API_KEY),
+      ALLUNITED_SECTION: !!(runtimeEnv['ALLUNITED_SECTION'] || import.meta.env.ALLUNITED_SECTION),
+      ALLUNITED_QUERY_ID: !!(runtimeEnv['ALLUNITED_QUERY_ID'] || import.meta.env.ALLUNITED_QUERY_ID),
+      CALENDAR_ICS_URL: !!(runtimeEnv['CALENDAR_ICS_URL'] || import.meta.env.CALENDAR_ICS_URL),
     },
     allunited: null,
     calendar: null,
   };
 
   // Test AllUnited API
-  const queryId = import.meta.env.ALLUNITED_QUERY_ID;
+  const queryId = (runtimeEnv['ALLUNITED_QUERY_ID'] || import.meta.env.ALLUNITED_QUERY_ID) as string | undefined;
   if (queryId) {
     try {
-      const queryResult = await haalQueryResult(queryId);
+      const queryResult = await haalQueryResult(queryId, runtimeEnv);
       result.allunited = {
         success: !!queryResult,
         aantalItems: queryResult?.data?.length ?? 0,
@@ -44,7 +47,7 @@ export const GET: APIRoute = async ({ request }) => {
   }
 
   // Test kalender URL bereikbaarheid
-  const calendarUrl = import.meta.env.CALENDAR_ICS_URL;
+  const calendarUrl = (runtimeEnv['CALENDAR_ICS_URL'] || import.meta.env.CALENDAR_ICS_URL) as string | undefined;
   if (calendarUrl) {
     try {
       const response = await fetch(calendarUrl, { headers: { Accept: 'text/calendar' } });

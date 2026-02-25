@@ -5,6 +5,8 @@
 
 import ICAL from 'ical.js';
 
+type RuntimeEnv = Record<string, string | undefined>;
+
 const CACHE_KEY = 'https://hgvhengelo.nl/__cache/kalender';
 const CACHE_DURATION_SECONDS = 24 * 60 * 60; // 24 uur
 
@@ -101,8 +103,8 @@ function filterUpcomingEvents(events: CalendarEvent[], limit: number = 5): Calen
  * Gebruikt de Cloudflare Cache API (gedeeld over alle Worker-isolates),
  * slaat de ruwe ICS-tekst op om Date-serialisatie te vermijden.
  */
-export async function haalAankomendeEvents(limit: number = 5): Promise<CalendarEvent[]> {
-  const calendarUrl = import.meta.env.CALENDAR_ICS_URL;
+export async function haalAankomendeEvents(limit: number = 5, env?: RuntimeEnv): Promise<CalendarEvent[]> {
+  const calendarUrl = (env?.['CALENDAR_ICS_URL'] as string | undefined) || import.meta.env.CALENDAR_ICS_URL;
 
   if (!calendarUrl) {
     console.warn('Kalender URL ontbreekt. Voeg CALENDAR_ICS_URL toe aan je .env bestand.');

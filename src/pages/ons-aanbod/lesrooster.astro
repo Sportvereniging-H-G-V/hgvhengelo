@@ -7,6 +7,9 @@ import Footer from '../../components/layout/Footer.astro';
 import { Calendar, Clock, MapPin, ArrowRight, ExternalLink } from '@lucide/astro';
 import { haalLesroosterOp } from '../../lib/lesrooster';
 
+// Runtime env van Cloudflare Pages (beschikbaar via de Cloudflare adapter)
+const runtimeEnv = (Astro.locals as any).runtime?.env ?? {};
+
 // Haal lesrooster data op
 let lesroosterData = null;
 let gesorteerdeLessen: any[] = [];
@@ -17,7 +20,7 @@ let debugInfo = {
 };
 
 try {
-  lesroosterData = await haalLesroosterOp();
+  lesroosterData = await haalLesroosterOp(runtimeEnv);
   if (lesroosterData) {
     debugInfo.hasData = true;
     debugInfo.aantalLessen = lesroosterData.lessen.length;

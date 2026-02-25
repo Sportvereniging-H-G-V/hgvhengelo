@@ -155,14 +155,20 @@ async function haalAccessToken(
   return tokenData.access_token;
 }
 
+type RuntimeEnv = Record<string, string | undefined>;
+
+function getVar(key: string, env?: RuntimeEnv): string | undefined {
+  return (env?.[key] as string | undefined) || import.meta.env[key];
+}
+
 /**
  * Haalt lijst met beschikbare queries op (stap 3a)
  */
-export async function haalQueries(): Promise<Query[]> {
-  const apiUrl = import.meta.env.ALLUNITED_API_URL;
-  const clientId = import.meta.env.ALLUNITED_CLIENT_ID;
-  const apiKey = import.meta.env.ALLUNITED_API_KEY;
-  const section = import.meta.env.ALLUNITED_SECTION;
+export async function haalQueries(env?: RuntimeEnv): Promise<Query[]> {
+  const apiUrl = getVar('ALLUNITED_API_URL', env);
+  const clientId = getVar('ALLUNITED_CLIENT_ID', env);
+  const apiKey = getVar('ALLUNITED_API_KEY', env);
+  const section = getVar('ALLUNITED_SECTION', env);
 
   if (!apiUrl || !clientId || !apiKey || !section) {
     console.warn('AllUnited API configuratie ontbreekt. Controleer je .env bestand.');
@@ -200,11 +206,11 @@ export async function haalQueries(): Promise<Query[]> {
 /**
  * Haalt data uit een specifieke query op (stap 3b)
  */
-export async function haalQueryResult(queryId: string): Promise<QueryResult | null> {
-  const apiUrl = import.meta.env.ALLUNITED_API_URL;
-  const clientId = import.meta.env.ALLUNITED_CLIENT_ID;
-  const apiKey = import.meta.env.ALLUNITED_API_KEY;
-  const section = import.meta.env.ALLUNITED_SECTION;
+export async function haalQueryResult(queryId: string, env?: RuntimeEnv): Promise<QueryResult | null> {
+  const apiUrl = getVar('ALLUNITED_API_URL', env);
+  const clientId = getVar('ALLUNITED_CLIENT_ID', env);
+  const apiKey = getVar('ALLUNITED_API_KEY', env);
+  const section = getVar('ALLUNITED_SECTION', env);
 
   if (!apiUrl || !clientId || !apiKey || !section) {
     const missing = [];

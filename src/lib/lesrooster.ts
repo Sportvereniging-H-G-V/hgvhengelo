@@ -4,6 +4,8 @@
 
 import { haalQueryResult } from './allunited-api';
 
+type RuntimeEnv = Record<string, string | undefined>;
+
 export interface Les {
   id?: string;
   sport: string;
@@ -29,7 +31,7 @@ const CACHE_DURATION_SECONDS = 2 * 60 * 60; // 2 uur
  * Gebruikt de Cloudflare Cache API (gedeeld over alle Worker-isolates),
  * met fallback naar een in-memory cache in dev.
  */
-export async function haalLesroosterOp(): Promise<LesroosterData | null> {
+export async function haalLesroosterOp(env?: RuntimeEnv): Promise<LesroosterData | null> {
   // Cloudflare Cache API (alleen beschikbaar in Workers runtime)
   if (typeof caches !== 'undefined') {
     const cached = await caches.default.match(CACHE_KEY);
@@ -39,7 +41,7 @@ export async function haalLesroosterOp(): Promise<LesroosterData | null> {
     }
   }
 
-  const queryId = import.meta.env.ALLUNITED_QUERY_ID;
+  const queryId = (env?.['ALLUNITED_QUERY_ID'] as string | undefined) || import.meta.env.ALLUNITED_QUERY_ID;
 
   if (!queryId) {
     console.warn('AllUnited Query ID ontbreekt. Controleer je .env bestand.');
@@ -48,7 +50,7 @@ export async function haalLesroosterOp(): Promise<LesroosterData | null> {
 
   try {
     console.log('Lesrooster data ophalen van API...');
-    const queryResult = await haalQueryResult(queryId);
+    const queryResult = await haalQueryResult(queryId, env);
 
     if (!queryResult) {
       console.warn('Geen query result ontvangen van AllUnited API');
