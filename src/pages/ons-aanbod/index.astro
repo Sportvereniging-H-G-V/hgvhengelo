@@ -2,12 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
-import { Calendar, Users, Clock, MapPin, ArrowRight, Star } from '@lucide/astro';
+import { Calendar, Clock, MapPin, ArrowRight, Star } from '@lucide/astro';
 ---
 
 <BaseLayout
   title="Ons Aanbod"
-  description="Ontdek het uitgebreide sportaanbod van HGV Hengelo. Wekelijkse lessen, open trainingen en meer."
+  description="Ontdek het uitgebreide sportaanbod van HGV Hengelo. Wekelijkse lessen en meer."
 >
   <Header />
 
@@ -27,7 +27,7 @@ import { Calendar, Users, Clock, MapPin, ArrowRight, Star } from '@lucide/astro'
             Ons <span class="text-accent">Aanbod</span>
           </h1>
           <p class="text-white/80 text-xl leading-relaxed">
-            HGV Hengelo biedt een zeer rijk aanbod aan wekelijkse lessen die tijdens schoolweken worden aangeboden. Daarnaast organiseren we regelmatig open trainingen en evenementen.
+            HGV Hengelo biedt een zeer rijk aanbod aan wekelijkse lessen die tijdens schoolweken worden aangeboden. Daarnaast organiseren we regelmatig evenementen.
           </p>
         </div>
       </div>
@@ -36,9 +36,9 @@ import { Calendar, Users, Clock, MapPin, ArrowRight, Star } from '@lucide/astro'
     <!-- Content section -->
     <section class="section-padding bg-cream">
       <div class="container-custom">
-        <div class="grid md:grid-cols-2 gap-8">
+        <div class="max-w-xl mx-auto">
           <!-- Lesrooster -->
-          <a href="/ons-aanbod/lesrooster" class="group bg-white rounded-2xl p-8 shadow-lg card-hover border-2 border-transparent hover:border-accent/30">
+          <a href="/ons-aanbod/lesrooster" class="group bg-white rounded-2xl p-8 shadow-lg card-hover border-2 border-transparent hover:border-accent/30 block">
             <div class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-dark transition-all">
               <Calendar class="w-7 h-7 text-accent group-hover:text-dark transition-colors" />
             </div>
@@ -50,23 +50,6 @@ import { Calendar, Users, Clock, MapPin, ArrowRight, Star } from '@lucide/astro'
             </p>
             <div class="flex items-center gap-2 text-accent font-semibold group-hover:gap-3 transition-all">
               Bekijk lesrooster
-              <ArrowRight class="w-5 h-5" />
-            </div>
-          </a>
-
-          <!-- Open trainingen -->
-          <a href="/ons-aanbod/open-trainingen" class="group bg-white rounded-2xl p-8 shadow-lg card-hover border-2 border-transparent hover:border-energy/30">
-            <div class="w-14 h-14 rounded-xl bg-energy/20 flex items-center justify-center mb-6 group-hover:bg-energy group-hover:text-white transition-all">
-              <Users class="w-7 h-7 text-energy group-hover:text-white transition-colors" />
-            </div>
-            <h2 class="text-2xl font-display font-bold text-dark mb-4 group-hover:text-energy transition-colors">
-              Open Trainingen
-            </h2>
-            <p class="text-dark/70 mb-6">
-              Regelmatig organiseren we open trainingen in onze turnhal. Ook voor niet-leden toegankelijk!
-            </p>
-            <div class="flex items-center gap-2 text-energy font-semibold group-hover:gap-3 transition-all">
-              Meer informatie
               <ArrowRight class="w-5 h-5" />
             </div>
           </a>

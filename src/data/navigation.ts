@@ -14,7 +14,6 @@ export const navigation: NavItem[] = [
     href: '/ons-aanbod',
     children: [
       { label: 'Wekelijks Lesrooster', href: '/ons-aanbod/lesrooster' },
-      { label: 'Open Trainingen', href: '/ons-aanbod/open-trainingen' },
     ],
   },
   {
