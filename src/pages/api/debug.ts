@@ -3,14 +3,24 @@ import { haalQueryResult } from '../../lib/allunited-api';
 
 export const prerender = false;
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
+  // Beveilig met een token — stel DEBUG_TOKEN in als Cloudflare Pages env var
+  const debugToken = import.meta.env.DEBUG_TOKEN;
+  if (!debugToken) {
+    return new Response('Debug endpoint is uitgeschakeld (DEBUG_TOKEN niet ingesteld).', { status: 403 });
+  }
+  const url = new URL(request.url);
+  if (url.searchParams.get('token') !== debugToken) {
+    return new Response('Ongeldig token.', { status: 403 });
+  }
+
   const result: Record<string, any> = {
     env: {
-      ALLUNITED_API_URL: import.meta.env.ALLUNITED_API_URL || null,
+      ALLUNITED_API_URL: !!import.meta.env.ALLUNITED_API_URL,
       ALLUNITED_CLIENT_ID: !!import.meta.env.ALLUNITED_CLIENT_ID,
       ALLUNITED_API_KEY: !!import.meta.env.ALLUNITED_API_KEY,
       ALLUNITED_SECTION: !!import.meta.env.ALLUNITED_SECTION,
-      ALLUNITED_QUERY_ID: import.meta.env.ALLUNITED_QUERY_ID || null,
+      ALLUNITED_QUERY_ID: !!import.meta.env.ALLUNITED_QUERY_ID,
       CALENDAR_ICS_URL: !!import.meta.env.CALENDAR_ICS_URL,
     },
     allunited: null,
@@ -25,7 +35,6 @@ export const GET: APIRoute = async () => {
       result.allunited = {
         success: !!queryResult,
         aantalItems: queryResult?.data?.length ?? 0,
-        eersteItem: queryResult?.data?.[0] ?? null,
       };
     } catch (error: any) {
       result.allunited = { success: false, error: error.message };

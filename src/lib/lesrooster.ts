@@ -58,18 +58,23 @@ export async function haalLesroosterOp(): Promise<LesroosterData | null> {
     const transformed = transformAllUnitedData(queryResult);
     console.log('Getransformeerde lessen:', transformed.lessen.length);
 
-    // Sla op in Cloudflare Cache API
+    // Sla op in Cloudflare Cache API — apart try/catch zodat een cache-fout
+    // de succesvol opgehaalde data niet weggooit
     if (typeof caches !== 'undefined') {
-      await caches.default.put(
-        CACHE_KEY,
-        new Response(JSON.stringify(transformed), {
-          headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': `max-age=${CACHE_DURATION_SECONDS}`,
-          },
-        })
-      );
-      console.log('Lesrooster data opgeslagen in Cloudflare cache (geldig voor 2 uur)');
+      try {
+        await caches.default.put(
+          CACHE_KEY,
+          new Response(JSON.stringify(transformed), {
+            headers: {
+              'Content-Type': 'application/json',
+              'Cache-Control': `max-age=${CACHE_DURATION_SECONDS}`,
+            },
+          })
+        );
+        console.log('Lesrooster data opgeslagen in Cloudflare cache (geldig voor 2 uur)');
+      } catch (cacheError) {
+        console.warn('Cloudflare cache schrijven mislukt (data wordt wel teruggegeven):', cacheError);
+      }
     }
 
     return transformed;

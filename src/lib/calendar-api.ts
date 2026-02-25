@@ -124,18 +124,23 @@ export async function haalAankomendeEvents(limit: number = 5): Promise<CalendarE
     return [];
   }
 
-  // Sla de ruwe ICS-tekst op in Cloudflare Cache API
+  // Sla de ruwe ICS-tekst op in Cloudflare Cache API — apart try/catch zodat
+  // een cache-fout de succesvol opgehaalde ICS-data niet weggooit
   if (typeof caches !== 'undefined') {
-    await caches.default.put(
-      CACHE_KEY,
-      new Response(icsData, {
-        headers: {
-          'Content-Type': 'text/calendar',
-          'Cache-Control': `max-age=${CACHE_DURATION_SECONDS}`,
-        },
-      })
-    );
-    console.log('Kalender ICS opgeslagen in Cloudflare cache (geldig voor 24 uur)');
+    try {
+      await caches.default.put(
+        CACHE_KEY,
+        new Response(icsData, {
+          headers: {
+            'Content-Type': 'text/calendar',
+            'Cache-Control': `max-age=${CACHE_DURATION_SECONDS}`,
+          },
+        })
+      );
+      console.log('Kalender ICS opgeslagen in Cloudflare cache (geldig voor 24 uur)');
+    } catch (cacheError) {
+      console.warn('Cloudflare cache schrijven mislukt (data wordt wel teruggegeven):', cacheError);
+    }
   }
 
   return filterUpcomingEvents(parseIcsData(icsData), limit);
