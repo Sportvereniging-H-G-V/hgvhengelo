@@ -39,6 +39,9 @@ on:
 #   ALLUNITED_SECTION
 #   ALLUNITED_QUERY_ID
 #
+# Kalender (homepage agenda is SSR — opgehaald bij elk bezoek):
+#   CALENDAR_ICS_URL
+#
 # Freescout (contactformulieren):
 #   FREESCOUT_API_URL
 #   FREESCOUT_API_KEY

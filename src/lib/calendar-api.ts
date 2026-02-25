@@ -5,6 +5,18 @@
 
 import ICAL from 'ical.js';
 
+/**
+ * Cache voor kalender events
+ * Bewaart data voor 24 uur (86400000 milliseconden)
+ */
+interface CalendarCache {
+  events: CalendarEvent[];
+  timestamp: number;
+}
+
+let kalenderCache: CalendarCache | null = null;
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 uur in milliseconden
+
 export interface CalendarEvent {
   uid: string;
   title: string;
@@ -95,6 +107,7 @@ function filterUpcomingEvents(events: CalendarEvent[], limit: number = 5): Calen
 
 /**
  * Haalt aankomende kalender events op
+ * Gebruikt caching om de kalender niet bij elk bezoek op te halen (24 uur cache)
  */
 export async function haalAankomendeEvents(limit: number = 5): Promise<CalendarEvent[]> {
   const calendarUrl = import.meta.env.CALENDAR_ICS_URL;
@@ -104,12 +117,27 @@ export async function haalAankomendeEvents(limit: number = 5): Promise<CalendarE
     return [];
   }
 
+  // Controleer of we geldige gecachte data hebben
+  if (kalenderCache && Date.now() - kalenderCache.timestamp < CACHE_DURATION) {
+    console.log('Kalender events opgehaald uit cache');
+    return filterUpcomingEvents(kalenderCache.events, limit);
+  }
+
   const icsData = await fetchIcsData(calendarUrl);
   if (!icsData) {
+    // Gebruik oude cache als fallback
+    if (kalenderCache) {
+      console.log('Gebruik oude kalender cache als fallback');
+      return filterUpcomingEvents(kalenderCache.events, limit);
+    }
     return [];
   }
 
   const allEvents = parseIcsData(icsData);
+
+  kalenderCache = { events: allEvents, timestamp: Date.now() };
+  console.log('Kalender events opgeslagen in cache (geldig voor 24 uur)');
+
   return filterUpcomingEvents(allEvents, limit);
 }
 
