@@ -22,7 +22,9 @@ jobs:
           fetch-depth: 0
 
       - name: Install Cursor CLI
-        run: curl https://cursor.com/install -fsS | bash
+        run: |
+          curl https://cursor.com/install -fsS | bash
+          echo "$HOME/.cursor/bin" >> $GITHUB_PATH
 
       - name: Run Cursor code review
         env:
