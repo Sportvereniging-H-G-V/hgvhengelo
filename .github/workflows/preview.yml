@@ -1,0 +1,124 @@
+name: Preview deployment bij Pull Request
+
+# Draait bij elke PR naar main (aanmaken, updaten, heropenen)
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+env:
+  CF_PROJECT_NAME: hgv-hengelo        # Cloudflare Pages projectnaam (lowercase, koppelteken)
+  PREVIEW_BRANCH: ${{ github.head_ref }}  # Branch naam voor de preview deployment
+
+jobs:
+  preview:
+    name: Bouwen en preview deployen
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write   # Nodig voor het plaatsen van een PR-comment
+
+    steps:
+      # ── 1. Code ophalen ────────────────────────────────────────────────────
+      - name: Code ophalen
+        uses: actions/checkout@v4
+
+      # ── 2. Node.js instellen ───────────────────────────────────────────────
+      - name: Node.js instellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # ── 3. Afhankelijkheden installeren ────────────────────────────────────
+      - name: Afhankelijkheden installeren
+        run: npm ci
+
+      # ── 4. Site bouwen ─────────────────────────────────────────────────────
+      - name: Site bouwen
+        run: npm run build
+        env:
+          FREESCOUT_API_URL: ${{ secrets.FREESCOUT_API_URL }}
+          FREESCOUT_API_KEY: ${{ secrets.FREESCOUT_API_KEY }}
+          FREESCOUT_MAILBOX_WIJZIGING: ${{ secrets.FREESCOUT_MAILBOX_WIJZIGING }}
+          FREESCOUT_MAILBOX_OPZEGGING: ${{ secrets.FREESCOUT_MAILBOX_OPZEGGING }}
+          FREESCOUT_MAILBOX_CONTACT: ${{ secrets.FREESCOUT_MAILBOX_CONTACT }}
+          FREESCOUT_MAILBOX_KAMP: ${{ secrets.FREESCOUT_MAILBOX_KAMP }}
+          FREESCOUT_MAILBOX_KAMP_TEAMLIDEN: ${{ secrets.FREESCOUT_MAILBOX_KAMP_TEAMLIDEN }}
+          FREESCOUT_MAILBOX_ICT: ${{ secrets.FREESCOUT_MAILBOX_ICT }}
+          FREESCOUT_MAILBOX_CK: ${{ secrets.FREESCOUT_MAILBOX_CK }}
+          FREESCOUT_MAILBOX_KLEDING: ${{ secrets.FREESCOUT_MAILBOX_KLEDING }}
+
+      # ── 5. Cloudflare Pages project aanmaken indien het niet bestaat ────────
+      - name: Cloudflare Pages project aanmaken indien nodig
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          RESPONSE=$(curl -s \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$CF_PROJECT_NAME")
+
+          if [ "$(echo "$RESPONSE" | jq -r '.success')" = "true" ]; then
+            echo "Project bestaat al."
+          else
+            echo "Project niet gevonden, aanmaken..."
+            CREATE=$(curl -s -X POST \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"name\": \"$CF_PROJECT_NAME\", \"production_branch\": \"main\"}" \
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects")
+
+            if [ "$(echo "$CREATE" | jq -r '.success')" = "true" ]; then
+              echo "Project '$CF_PROJECT_NAME' aangemaakt."
+            else
+              echo "Fout bij aanmaken van het project:"
+              echo "$CREATE" | jq '.errors'
+              exit 1
+            fi
+          fi
+
+      # ── 6. Preview deployen naar Cloudflare Pages ───────────────────────────
+      - name: Preview deployen naar Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy --project-name=${{ env.CF_PROJECT_NAME }} --branch=${{ env.PREVIEW_BRANCH }}
+
+      # ── 7. Preview URL toevoegen aan PR description ────────────────────────
+      - name: Preview URL toevoegen aan PR description
+        uses: actions/github-script@v7
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        with:
+          script: |
+            const deploymentUrl = process.env.DEPLOYMENT_URL;
+            const sha = context.payload.pull_request.head.sha.slice(0, 7);
+
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            // Verwijder eventueel bestaand preview-blok onderaan de description
+            const existingBody = pr.body || '';
+            const bodyZonderPreview = existingBody.replace(/\n---\n### Preview deployment[\s\S]*$/, '');
+
+            const previewBlok = [
+              '',
+              '---',
+              '### Preview deployment',
+              `**URL:** ${deploymentUrl}`,
+              `**Commit:** \`${sha}\``,
+            ].join('\n');
+
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              body: bodyZonderPreview + previewBlok,
+            });

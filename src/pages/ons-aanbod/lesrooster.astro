@@ -1,9 +1,14 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
 import { Calendar, Clock, MapPin, ArrowRight, ExternalLink } from '@lucide/astro';
 import { haalLesroosterOp } from '../../lib/lesrooster';
+
+// Runtime env van Cloudflare Pages (beschikbaar via de Cloudflare adapter)
+const runtimeEnv = (Astro.locals as any).runtime?.env ?? {};
 
 // Haal lesrooster data op
 let lesroosterData = null;
@@ -15,7 +20,7 @@ let debugInfo = {
 };
 
 try {
-  lesroosterData = await haalLesroosterOp();
+  lesroosterData = await haalLesroosterOp(runtimeEnv);
   if (lesroosterData) {
     debugInfo.hasData = true;
     debugInfo.aantalLessen = lesroosterData.lessen.length;
@@ -154,9 +159,6 @@ try {
                     Fout: {debugInfo.error}
                   </p>
                 )}
-                <p class="text-dark/50 text-sm mt-2">
-                  Debug: <a href="/api/debug-lesrooster" class="underline text-accent">Bekijk API response</a>
-                </p>
               </div>
               <div class="flex gap-4">
                 <a href="/contact" class="btn btn-accent">

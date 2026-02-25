@@ -4,6 +4,8 @@
 
 import { haalQueryResult } from './allunited-api';
 
+type RuntimeEnv = Record<string, string | undefined>;
+
 export interface Les {
   id?: string;
   sport: string;
@@ -21,40 +23,25 @@ export interface LesroosterData {
   laatsteUpdate?: string;
 }
 
-/**
- * Cache voor lesrooster data
- * Bewaart data voor 2 uur (7200000 milliseconden)
- */
-interface CacheEntry {
-  data: LesroosterData;
-  timestamp: number;
-}
-
-let lesroosterCache: CacheEntry | null = null;
-const CACHE_DURATION = 2 * 60 * 60 * 1000; // 2 uur in milliseconden
-
-/**
- * Controleert of de cache nog geldig is
- */
-function isCacheValid(cache: CacheEntry | null): boolean {
-  if (!cache) return false;
-  const now = Date.now();
-  const age = now - cache.timestamp;
-  return age < CACHE_DURATION;
-}
+const CACHE_KEY = 'https://hgvhengelo.nl/__cache/lesrooster';
+const CACHE_DURATION_SECONDS = 2 * 60 * 60; // 2 uur
 
 /**
  * Haalt lesrooster data op van de AllUnited API
- * Gebruikt caching om de API niet bij elk bezoek aan te roepen
+ * Gebruikt de Cloudflare Cache API (gedeeld over alle Worker-isolates),
+ * met fallback naar een in-memory cache in dev.
  */
-export async function haalLesroosterOp(): Promise<LesroosterData | null> {
-  // Controleer eerst of we geldige gecachte data hebben
-  if (isCacheValid(lesroosterCache)) {
-    console.log('Lesrooster data opgehaald uit cache');
-    return lesroosterCache!.data;
+export async function haalLesroosterOp(env?: RuntimeEnv): Promise<LesroosterData | null> {
+  // Cloudflare Cache API (alleen beschikbaar in Workers runtime)
+  if (typeof caches !== 'undefined') {
+    const cached = await caches.default.match(CACHE_KEY);
+    if (cached) {
+      console.log('Lesrooster data opgehaald uit Cloudflare cache');
+      return await cached.json() as LesroosterData;
+    }
   }
 
-  const queryId = import.meta.env.ALLUNITED_QUERY_ID;
+  const queryId = (env?.['ALLUNITED_QUERY_ID'] as string | undefined) || import.meta.env.ALLUNITED_QUERY_ID;
 
   if (!queryId) {
     console.warn('AllUnited Query ID ontbreekt. Controleer je .env bestand.');
@@ -62,46 +49,39 @@ export async function haalLesroosterOp(): Promise<LesroosterData | null> {
   }
 
   try {
-    console.log('Lesrooster data ophalen van API (cache is verlopen of niet beschikbaar)...');
-    const queryResult = await haalQueryResult(queryId);
-    
+    console.log('Lesrooster data ophalen van API...');
+    const queryResult = await haalQueryResult(queryId, env);
+
     if (!queryResult) {
       console.warn('Geen query result ontvangen van AllUnited API');
-      // Als we oude cache hebben, gebruik die als fallback
-      if (lesroosterCache) {
-        console.log('Gebruik oude cache data als fallback');
-        return lesroosterCache.data;
-      }
       return null;
     }
 
-    // Debug: log de ruwe data (alleen in development)
-    if (import.meta.env.DEV) {
-      console.log('AllUnited API Response:', JSON.stringify(queryResult, null, 2));
+    const transformed = transformAllUnitedData(queryResult);
+    console.log('Getransformeerde lessen:', transformed.lessen.length);
+
+    // Sla op in Cloudflare Cache API — apart try/catch zodat een cache-fout
+    // de succesvol opgehaalde data niet weggooit
+    if (typeof caches !== 'undefined') {
+      try {
+        await caches.default.put(
+          CACHE_KEY,
+          new Response(JSON.stringify(transformed), {
+            headers: {
+              'Content-Type': 'application/json',
+              'Cache-Control': `max-age=${CACHE_DURATION_SECONDS}`,
+            },
+          })
+        );
+        console.log('Lesrooster data opgeslagen in Cloudflare cache (geldig voor 2 uur)');
+      } catch (cacheError) {
+        console.warn('Cloudflare cache schrijven mislukt (data wordt wel teruggegeven):', cacheError);
+      }
     }
 
-    // Transformeer de AllUnited query result data naar onze interne structuur
-    const transformed = transformAllUnitedData(queryResult);
-    
-    // Debug: log de getransformeerde data
-    console.log('Getransformeerde lessen:', transformed.lessen.length);
-    
-    // Sla de data op in cache
-    lesroosterCache = {
-      data: transformed,
-      timestamp: Date.now(),
-    };
-    
-    console.log('Lesrooster data opgeslagen in cache (geldig voor 2 uur)');
-    
     return transformed;
   } catch (error) {
     console.error('Fout bij ophalen lesrooster:', error);
-    // Als we oude cache hebben, gebruik die als fallback
-    if (lesroosterCache) {
-      console.log('Gebruik oude cache data als fallback na error');
-      return lesroosterCache.data;
-    }
     return null;
   }
 }

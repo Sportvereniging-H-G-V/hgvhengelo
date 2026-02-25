@@ -2,7 +2,10 @@
 import { UserPlus, Calendar, CreditCard, HelpCircle, ArrowRight, MapPin, Clock } from '@lucide/astro';
 import { haalAankomendeEvents, formateerTijd } from '../../lib/calendar-api';
 
-const events = await haalAankomendeEvents(3);
+// Runtime env van Cloudflare Pages (beschikbaar via de Cloudflare adapter)
+const runtimeEnv = (Astro.locals as any).runtime?.env ?? {};
+
+const events = await haalAankomendeEvents(3, runtimeEnv);
 
 const actions = [
   {

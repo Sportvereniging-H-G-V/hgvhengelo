@@ -5,6 +5,11 @@
 
 import ICAL from 'ical.js';
 
+type RuntimeEnv = Record<string, string | undefined>;
+
+const CACHE_KEY = 'https://hgvhengelo.nl/__cache/kalender';
+const CACHE_DURATION_SECONDS = 24 * 60 * 60; // 24 uur
+
 export interface CalendarEvent {
   uid: string;
   title: string;
@@ -95,13 +100,25 @@ function filterUpcomingEvents(events: CalendarEvent[], limit: number = 5): Calen
 
 /**
  * Haalt aankomende kalender events op
+ * Gebruikt de Cloudflare Cache API (gedeeld over alle Worker-isolates),
+ * slaat de ruwe ICS-tekst op om Date-serialisatie te vermijden.
  */
-export async function haalAankomendeEvents(limit: number = 5): Promise<CalendarEvent[]> {
-  const calendarUrl = import.meta.env.CALENDAR_ICS_URL;
+export async function haalAankomendeEvents(limit: number = 5, env?: RuntimeEnv): Promise<CalendarEvent[]> {
+  const calendarUrl = (env?.['CALENDAR_ICS_URL'] as string | undefined) || import.meta.env.CALENDAR_ICS_URL;
 
   if (!calendarUrl) {
     console.warn('Kalender URL ontbreekt. Voeg CALENDAR_ICS_URL toe aan je .env bestand.');
     return [];
+  }
+
+  // Cloudflare Cache API (alleen beschikbaar in Workers runtime)
+  if (typeof caches !== 'undefined') {
+    const cached = await caches.default.match(CACHE_KEY);
+    if (cached) {
+      console.log('Kalender ICS opgehaald uit Cloudflare cache');
+      const icsData = await cached.text();
+      return filterUpcomingEvents(parseIcsData(icsData), limit);
+    }
   }
 
   const icsData = await fetchIcsData(calendarUrl);
@@ -109,8 +126,26 @@ export async function haalAankomendeEvents(limit: number = 5): Promise<CalendarE
     return [];
   }
 
-  const allEvents = parseIcsData(icsData);
-  return filterUpcomingEvents(allEvents, limit);
+  // Sla de ruwe ICS-tekst op in Cloudflare Cache API — apart try/catch zodat
+  // een cache-fout de succesvol opgehaalde ICS-data niet weggooit
+  if (typeof caches !== 'undefined') {
+    try {
+      await caches.default.put(
+        CACHE_KEY,
+        new Response(icsData, {
+          headers: {
+            'Content-Type': 'text/calendar',
+            'Cache-Control': `max-age=${CACHE_DURATION_SECONDS}`,
+          },
+        })
+      );
+      console.log('Kalender ICS opgeslagen in Cloudflare cache (geldig voor 24 uur)');
+    } catch (cacheError) {
+      console.warn('Cloudflare cache schrijven mislukt (data wordt wel teruggegeven):', cacheError);
+    }
+  }
+
+  return filterUpcomingEvents(parseIcsData(icsData), limit);
 }
 
 /**
