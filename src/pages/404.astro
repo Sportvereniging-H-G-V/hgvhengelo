@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { Home, Search, Calendar, Users, Mail, ArrowRight } from '@lucide/astro';
+---
+
+<BaseLayout
+  title="Pagina niet gevonden"
+  description="De pagina die je zoekt bestaat niet of is verplaatst."
+>
+  <Header />
+
+  <main>
+    <section class="relative py-20 min-h-[60vh] flex items-center bg-gradient-to-br from-primary via-primary-dark to-dark overflow-hidden">
+      <div class="absolute inset-0 pattern-bg opacity-10"></div>
+
+      <div class="container-custom relative text-center">
+        <div class="max-w-2xl mx-auto">
+          <p class="text-8xl font-display font-extrabold text-accent mb-4">404</p>
+          <h1 class="text-white mb-6">
+            Oeps, deze pagina<br />bestaat <span class="text-accent">niet</span>
+          </h1>
+          <p class="text-white/80 text-lg leading-relaxed mb-8">
+            De pagina die je probeert te bezoeken is niet gevonden. Mogelijk is het adres veranderd,
+            is de pagina verwijderd, of heb je een tikfout in de URL gemaakt.
+          </p>
+          <a href="/" class="btn btn-sunshine inline-flex items-center gap-2">
+            <Home class="w-5 h-5" />
+            Terug naar de homepage
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-cream">
+      <div class="container-custom">
+        <h2 class="text-center mb-2">Misschien zoek je dit?</h2>
+        <p class="text-center text-dark/60 mb-10">Handige links om je op weg te helpen.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <a href="/sporten" class="group card p-6 flex flex-col items-start gap-3 hover:border-primary/30 transition-all">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+              <Search class="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p class="font-display font-bold text-dark">Onze sporten</p>
+              <p class="text-sm text-dark/60">Bekijk al onze sportaanbod</p>
+            </div>
+            <ArrowRight class="w-4 h-4 text-primary mt-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+          </a>
+
+          <a href="/ons-aanbod/lesrooster" class="group card p-6 flex flex-col items-start gap-3 hover:border-primary/30 transition-all">
+            <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+              <Calendar class="w-5 h-5 text-accent-dark" />
+            </div>
+            <div>
+              <p class="font-display font-bold text-dark">Lesrooster</p>
+              <p class="text-sm text-dark/60">Wekelijks lesoverzicht</p>
+            </div>
+            <ArrowRight class="w-4 h-4 text-primary mt-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+          </a>
+
+          <a href="/info/lidmaatschap" class="group card p-6 flex flex-col items-start gap-3 hover:border-primary/30 transition-all">
+            <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center group-hover:bg-green-200 transition-colors">
+              <Users class="w-5 h-5 text-green-700" />
+            </div>
+            <div>
+              <p class="font-display font-bold text-dark">Lid worden</p>
+              <p class="text-sm text-dark/60">Meld je aan & proefles</p>
+            </div>
+            <ArrowRight class="w-4 h-4 text-primary mt-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+          </a>
+
+          <a href="/contact" class="group card p-6 flex flex-col items-start gap-3 hover:border-primary/30 transition-all">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+              <Mail class="w-5 h-5 text-purple-700" />
+            </div>
+            <div>
+              <p class="font-display font-bold text-dark">Contact</p>
+              <p class="text-sm text-dark/60">Stel je vraag aan ons</p>
+            </div>
+            <ArrowRight class="w-4 h-4 text-primary mt-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
