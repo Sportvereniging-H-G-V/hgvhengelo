@@ -36,8 +36,10 @@ jobs:
       # CURSOR_API_KEY kan een repository secret of organisation secret zijn.
       # Bij org secret: controleer dat deze repo toegang heeft (Org → Settings → Secrets → CURSOR_API_KEY → Repository access).
       - name: Check Cursor API key
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
         run: |
-          if [ -z "${{ secrets.CURSOR_API_KEY }}" ]; then
+          if [ -z "$CURSOR_API_KEY" ]; then
             echo "::error::CURSOR_API_KEY is leeg. Repo secret: voeg toe onder Settings → Secrets and variables → Actions. Organisation secret: geef deze repository toegang onder Organisatie → Settings → Secrets → CURSOR_API_KEY → Repository access."
             exit 1
           fi
