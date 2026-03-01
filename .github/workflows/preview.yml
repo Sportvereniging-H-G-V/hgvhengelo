@@ -15,6 +15,7 @@ jobs:
   preview:
     name: Bouwen en preview deployen
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
     permissions:
       contents: read
       pull-requests: write   # Nodig voor het plaatsen van een PR-comment
